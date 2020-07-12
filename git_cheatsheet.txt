@@ -4,7 +4,7 @@ indicate commands -> $ (run commands on bash without the dollar sign)
 
 # set the git identity
 
-$ git config --global user.email "username@havelsan.com.tr"
+$ git config --global user.email "Your E-mail"
 $ git config --global user.name "Your Name"
 
 
