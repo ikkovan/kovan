@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Employee Registration</title>
+</head>
+<body>
+
+    <form:form method="post" modelAttribute="userForm" action="${userActionUrl}">
+        <form:input path="name" type="text" /> <!-- bind to user.name-->
+        <form:errors path="name" />
+    </form:form>
+</body>
+</html>
