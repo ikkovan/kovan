@@ -11,37 +11,20 @@ import { SimpleSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class EmployeesService {
-  _dataChange = new BehaviorSubject<EmployeeModel[]>(
-    [
-      {
-       id       : 220014,
-       name     : "Filiz",
-       lastName : "Çetin",
-       salary_template: 1,// kullanılacak şablon numarası
-       isMarried : true,
-      },
-      {
-        id       : 450014,
-        name     : "Selin",
-        lastName : "Çetin",
-        salary_template: 1,
-        isMarried : false,
-       }
 
-    ]
-  );
   //burada spring boottan gelecek olan url konulacak
-  private baseUrl = 'http://localhost:8080/kovan/employees';
- 
+  private baseUrl = 'http://localhost:8080';
+
 
   constructor(private http: HttpClient) { }
-  
+
+
   getEmployee(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   createEmployee(employee: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, employee);
+    return this.http.post(`${this.baseUrl}/add`, employee);
   }
 
   updateEmployee(id: number, value: any): Observable<Object> {
@@ -49,13 +32,13 @@ export class EmployeesService {
   }
 
   deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, { responseType: 'text' });
   }
 
   getEmployeesList(): Observable<any> {
     //return this.http.get(`${this.baseUrl}`);
-    console.log(this._dataChange);
-    return this._dataChange;
+    //console.log(this._dataChange);
+    return this.http.get(`${this.baseUrl}/employees`);
   }
-  
+
 }
