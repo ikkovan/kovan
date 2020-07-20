@@ -21,11 +21,11 @@ import javax.persistence.Table;
 @Table
 public class Employee {
     @Id
-    @GeneratedValue
-    private int id;
-    private int identityNumber;
+    private double id;
     private String firstName;
     private String lastName;
+    private int salaryTemplate;
     private boolean isMarried;
+
 
 }

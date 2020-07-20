@@ -24,6 +24,11 @@ public class EmployeeImpl implements EmployeeService {
         return employeeRepository.findByFirstName(name);
     }
 
+    @Override
+    public Employee findById(double id) {
+        return employeeRepository.findById(id);
+    }
+
     //@Override
     //public Iterable<Employee> findAll() {return employeeRepository.findAll();}
     @Override

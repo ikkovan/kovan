@@ -1,12 +1,12 @@
-<h2>Çalışan Bilgileri</h2> 
+<h2>Çalışan Bilgileri</h2>
 
 <hr/>
 <div *ngIf="employee">
   <div>
     <label><b>Sicil No. : </b></label> {{employee.id}}
-  </div>  
+  </div>
   <div>
-    <label><b>Ad : </b></label> {{employee.name}}
+    <label><b>Ad : </b></label> {{employee.firstName}}
   </div>
   <div>
     <label><b>Soyad: </b></label> {{employee.lastName}}
@@ -17,7 +17,7 @@
   <div>
     <label><b>Bordro Şablonu: </b></label> {{employee.salary_template}}
   </div>
-  
+
 </div>
 
 <br>
