@@ -1,0 +1,3 @@
+AGI: 
+input(brüt_asgari, evli, es_calışıyor_mu, çocuk_sayısı, vergi_dilimi)
+

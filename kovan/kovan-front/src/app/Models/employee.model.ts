@@ -6,6 +6,8 @@ export class EmployeeModel {
     firstName     : string;
     lastName : string;
     salary_template: number; // kullanılacak şablon numarası
-    isMarried : boolean;
-
+    isMarried : number; // ya burası bir enum olarak da tutulabilir ama hız kaybetmemek için böyle gidiyorum.
+    isSpouseWorking : number;
+    countChildren : number;
+    taxBands : number; // vergi dilimi
 }
