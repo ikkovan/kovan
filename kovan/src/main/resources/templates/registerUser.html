@@ -7,15 +7,13 @@
 <body>
 
 <h1>Employee Registration</h1>
-<form action="#" method="post">
+<form action="/register" th:object="${employee}" method="post">
     <br>
     <br>
-    <label for="identityNumber">id number</label><br>
-    <input type="number" min="10000000000" max="99999999999" name="identityNumber" id="identityNumber"> <br>
     <label for="firstName">name</label><br>
-    <input type="text"first name="firstName" id="firstName"><br>
+    <input th:field="*{firstName}" type="text"first name="firstName" id="firstName"><br>
     <label for="lastName">last name</label><br>
-    <input type="text" name="lastName" id="lastName"><br>
+    <input th:field="*{lastName}" type="text" name="lastName" id="lastName"><br>
 
     <br>
     <input type="submit" value="Submit">
