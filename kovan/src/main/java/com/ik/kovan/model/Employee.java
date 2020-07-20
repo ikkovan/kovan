@@ -25,7 +25,11 @@ public class Employee {
     private String firstName;
     private String lastName;
     private int salaryTemplate;
-    private boolean isMarried;
+    private int isMarried; // ya burası bir enum olarak da tutulabilir ama hız kaybetmemek için böyle gidiyorum.
+    private int isSpouseWorking;
+    private int countChildren;
+    private int taxBands; // vergi dilimi
+
 
 
 }

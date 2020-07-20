@@ -12,6 +12,9 @@
             <th>AD</th>
             <th>SOYAD</th>
             <th>MEDENİ DURUM</th>
+            <th>ES CALISIYOR</th>
+            <th>ÇOCUK SAYISI</th>
+            <th>VERGİ DİLİMİ</th>
           </tr>
         </thead>
         <tbody>
@@ -20,6 +23,9 @@
             <td>{{employee.firstName}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.isMarried}}</td>
+            <td>{{employee.isSpouseWorking}}</td>
+            <td>{{employee.countChildren}}</td>
+            <td>{{employee.taxBands}}</td>
             <td>
               <button mat-icon-button matTooltip="Sil" (click)="deleteEmployee(employee.id)"><mat-icon>delete</mat-icon></button>
               <button mat-icon-button matTooltip="Düzenle" (click)="updateEmployee(employee.id)"><mat-icon>edit</mat-icon></button>
