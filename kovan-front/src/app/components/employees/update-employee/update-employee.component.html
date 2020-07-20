@@ -1,0 +1,29 @@
+<h3>Çalışan Bilgilerini Güncelle</h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label for="sicil">Sicil No. :</label>
+        <input type="text" class="form-control" id="sicil" required [(ngModel)]="employee.id" name="sicil">
+      </div>
+
+    <div class="form-group">
+      <label for="name">Ad :</label>
+      <input type="text" class="form-control" id="firstName" required [(ngModel)]="employee.name" name="firstName">
+    </div>
+
+    <div class="form-group">
+      <label for="name">Soyad :</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName">
+    </div>
+    <div class="form-group">
+        <label for="salaryTemplate">Bordro Şablonu :</label>
+        <input type="text" class="form-control" id="salaryTemplate" required [(ngModel)]="employee.salary_template" name="salaryTemplate">
+      </div>
+  
+
+ 
+
+    <button type="submit" class="btn btn-success">Güncelle</button>
+  </form>
+</div>

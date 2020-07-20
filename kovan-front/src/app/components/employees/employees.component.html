@@ -1,0 +1,33 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Çalışan Listesi <button routerLink="/add" class="btn btn-primary"
+        routerLinkActive="active" matTooltip="EKLE">+ </button></h2> 
+      
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Sicil No.</th>
+            <th>AD</th>
+            <th>SOYAD</th>
+            <th>MEDENİ DURUM</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees | async">
+            <td>{{employee.id}}</td>
+            <td>{{employee.name}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.isMarried}}</td>
+            <td>
+              <button mat-icon-button matTooltip="Sil" (click)="deleteEmployee(employee.id)"><mat-icon>delete</mat-icon></button>
+              <button mat-icon-button matTooltip="Düzenle" (click)="updateEmployee(employee.id)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button matTooltip="Ayrıntılar" (click)="employeeDetails(employee.id)" ><mat-icon>more_horiz</mat-icon></button>
+            
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

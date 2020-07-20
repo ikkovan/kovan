@@ -1,0 +1,36 @@
+
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="/employees" class="nav-link" routerLinkActive="active"><img height="30px" src="assets/logo.png"></a>
+     </li>
+      <li class="nav-item">
+          <a routerLink="/employees" class="nav-link" routerLinkActive="active">Çalışan Tablosu</a>
+      </li>
+     
+      <li class="nav-item">
+        <a routerLink="/tree" class="nav-link" routerLinkActive="active">Bordro Şablonları</a>
+    </li>
+    </ul>
+  </nav>
+  
+  
+  <div class="container">
+    <br>
+    <h2 style="text-align: center;">{{title}}</h2>
+    <hr>  
+    <div class="card">
+      <div class="card-body">
+
+    <router-outlet></router-outlet>
+
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer bg-primary">
+    <div >
+        <span >All Rights Reserved 2020 @hvl-kovan</span>
+    </div>
+  </footer>

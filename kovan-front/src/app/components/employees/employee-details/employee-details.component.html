@@ -1,0 +1,28 @@
+<h2>Çalışan Bilgileri</h2> 
+
+<hr/>
+<div *ngIf="employee">
+  <div>
+    <label><b>Sicil No. : </b></label> {{employee.id}}
+  </div>  
+  <div>
+    <label><b>Ad : </b></label> {{employee.name}}
+  </div>
+  <div>
+    <label><b>Soyad: </b></label> {{employee.lastName}}
+  </div>
+  <div>
+    <label><b>Medeni Durum: </b></label> {{employee.isMarried}}
+  </div>
+  <div>
+    <label><b>Bordro Şablonu: </b></label> {{employee.salary_template}}
+  </div>
+  
+</div>
+
+<br>
+<br>
+<button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
+
+<button  class="btn btn-primary">Bordroyu Çalıştır</button><br>
+
