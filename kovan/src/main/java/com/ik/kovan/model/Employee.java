@@ -30,6 +30,4 @@ public class Employee {
     private int countChildren;
     private int taxBands; // vergi dilimi
 
-
-
 }
