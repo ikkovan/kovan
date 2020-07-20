@@ -9,5 +9,4 @@ public class KovanApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KovanApplication.class, args);
 	}
-
 }

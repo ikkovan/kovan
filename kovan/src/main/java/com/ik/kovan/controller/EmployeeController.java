@@ -29,6 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
+    @CrossOrigin(origins = "localhost:4200")
     public String showEmployees(Model model){
         model.addAttribute("employees", employeeService.listEmployees());
         System.out.println(model.getAttribute("id"));
