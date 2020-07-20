@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Node Name" [(ngModel)]="data.RuleName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput  matInput rows="4" placeholder="Node Description" [(ngModel)]="data.RuleString"> 
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="warn" (click)="onNoClick()" style="position: relative;right: 15px;">
+      No Thanks
+    </button>
+    <button mat-stroked-button color="primary" [disabled]="!(data.RuleName || data.RuleString)" [mat-dialog-close]="{nodeName: data.RuleName, nodeDescription: data.RuleString}" style="position: relative;left: 20px;">
+      {{data.Component}}
+    </button>
+  </div>
+  
