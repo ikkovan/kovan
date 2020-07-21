@@ -49,8 +49,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping(value="/delete/{id}")
-    public Employee deleteEmployee(@PathVariable("id") double id)
-    {
+    public Employee deleteEmployee(@PathVariable("id") double id) {
         System.out.println("This is deleteEmployee Controller.");
         Employee tempEmployee = employeeService.findById(id);
         employeeService.delete(employeeService.findById(id));

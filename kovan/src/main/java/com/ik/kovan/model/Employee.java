@@ -14,9 +14,6 @@ import javax.persistence.Table;
  * @author serkantan
  */
 
-@Data // Generate getter/setters for all fields.
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table
 public class Employee {
@@ -30,6 +27,67 @@ public class Employee {
     private int countChildren;
     private int taxBands; // vergi dilimi
 
+    public double getId() {
+        return id;
+    }
 
+    public void setId(double id) {
+        this.id = id;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getSalaryTemplate() {
+        return salaryTemplate;
+    }
+
+    public void setSalaryTemplate(int salaryTemplate) {
+        this.salaryTemplate = salaryTemplate;
+    }
+
+    public int getIsMarried() {
+        return isMarried;
+    }
+
+    public void setIsMarried(int isMarried) {
+        this.isMarried = isMarried;
+    }
+
+    public int getIsSpouseWorking() {
+        return isSpouseWorking;
+    }
+
+    public void setIsSpouseWorking(int isSpouseWorking) {
+        this.isSpouseWorking = isSpouseWorking;
+    }
+
+    public int getCountChildren() {
+        return countChildren;
+    }
+
+    public void setCountChildren(int countChildren) {
+        this.countChildren = countChildren;
+    }
+
+    public int getTaxBands() {
+        return taxBands;
+    }
+
+    public void setTaxBands(int taxBands) {
+        this.taxBands = taxBands;
+    }
 }
