@@ -20,7 +20,7 @@ export class EmployeesService {
 
 
   getEmployee(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/details/${id}`);
   }
 
   createEmployee(employee: Object): Observable<Object> {
@@ -38,7 +38,11 @@ export class EmployeesService {
   getEmployeesList(): Observable<any> {
     //return this.http.get(`${this.baseUrl}`);
     //console.log(this._dataChange);
+    this.http.get(`${this.baseUrl}/employees`).subscribe((res: Response) => {
+      console.log(res);
+    })
     return this.http.get(`${this.baseUrl}/employees`);
+    ;
   }
 
 }
