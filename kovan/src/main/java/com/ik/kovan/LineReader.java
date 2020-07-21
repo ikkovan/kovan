@@ -1,4 +1,4 @@
-package kovanikstaj;
+package com.ik.kovan;
 
 import java.io.StreamCorruptedException;
 import java.lang.reflect.Type;
@@ -87,7 +87,7 @@ public class LineReader {
 	private static double nmw(String[] s)
 	{
 		if(s.length != 6 ) {
-			System.err.println("Wrong number of arguments for AGI");
+			System.err.println("Wrong number of arguments for NMW");
 			return -1;
 		}
 		try {
@@ -153,6 +153,147 @@ public class LineReader {
 		return tax_assesment / 12;
 
 	}
+	
+	/*
+	 * Calculate how much more we need to pay to the worker for the overtime he worked
+	 * returns 0 if the worker did not work more than the limit
+	 */
+	private static double calculateOvertime(double gross_wage, double total_work_time, double overtime_limit, double average_daily_work_time)
+	{
+		if(total_work_time <= overtime_limit)
+			return 0.0;
+		double overtime = total_work_time - overtime_limit;
+		double hourly_wage = gross_wage / (average_daily_work_time * 30);
+		double overtime_wage = hourly_wage * 1.5;
+		return overtime * overtime_wage;
+	}
+	
+	private static double otw(String[] s) {
+		if(s.length != 4 ) {
+			System.err.println("Wrong number of arguments for OTW");
+			return 0;
+		}
+		try {
+			double gross_wage = Double.parseDouble(s[0]); 
+			double total_work_time= Double.parseDouble(s[1]); 
+			double overtime_limit= Double.parseDouble(s[2]); 
+			double average_daily_work_time= Double.parseDouble(s[3]);
+			return calculateOvertime(gross_wage, total_work_time, overtime_limit, average_daily_work_time);
+		} catch (Exception e) {
+			System.err.println("Inputs can not be treated as numbers");
+		}
+		return 0;
+	}
+	
+	/*
+	 * Substring function works same as Java String function
+	 */
+	private static String subs(String s[]) {
+		if(s.length < 2 && s.length > 3 )
+		{
+			System.err.println("Wrong number of arguments for Substring");
+			return null;
+		}
+		try {
+			int start_index = Integer.parseInt(s[1]);
+			String original_string = s[0];
+			int end_index = original_string.length();
+			if(s.length == 3)
+				end_index = Integer.parseInt(s[2]);
+			String to_return = original_string.substring(start_index,end_index);
+			return to_return;
+			
+		} catch (NumberFormatException e) {
+			System.err.println("Inputs can not be treated as integers");
+		}
+		catch (IndexOutOfBoundsException e) {
+			System.err.println("Input numbers are out of bounds for the specified string");
+		}
+		return null;
+	}
+
+	private static double abs(String s) {
+		try {
+			double to_return = Double.parseDouble(s);
+			return Math.abs(to_return);
+		} catch (Exception e) {
+			System.err.println("Input can not be treated as number");
+		}
+		return 0;
+	}
+
+	private static double sign(String s) {
+		try {
+			double num = Double.parseDouble(s);
+			if (num < 0)
+				return -1;
+			if (num > 0)
+				return 1;
+			else
+				return 0;
+		} catch (Exception e) {
+			System.err.println("Input can not be treated as number");
+		}
+		return 0;
+	}
+
+	private static double ceil(String s) {
+		try {
+			double num = Double.parseDouble(s);
+			return Math.ceil(num);
+		} catch (Exception e) {
+			System.err.println("Input can not be treated as number");
+		}
+		return 0;
+	}
+
+	private static double floor(String s) {
+		try {
+			double num = Double.parseDouble(s);
+			return Math.floor(num);
+		} catch (Exception e) {
+			System.err.println("Input can not be treated as number");
+		}
+		return 0;
+	}
+
+	private static double frac(String s) {
+		try {
+			int decimal = Integer.parseInt(s.substring(s.indexOf('.')));
+			return decimal * sign(s);
+		} catch (Exception e) {
+			System.err.println("Input can not be treated as number");
+		}
+		return 0;
+	}
+
+	private static int find(String s[]) {
+		if(s.length != 2 ) {
+			System.err.println("Wrong number of arguments for FIND");
+			return -2;
+		}
+		return s[0].indexOf(s[1]);
+	}
+	
+
+	private static int lng(String s) {
+		return s.length();
+	}
+	
+	private static double hwf(String[] s) {
+		if (s.length != 2) {
+			System.err.println("Wrong number of arguments for HWF");
+			return 0;
+		}
+		try {
+			double gross_wage = Double.parseDouble(s[0]);
+			double average_working_hours = Double.parseDouble(s[1]);
+			return hourly_fee(gross_wage, average_working_hours);
+		} catch (Exception e) {
+			System.err.println("Inputs can not be treated as numbers");
+		}
+		return 0;
+	}
 
 	private static double agi(String[] s) {
 		if(s.length != 6 ) {
@@ -173,22 +314,7 @@ public class LineReader {
 			System.err.println("Inputs can not be treated as numbers");
 		}
 		return -1;
-	}
-	
-	/*
-	*	This doesn't work correctly
-	*/
-	private static void readLine(String s) {
-		String[] args = s.split(" ");
-		HashMap<Integer, String> function_locations = getFunctionLocations(s);
-		HashMap<Integer, Double> function_returns = handleFunctions(function_locations);
-		for(Entry<Integer,Double> e: function_returns.entrySet()) {
-			args[e.getKey()] = e.getValue() +"";
-		}
-		HashMap<String, String>  local_variables = setLocalVaraibles(args);
-		handleMaths(args, local_variables);
-	}
-	
+	}	
 	
 	private static void handleLine(String s) {
 		String[] args = s.split(" ");
@@ -201,7 +327,7 @@ public class LineReader {
 			if (args[i].equals("=") && i > 0 && i < args.length-1) {
 				if(function_locations.get(i+1) != null)
 				{
-					double return_value = handleSingleFunction(function_locations.get(i+1), local_variables);
+					double return_value = handleArithmaticFunction(function_locations.get(i+1), local_variables);
 					local_variables.put(args[i-1], return_value + "");
 					modified_args.remove(modified_args.size()-1);
 					
@@ -214,7 +340,7 @@ public class LineReader {
 			}
 			else if(function_locations.get(i) != null)
 			{
-				modified_args.add(handleSingleFunction(args[i],local_variables) + "");
+				modified_args.add(handleArithmaticFunction(args[i],local_variables) + "");
 			}
 			else {
 				modified_args.add(args[i]);
@@ -357,70 +483,11 @@ public class LineReader {
 	}
 	
 	
-	
-
-	/*
-	 * A function that gets hashmap of the functions and their places ( xth word), 
-	 * Calls the appropriate function and stores its return value with its place and returns it
-	*/
-	private static HashMap<Integer, Double> handleFunctions(HashMap<Integer, String> funcs) {
-		HashMap<Integer, Double> results = new HashMap<Integer, Double>();
-		for (Entry<Integer, String> f : funcs.entrySet()) {
-			String whole_function = f.getValue();
-			int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
-			String function_name = whole_function.substring(0, first_prn);
-			String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
-			double result = 0;
-			switch (function_name) {
-			case "MOD":
-				result = mod(function_args);
-				results.put(f.getKey(), result);
-				break;
-			case "MIN":
-				result = min(function_args);
-				results.put(f.getKey(), result);
-				break;
-			case "MAX":
-				result = max(function_args);
-				results.put(f.getKey(), result);
-				break;
-			case "PRCNT":
-				double arg = -1;
-				try {
-					arg = Double.parseDouble(function_args[0]);
-					result = percent(arg);
-				} catch (Exception e) {
-					System.err.println(function_args.toString() + " cannot be treated as a value");
-					result = arg;
-				} finally {
-					results.put(f.getKey(), result);
-				}
-				break;
-			case "AGI":
-				result = agi(function_args);
-				results.put(f.getKey(), result);
-				break;
-			case "NMW":
-				result = nmw(function_args);
-				results.put(f.getKey(), result);
-				break;
-			default:
-				System.out.println("Invalid or not yet implemented method call");
-				result = -1;
-				break;
-			}
-			System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
-		}
-		return results;
-	}
-
-	
-	
 	/*
 	 * A function that gets a function
 	 *  Calls the appropriate function and returns its return value 
 	*/
-	private static double handleSingleFunction(String whole_function,HashMap<String, String>  local_variables) {
+	private static double handleArithmaticFunction(String whole_function,HashMap<String, String>  local_variables) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
 		String function_name = whole_function.substring(0, first_prn);
 		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
@@ -449,11 +516,38 @@ public class LineReader {
 				result = arg;
 			}
 			break;
-		case "AGI":
+		case "AGI"://minimum wage discount
 			result = agi(function_args);
 			break;
-		case "NMW":
+		case "NMW"://net minimum wage
 			result = nmw(function_args);
+			break;
+		case "OTW"://overtime wage
+			result = otw(function_args);
+			break;
+		case "HWF"://hourly working fee
+			result = hwf(function_args);
+			break;
+		case "ABS"://absolute value
+			result = abs(function_args[0]);
+			break;
+		case "SIGN"://returns sign of value (-1, 0 or +1)
+			result = sign(function_args[0]);
+			break;
+		case "CEIL"://ceiling of number
+			result = ceil(function_args[0]);
+			break;
+		case "FLOOR"://floor of number
+			result = floor(function_args[0]);
+			break;
+		case "FRAC"://decimal part of number
+			result = frac(function_args[0]);
+			break;
+		case "FIND"://index of second argument in first argument
+			result = find(function_args);
+			break;
+		case "LNG"://length of string
+			result = lng(function_args[0]);
 			break;
 		default:
 			System.out.println("Invalid or not yet implemented method call");
@@ -463,7 +557,35 @@ public class LineReader {
 		System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
 	}
+	/*
+	* A function that gets a function of strings
+	 *  Calls the appropriate function and returns its return value 
+	*/
+	private static String handleStringFunction(String whole_function,HashMap<String, String>  local_variables) {
+		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
+		String function_name = whole_function.substring(0, first_prn);
+		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
+		String result = "";
+		for (int i = 0; i < function_args.length; i++) {
+			if(local_variables.containsKey(function_args[i]))
+				function_args[i] = local_variables.get(function_args[i]);//wirte values of variables
+		}
+		switch (function_name) {
+		case "SUBS":
+			result = subs(function_args);
+			break;
+		default:
+			System.out.println("Invalid or not yet implemented method call");
+			result = "";
+			break;
+		}
+		System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
+		return result;
+	}
 	
+	private static double hourly_fee(double gross_wage, double average_working_hours) {
+		return gross_wage / (30*average_working_hours);
+	}
 	
 	private static double min(String[] args) {
 		double minimum = Double.MAX_VALUE;
@@ -536,3 +658,4 @@ public class LineReader {
 	}
 
 }
+

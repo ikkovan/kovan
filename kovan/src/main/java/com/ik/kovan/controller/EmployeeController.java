@@ -30,7 +30,11 @@ public class EmployeeController {
         System.out.println("This is showEmployees Controller.");
         return employeeService.listEmployees();
     }
-
+    @GetMapping("/details/{id}")
+    public Employee getEmployeeById(@PathVariable("id") double id){
+       System.out.println("Employee received by its id.");
+        return employeeService.findById(id);
+    }
 
     @GetMapping("/add")
     public String getEmployee(Model model){
