@@ -60,6 +60,10 @@ import { TreeComponent } from './components/tree/tree.component';
 import { CreateEmployeeComponent } from './components/employees/create-employee/create-employee.component';
 import { UpdateEmployeeComponent } from './components/employees/update-employee/update-employee.component';
 import { EmployeeDetailsComponent } from './components/employees/employee-details/employee-details.component';
+
+import { RuleComponent } from './components/rule/rule.component';
+import { CreateRuleComponent } from './components/rule/create-rule/create-rule.component';
+
 @NgModule({
   entryComponents: [
     NewNodeDialog,
@@ -78,7 +82,11 @@ import { EmployeeDetailsComponent } from './components/employees/employee-detail
     //EmployeeModel,
     CreateEmployeeComponent,
     UpdateEmployeeComponent,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+  
+    RuleComponent,
+    CreateRuleComponent,
+
   ],
   imports: [
     //RouterModule.forRoot([]),

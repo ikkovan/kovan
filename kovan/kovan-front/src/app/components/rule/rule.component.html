@@ -1,0 +1,32 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Kural Listesi <button routerLink="/addCommand" class="btn btn-primary"
+        routerLinkActive="active" matTooltip="EKLE">+ </button>
+        <button mat-icon-button (click)= "reloadRule()" class="float-right"
+         matTooltip="Refresh"> <mat-icon>refresh</mat-icon></button></h2>
+
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>KURAL </th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rule of rules | async">
+            <td>{{rule.commandId}}</td>
+            <td>{{rule.rawCommand}}</td>
+           
+            <td>
+              <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.commandId)"><mat-icon>delete</mat-icon></button>
+              
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

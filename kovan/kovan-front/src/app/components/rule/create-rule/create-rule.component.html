@@ -1,0 +1,19 @@
+<h3>Kural Ekle</h3>
+<hr>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="rulestring">Kural:</label>
+      <input type="text" class="form-control" id="rulestring" required [(ngModel)]="rule.rawCommand" name="rulestring">
+    </div>
+    
+
+    <button type="submit" class="btn btn-success">Onayla</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  
+</div>

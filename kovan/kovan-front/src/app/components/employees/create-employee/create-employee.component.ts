@@ -16,10 +16,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  newEmployee(): void {
-    this.submitted = false;
-    this.employee = new EmployeeModel();
-  }
+ 
   
   save() {
     this.employeeService.createEmployee(this.employee)
@@ -35,5 +32,6 @@ export class CreateEmployeeComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['/employees']);
+    
   }
 }

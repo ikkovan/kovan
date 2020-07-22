@@ -15,7 +15,17 @@
     <label><b>Medeni Durum: </b></label> {{employee.isMarried}}
   </div>
   <div>
+    <label><b>Eş Çalışıyor: </b></label> {{employee.isSpouseWorking}}
+  </div>
+  <div>
+    <label><b>Çocuk Sayısı: </b></label> {{employee.countChildren}}
+  </div>
+  <div>
+    <label><b>Vergi Dilimi: </b></label> {{employee.taxBands}}
+  </div>
+  <div>
     <label><b>Bordro Şablonu: </b></label> {{employee.salary_template}}
+    <button mat-icon-button  matTooltip="Kuralları Gör"  (click)="addRule()"><mat-icon>arrow_forward</mat-icon></button>
   </div>
 
 </div>

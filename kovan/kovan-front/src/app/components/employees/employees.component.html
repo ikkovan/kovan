@@ -1,7 +1,9 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
       <h2>Çalışan Listesi <button routerLink="/add" class="btn btn-primary"
-        routerLinkActive="active" matTooltip="EKLE">+ </button></h2>
+        routerLinkActive="active" matTooltip="EKLE">+ </button>
+        <button mat-icon-button (click)= "reloadData()" class="float-right"
+         matTooltip="Refresh"> <mat-icon>refresh</mat-icon></button></h2>
 
     </div>
     <div class="panel-body">

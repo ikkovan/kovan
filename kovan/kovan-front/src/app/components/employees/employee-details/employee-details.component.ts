@@ -28,5 +28,8 @@ export class EmployeeDetailsComponent implements OnInit {
   backToList(){
     this.router.navigate(['employees']);
   }
+  addRule(){
+    this.router.navigate(['commands']);
+  }
 
 }
