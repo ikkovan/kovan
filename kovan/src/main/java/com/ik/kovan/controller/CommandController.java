@@ -22,12 +22,16 @@ public class CommandController {
     }
 
     @GetMapping("/addCommand")
+    @CrossOrigin(origins = "http://localhost:4200")
+
     public Command addCommand(@Valid @RequestBody Command command){
         System.out.println("This is Command Registration Controller.");
         return commandService.save(command);
     }
 
     @DeleteMapping(value="/deleteCommand/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+
     public Command deleteCommand(@PathVariable("id") int id){
         System.out.println("This is deleteCommand Controller.");
         Command tempCommand = commandService.findByCommandId(id);
@@ -36,6 +40,8 @@ public class CommandController {
     }
 
     @GetMapping("/commands")
+    @CrossOrigin(origins = "http://localhost:4200")
+
     public List<Command> listCommands(Model model){
         System.out.println("This is listCommands Controller.");
         return commandService.listCommands();
