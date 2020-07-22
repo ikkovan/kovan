@@ -30,6 +30,11 @@ public class CommandImpl implements CommandService {
     }
 
     @Override
+    public String getRawCommand(Command command) {
+        return commandRepository.getRawCommand(command);
+    }
+
+    @Override
     public void delete(Command command) {
         commandRepository.delete(command);
     }

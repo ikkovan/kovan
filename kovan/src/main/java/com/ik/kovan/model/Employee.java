@@ -1,12 +1,7 @@
 package com.ik.kovan.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,7 +13,7 @@ import javax.persistence.Table;
 @Table
 public class Employee {
     @Id
-    private double id;
+    private Long id;
     private String firstName;
     private String lastName;
     private int salaryTemplate;
@@ -27,11 +22,11 @@ public class Employee {
     private int countChildren;
     private int taxBands; // vergi dilimi
 
-    public double getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

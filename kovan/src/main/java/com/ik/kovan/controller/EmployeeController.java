@@ -45,6 +45,7 @@ public class EmployeeController {
     @PostMapping("/add")
     public Employee addEmployee(@Valid @RequestBody Employee employee){
         System.out.println("This is Employee Registration Controller.");
+        System.out.println(employee.getFirstName());
         return employeeService.save(employee);
     }
 

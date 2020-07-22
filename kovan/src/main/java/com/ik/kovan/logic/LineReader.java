@@ -1,4 +1,4 @@
-package com.ik.kovan;
+package com.ik.kovan.logic;
 
 import java.io.StreamCorruptedException;
 import java.lang.reflect.Type;
@@ -316,7 +316,7 @@ public class LineReader {
 		return -1;
 	}	
 	
-	private static void handleLine(String s) {
+	private static double handleLine(String s) {
 		String[] args = s.split(" ");
 		ArrayList<String> modified_args = new ArrayList<String>();
 		HashMap<Integer, String> function_locations = getFunctionLocations(s);
@@ -346,7 +346,8 @@ public class LineReader {
 				modified_args.add(args[i]);
 			}
 		}
-		double result = handleMaths(modified_args.toArray(new String[0]), local_variables);
+		return handleMaths(modified_args.toArray(new String[0]), local_variables);
+
 	}
 	
 	
@@ -656,6 +657,12 @@ public class LineReader {
 		String line = sc.nextLine();
 		handleLine(line);
 	}
+
+	public static double getFunction(String command) {
+		return handleLine(command);
+	}
+
+
 
 }
 

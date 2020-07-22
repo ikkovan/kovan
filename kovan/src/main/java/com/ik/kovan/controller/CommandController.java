@@ -1,5 +1,6 @@
 package com.ik.kovan.controller;
 
+import com.ik.kovan.logic.CommandGenerator;
 import com.ik.kovan.model.Command;
 import com.ik.kovan.model.Employee;
 import com.ik.kovan.repository.CommandRepository;
@@ -16,12 +17,11 @@ import java.util.List;
 public class CommandController {
     @Autowired
     private final CommandImpl commandService;
-
     public CommandController(CommandImpl commandService) {
         this.commandService = commandService;
     }
 
-    @GetMapping("/addCommand")
+    @PostMapping("/addCommand")
     public Command addCommand(@Valid @RequestBody Command command){
         System.out.println("This is Command Registration Controller.");
         return commandService.save(command);
@@ -40,6 +40,10 @@ public class CommandController {
         System.out.println("This is listCommands Controller.");
         return commandService.listCommands();
     }
+
+
+
+
 
 }
 
