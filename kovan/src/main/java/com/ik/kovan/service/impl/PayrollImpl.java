@@ -40,6 +40,7 @@ public class PayrollImpl implements PayrollService {
         Payroll payroll = new Payroll();
         payroll.setAGIValue(result);
         payroll.setAccountNumber(employee.getId());
+        payroll.setPayrollType(1L);
         payroll.setFirstName(employee.getFirstName());
         payroll.setLastName(employee.getLastName());
         return  payroll;
