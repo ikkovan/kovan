@@ -13,7 +13,7 @@ public interface CommandService {
 
     Command save(Command command);
 
-    String getRawCommand(Command command);
+    String getRawCommand(int id);
 
     void delete(Command command);
 

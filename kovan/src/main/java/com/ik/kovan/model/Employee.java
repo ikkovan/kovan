@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table
 public class Employee {
     @Id
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
     private int salaryTemplate;
@@ -22,11 +22,11 @@ public class Employee {
     private int countChildren;
     private int taxBands; // vergi dilimi
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

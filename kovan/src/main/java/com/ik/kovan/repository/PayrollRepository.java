@@ -21,7 +21,7 @@ public interface PayrollRepository extends JpaRepository<Payroll, Long> {
     List<Payroll> listPayrolls();
 
     @Query(value = "select p from  Payroll p where p.accountNumber= :id and p.payrollType= :pType")
-    Payroll findPayrollByAccountIdAndPayrollType(@Param("id") Long accountNumber,
+    Payroll findPayrollByAccountIdAndPayrollType(@Param("id") long accountNumber,
                                                  @Param("pType") int payrollType);
 
     Payroll save(Payroll payroll);

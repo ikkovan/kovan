@@ -30,8 +30,8 @@ public class CommandImpl implements CommandService {
     }
 
     @Override
-    public String getRawCommand(Command command) {
-        return commandRepository.getRawCommand(command);
+    public String getRawCommand(int id) {
+        return commandRepository.getRawCommand(id);
     }
 
     @Override

@@ -16,8 +16,8 @@ public interface CommandRepository extends JpaRepository<Command, Long> {
     @Query(value = "select c from Command c")
     List<Command> listCommands();
 
-    @Query(value = "select r from Command  r where r = :command")
-    String getRawCommand(@Param("command") Command command);
+    @Query(value = "select r from Command  r where r.commandId=:command") // çok saçma :D
+    String getRawCommand(@Param("command") int id);
 
     Command save(Command command);
 

@@ -9,7 +9,7 @@ public interface PayrollService {
 
     List<Payroll> listPayroll();
 
-    Payroll findPayrollByAccountIdAndPayrollType(@Param("id") Long accountNumber,
+    Payroll findPayrollByAccountIdAndPayrollType(@Param("id") long accountNumber,
                                                  @Param("pType") int payrollType);
 
     Payroll save(Payroll payroll);

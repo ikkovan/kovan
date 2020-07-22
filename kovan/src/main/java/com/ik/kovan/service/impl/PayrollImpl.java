@@ -22,7 +22,7 @@ public class PayrollImpl implements PayrollService {
     }
 
     @Override
-    public Payroll findPayrollByAccountIdAndPayrollType(Long accountNumber, int payrollType) {
+    public Payroll findPayrollByAccountIdAndPayrollType(long accountNumber, int payrollType) {
         return payrollRepository.findPayrollByAccountIdAndPayrollType(accountNumber, payrollType);
     }
 
