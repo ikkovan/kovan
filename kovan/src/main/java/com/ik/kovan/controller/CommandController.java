@@ -21,7 +21,7 @@ public class CommandController {
         this.commandService = commandService;
     }
 
-    @GetMapping("/addCommand")
+    @PostMapping("/addCommand")
     @CrossOrigin(origins = "http://localhost:4200")
 
     public Command addCommand(@Valid @RequestBody Command command){
