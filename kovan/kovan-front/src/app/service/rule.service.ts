@@ -18,10 +18,14 @@ export class RuleService {
   createRule(rule: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}/addCommand`, rule);
   }
-
- // updateRule(id: number, value: any): Observable<Object> {
-   // return this.http.put(`${this.baseUrl}/${id}`, value);
- // }
+  
+  getRule(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/ruleDetails/${id}`);
+  }
+ 
+  updateRule(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/ruleUpdate/${id}`, value);
+  }
 
   deleteRule(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/deleteCommand/${id}`, { responseType: 'text' });

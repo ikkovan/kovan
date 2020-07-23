@@ -1,25 +1,51 @@
 <h3>Çalışan Bilgilerini Güncelle</h3>
-<div style="width: 400px;">
+<div class="col-md-12">
   <form (ngSubmit)="onSubmit()">
-
-    <div class="form-group">
+    <div class="form-row">
+    <div class="form-group col-md-6">
         <label for="sicil">Sicil No. :</label>
         <input type="text" class="form-control" id="sicil" required [(ngModel)]="employee.id" name="sicil">
       </div>
-
-    <div class="form-group">
+      <div class="form-group col-md-6">
+        <label for="salaryTemplate">Bordro Şablonu :</label>
+        <input type="text" class="form-control" id="salaryTemplate" required [(ngModel)]="employee.salary_template" name="salaryTemplate">
+      </div>
+    </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
       <label for="name">Ad :</label>
       <input type="text" class="form-control" id="firstName" required [(ngModel)]="employee.firstName" name="firstName">
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-6">
       <label for="name">Soyad :</label>
       <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName">
     </div>
-    <div class="form-group">
-        <label for="salaryTemplate">Bordro Şablonu :</label>
-        <input type="text" class="form-control" id="salaryTemplate" required [(ngModel)]="employee.salary_template" name="salaryTemplate">
-      </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ismarried">Evli mi :</label>
+      <input type="text" class="form-control" id="ismarried" required [(ngModel)]="employee.isMarried" name="ismarried">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="spouseworking">Eş Çalışıyor mu :</label>
+      <input type="text" class="form-control" id="spouseworking" required [(ngModel)]="employee.isSpouseWorking" name="spouseworking">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="countchild">Çocuk Sayısı :</label>
+      <input type="text" class="form-control" id="countchild" required [(ngModel)]="employee.countChildren" name="countchild">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="taxbands">Vergi Dilimi :</label>
+      <input type="text" class="form-control" id="taxbands" required [(ngModel)]="employee.taxBands" name="taxbands">
+    </div>
+  </div>
+  
+
 
 
 

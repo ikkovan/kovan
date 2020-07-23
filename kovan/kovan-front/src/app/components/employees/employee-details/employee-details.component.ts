@@ -32,4 +32,8 @@ export class EmployeeDetailsComponent implements OnInit {
     this.router.navigate(['commands']);
   }
 
+  runPayroll(id : number){
+    console.log("payroll");
+  }
+
 }

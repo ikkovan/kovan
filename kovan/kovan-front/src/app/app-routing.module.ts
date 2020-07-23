@@ -6,6 +6,8 @@ import {CreateEmployeeComponent} from './components/employees/create-employee/cr
 import {UpdateEmployeeComponent} from './components/employees/update-employee/update-employee.component';
 import {EmployeeDetailsComponent} from './components/employees/employee-details/employee-details.component';
 import {CreateRuleComponent} from './components/rule/create-rule/create-rule.component';
+
+import {UpdateRuleComponent} from './components/rule/update-rule/update-rule.component';
 import { RuleComponent } from './components/rule/rule.component';
 
 const routes: Routes = [
@@ -18,6 +20,8 @@ const routes: Routes = [
     
   { path: 'commands', component: RuleComponent },
   { path: 'addCommand', component: CreateRuleComponent },
+
+  { path: 'ruleUpdate/:id', component: UpdateRuleComponent },
   
   {path:'', component: EmployeesComponent},
   {path:'**', component: TreeComponent}

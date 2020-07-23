@@ -51,7 +51,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
-
+import {MatNativeDateModule} from '@angular/material/core';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -63,6 +63,8 @@ import { EmployeeDetailsComponent } from './components/employees/employee-detail
 
 import { RuleComponent } from './components/rule/rule.component';
 import { CreateRuleComponent } from './components/rule/create-rule/create-rule.component';
+
+import { UpdateRuleComponent } from './components/rule/update-rule/update-rule.component';
 
 @NgModule({
   entryComponents: [
@@ -86,6 +88,8 @@ import { CreateRuleComponent } from './components/rule/create-rule/create-rule.c
   
     RuleComponent,
     CreateRuleComponent,
+ 
+    UpdateRuleComponent,
 
   ],
   imports: [
@@ -95,6 +99,7 @@ import { CreateRuleComponent } from './components/rule/create-rule/create-rule.c
     BrowserModule,
     AppRoutingModule,
     MatAutocompleteModule,
+    MatNativeDateModule,
     MatBadgeModule,
     MatBottomSheetModule,
     MatButtonModule,

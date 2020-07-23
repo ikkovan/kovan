@@ -4,6 +4,7 @@ package com.ik.kovan.controller;
 import com.ik.kovan.model.Employee;
 import com.ik.kovan.service.impl.EmployeeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,23 @@ public class EmployeeController {
         employeeService.delete(employeeService.findById(id));
         return tempEmployee;
 
+    }
+    
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") int id,
+         @Valid @RequestBody Employee employeeDetails) {
+    	System.out.println("This is updateEmployee Controller.");
+        Employee employee = employeeService.findById(id);
+        
+        employee.setFirstName(employeeDetails.getFirstName());
+        employee.setLastName(employeeDetails.getLastName());
+        employee.setCountChildren(employeeDetails.getCountChildren());
+        employee.setIsMarried(employeeDetails.getIsMarried());
+        employee.setIsSpouseWorking(employeeDetails.getIsSpouseWorking());
+        employee.setSalaryTemplate(employeeDetails.getSalaryTemplate());
+        employee.setTaxBands(employeeDetails.getTaxBands());
+        final Employee updatedEmployee = employeeService.save(employee);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
 

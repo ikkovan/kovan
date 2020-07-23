@@ -24,9 +24,22 @@
     <label><b>Vergi Dilimi: </b></label> {{employee.taxBands}}
   </div>
   <div>
+    <label><b>Dönem : </b></label> 
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date">
+      <input matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</div>
+  <div>
     <label><b>Bordro Şablonu: </b></label> {{employee.salary_template}}
     <button mat-icon-button  matTooltip="Kuralları Gör"  (click)="addRule()"><mat-icon>arrow_forward</mat-icon></button>
   </div>
+
 
 </div>
 
@@ -34,5 +47,5 @@
 <br>
 <button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-<button  class="btn btn-primary">Bordroyu Çalıştır</button><br>
+<button  class="btn btn-primary"(click)="runPayroll(employee.salary_template)">Bordroyu Çalıştır</button><br>
 

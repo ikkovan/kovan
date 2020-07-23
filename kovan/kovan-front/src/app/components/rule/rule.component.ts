@@ -22,6 +22,10 @@ export class RuleComponent implements OnInit {
    this.rules = this.ruleService.getRulesList();
     //this.rules = this.createRule.ruleArray;
   }
+  updateRule(id: number){
+    this.router.navigate(['ruleUpdate', id]);
+  }
+ 
   deleteRule(id: number) {
     this.ruleService.deleteRule(id)
       .subscribe(
@@ -31,6 +35,7 @@ export class RuleComponent implements OnInit {
         },
         error => console.log(error));
   }
+
  
 
 }
