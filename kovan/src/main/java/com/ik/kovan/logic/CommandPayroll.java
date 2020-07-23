@@ -1,6 +1,7 @@
 package com.ik.kovan.logic;
 
 import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Payroll;
 import com.ik.kovan.service.impl.CommandImpl;
 import com.ik.kovan.service.impl.EmployeeImpl;
 import com.ik.kovan.service.impl.PayrollImpl;
@@ -34,6 +35,9 @@ public class CommandPayroll {
             System.out.println(c.getRawCommand());
             commandGenerator.calculate(c.getRawCommand()); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
             try {
+                Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
+                if (existedPayroll != null)
+                    payrollService.delete(existedPayroll);
                 payrollService.create(employeeService.findById(id), type, commandGenerator.getResult());
             }
             catch (Exception e){
