@@ -28,12 +28,19 @@ public class CommandPayroll {
         this.payrollService = payrollService;
     }
 
-    public void runCommands(Long id) { // id : for whom the commands are calculated.
+    public void runCommands(Long id, int type) { // id : for whom the commands are calculated.
         List<Command> commandList = commandService.listCommands();
         for (Command c : commandList) {
             System.out.println(c.getRawCommand());
             commandGenerator.calculate(c.getRawCommand()); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
-            payrollService.create(employeeService.findById(id), commandGenerator.getResult());
+            try {
+                payrollService.create(employeeService.findById(id), type, commandGenerator.getResult());
+            }
+            catch (Exception e){
+                System.out.println(e);
+                System.out.println("Employee Does Not Exist, Payroll Could Not Be Created");
+                return;
+            }
             System.out.println("payroll added!");
         }
         //String Command

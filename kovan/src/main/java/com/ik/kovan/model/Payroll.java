@@ -1,21 +1,21 @@
 package com.ik.kovan.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 import java.io.Serializable;
 
-
+@Data
+@NoArgsConstructor
 class PayrollId implements Serializable {
     private Long accountNumber;
     private int payrollType;
 
     // default constructor
-
-    public PayrollId(Long accountNumber, int payrollType) {
-        this.accountNumber = accountNumber;
-        this.payrollType = payrollType;
-    }
 
     // equals() and hashCode()
 }
@@ -23,13 +23,14 @@ class PayrollId implements Serializable {
 
 
 @Entity
+@Table
 @IdClass(PayrollId.class)
 public class Payroll {
     @Id
     private Long accountNumber;
 
     @Id
-    private Long payrollType;
+    private int payrollType;
 
     private double AGIValue;
 
@@ -40,6 +41,9 @@ public class Payroll {
     // other fields
 
 
+    public Payroll() {
+    }
+
     public Long getAccountNumber() {
         return accountNumber;
     }
@@ -48,11 +52,11 @@ public class Payroll {
         this.accountNumber = accountNumber;
     }
 
-    public Long getPayrollType() {
+    public int getPayrollType() {
         return payrollType;
     }
 
-    public void setPayrollType(Long payrollType) {
+    public void setPayrollType(int payrollType) {
         this.payrollType = payrollType;
     }
 
@@ -79,4 +83,6 @@ public class Payroll {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 }

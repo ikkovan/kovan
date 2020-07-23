@@ -34,9 +34,8 @@ public class PayrollController {
     @GetMapping("/show/{type}/{id}")
     public Payroll showPayroll(@PathVariable("id") long accountNumber, @PathVariable("type") int payrollType){
         System.out.println("This is showPayroll Controller.");
-        commandPayroll.runCommands(accountNumber); // making sure the payroll is initialized and up to date.
-        //payrollService.create(employeeImpl.findById(accountNumber), payrollType);
-        return payrollService.findPayrollByAccountIdAndPayrollType(accountNumber, payrollType);
+        commandPayroll.runCommands(accountNumber, payrollType); // making sure the payroll is initialized and up to date.
+        return payrollService.findPayrollByAccountIdAndPayrollType(accountNumber);
     }
 
     @GetMapping("payrolls")

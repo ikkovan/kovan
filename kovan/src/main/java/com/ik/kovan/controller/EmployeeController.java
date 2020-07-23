@@ -32,7 +32,7 @@ public class EmployeeController {
     }
     @GetMapping("/details/{id}")
     public Employee getEmployeeById(@PathVariable("id") Long id){
-       System.out.println("Employee received by its id.");
+        System.out.println("Employee received by its id.");
         return employeeService.findById(id);
     }
 

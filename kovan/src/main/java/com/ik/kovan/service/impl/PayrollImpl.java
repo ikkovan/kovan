@@ -7,6 +7,7 @@ import com.ik.kovan.service.service.PayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,8 +23,8 @@ public class PayrollImpl implements PayrollService {
     }
 
     @Override
-    public Payroll findPayrollByAccountIdAndPayrollType(long accountNumber, int payrollType) {
-        return payrollRepository.findPayrollByAccountIdAndPayrollType(accountNumber, payrollType);
+    public Payroll findPayrollByAccountIdAndPayrollType(long accountNumber) {
+        return payrollRepository.findPayrollByAccountIdAndPayrollType(accountNumber);
     }
 
     @Override
@@ -36,14 +37,17 @@ public class PayrollImpl implements PayrollService {
         payrollRepository.delete(payroll);
     }
 
-    public Payroll create(Employee employee, double result){ // This will be hashmap
+    public Payroll create(Employee employee, int payrollType, double result){ // This will be hashmap
+        System.out.println("This is Payroll Creation method.");
         Payroll payroll = new Payroll();
+
         payroll.setAGIValue(result);
         payroll.setAccountNumber(employee.getId());
-        payroll.setPayrollType(1L);
+        payroll.setPayrollType(payrollType);
         payroll.setFirstName(employee.getFirstName());
         payroll.setLastName(employee.getLastName());
-        return  payroll;
+        return save(payroll);
+
     }
 
 }
