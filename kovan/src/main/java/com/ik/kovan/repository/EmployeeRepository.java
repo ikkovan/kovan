@@ -17,7 +17,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Employee findByFirstName(String name);
 
-    Employee findById(double id);
+    Employee findById(long id);
     //Iterable<Employee> findAll();
 
     @Query(value = "select e from Employee e")

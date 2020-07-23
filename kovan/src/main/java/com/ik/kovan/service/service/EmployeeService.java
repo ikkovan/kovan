@@ -12,7 +12,7 @@ public interface EmployeeService {
     Employee findByName(String name);
 
     //Iterable<Employee> findAll();
-    Employee findById(double id);
+    Employee findById(long id);
 
     List<Employee> listEmployees();
 

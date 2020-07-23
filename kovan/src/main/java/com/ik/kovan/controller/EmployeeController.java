@@ -32,8 +32,8 @@ public class EmployeeController {
         return employeeService.listEmployees();
     }
     @GetMapping("/details/{id}")
-    public Employee getEmployeeById(@PathVariable("id") double id){
-       System.out.println("Employee received by its id.");
+    public Employee getEmployeeById(@PathVariable("id") Long id){
+        System.out.println("Employee received by its id.");
         return employeeService.findById(id);
     }
 
@@ -46,11 +46,12 @@ public class EmployeeController {
     @PostMapping("/add")
     public Employee addEmployee(@Valid @RequestBody Employee employee){
         System.out.println("This is Employee Registration Controller.");
+        System.out.println(employee.getFirstName());
         return employeeService.save(employee);
     }
 
     @DeleteMapping(value="/delete/{id}")
-    public Employee deleteEmployee(@PathVariable("id") double id) {
+    public Employee deleteEmployee(@PathVariable("id") Long id) {
         System.out.println("This is deleteEmployee Controller.");
         Employee tempEmployee = employeeService.findById(id);
         employeeService.delete(employeeService.findById(id));

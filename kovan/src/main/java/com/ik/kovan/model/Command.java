@@ -11,6 +11,13 @@ public class Command {
     private int commandId;
     private String rawCommand;
 
+    public int getCommandId() {
+        return commandId;
+    }
+
+    public void setCommandId(int commandId) {
+        this.commandId = commandId;
+    }
 
     public String getRawCommand() {
         return rawCommand;
@@ -18,13 +25,5 @@ public class Command {
 
     public void setRawCommand(String rawCommand) {
         this.rawCommand = rawCommand;
-    }
-
-    public int getCommandId() {
-        return commandId;
-    }
-
-    public void setCommandId(int commandId) {
-        this.commandId = commandId;
     }
 }
