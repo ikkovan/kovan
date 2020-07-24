@@ -31,6 +31,14 @@ public class EmployeeController {
         System.out.println("This is showEmployees Controller.");
         return employeeService.listEmployees();
     }
+
+    @GetMapping("/old_employees")
+    @CrossOrigin(origins = "localhost:4200")
+    public List<Employee> showOldEmployees(Model model){
+        System.out.println("This is showOldEmployees Controller.");
+        return employeeService.listOldEmployees();
+    }
+
     @GetMapping("/details/{id}")
     public Employee getEmployeeById(@PathVariable("id") Long id){
         System.out.println("Employee received by its id.");

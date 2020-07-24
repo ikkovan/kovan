@@ -1,9 +1,11 @@
 package com.ik.kovan.model;
 
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Date;
 
 /***
  * @author serkantan
@@ -16,6 +18,11 @@ public class Employee {
     private long id;
     private String firstName;
     private String lastName;
+    @Basic
+    private java.sql.Date startToWork;
+    private boolean isWorking;
+    @Basic
+    private java.sql.Date leaveFromWork;
     private int salaryTemplate;
     private int isMarried; // ya burası bir enum olarak da tutulabilir ama hız kaybetmemek için böyle gidiyorum.
     private int isSpouseWorking;
@@ -44,6 +51,30 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getStartToWork() {
+        return startToWork;
+    }
+
+    public void setStartToWork(Date startToWork) {
+        this.startToWork = startToWork;
+    }
+
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    public void setWorking(boolean working) {
+        isWorking = working;
+    }
+
+    public Date getLeaveFromWork() {
+        return leaveFromWork;
+    }
+
+    public void setLeaveFromWork(Date leaveFromWork) {
+        this.leaveFromWork = leaveFromWork;
     }
 
     public int getSalaryTemplate() {
