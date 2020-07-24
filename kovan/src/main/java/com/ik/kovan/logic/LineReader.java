@@ -9,7 +9,17 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class LineReader {
-	
+
+	private  static String global_function_name;
+
+	public static void setGlobal_function_name(String global_function_name) {
+		LineReader.global_function_name = global_function_name;
+	}
+
+	public static String getGlobal_function_name() {
+		return global_function_name;
+	}
+
 	private static class Operand {
 		private char operator;
 		private int precedence;
@@ -497,6 +507,7 @@ public class LineReader {
 			if(local_variables.containsKey(function_args[i]))
 				function_args[i] = local_variables.get(function_args[i]);//wirte values of variables
 		}
+		setGlobal_function_name(function_name);
 		switch (function_name) {
 		case "MOD":
 			result = mod(function_args);
@@ -658,8 +669,10 @@ public class LineReader {
 		handleLine(line);
 	}
 
-	public static double getFunction(String command) {
-		return handleLine(command);
+	public static HashMap<String, Double> getFunction(String command) {
+		HashMap<String, Double> hashMap = new HashMap<>();
+		hashMap.put(getGlobal_function_name(), handleLine(command));
+		return hashMap;
 	}
 
 

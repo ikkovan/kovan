@@ -38,7 +38,7 @@ public class CommandPayroll {
                 Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
                 if (existedPayroll != null)
                     payrollService.delete(existedPayroll);
-                payrollService.create(employeeService.findById(id), type, commandGenerator.getResult());
+                payrollService.create(employeeService.findById(id), type, commandGenerator.getResult().get("AGI"));
             }
             catch (Exception e){
                 System.out.println(e);

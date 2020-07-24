@@ -1,29 +1,29 @@
 package com.ik.kovan.logic;
 
 
+import java.util.HashMap;
 
 /* takes the raw input from the Controller and parses the raw command using the LineReader Class  */
 public class CommandGenerator {
 
-    private double result;
+    private HashMap<String, Double> commandAndResult;
 
     public CommandGenerator(){
 
     }
 
-    public double getResult() {
-        return result;
+    public CommandGenerator(HashMap<String, Double> result){
+        this.commandAndResult = result;
     }
 
-    public CommandGenerator(double result){
-        this.result = result;
+    public HashMap<String, Double> calculate(String command){
+        this.commandAndResult = LineReader.getFunction(command);
+        return commandAndResult;
+
     }
 
-
-    public double calculate(String command){
-        this.result = LineReader.getFunction(command);
-        return result;
-
+    public HashMap<String, Double> getResult() {
+        return commandAndResult;
     }
 
     public static void main(String[] args) {
