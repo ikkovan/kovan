@@ -1,4 +1,4 @@
 package com.ik.kovan.model;
 
-public class BESPercentage {
+public class Procedure {
 }
