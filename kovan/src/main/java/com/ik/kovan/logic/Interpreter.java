@@ -159,7 +159,7 @@ public class Interpreter {
 				}
 			}
 		}
-		double tax_assesment = self + from_children + from_partner + from_children;
+		double tax_assesment = self + from_children + from_partner;
 		tax_assesment = tax_assesment * percent(tax_bracket);
 		return tax_assesment / 12;
 
@@ -426,8 +426,12 @@ public class Interpreter {
 			if (current_line.startsWith("IF")) {
 				i = skipElses(i);
 			} else {
-				if (current_line.startsWith("ELSE")) {
+				if (current_line.startsWith("ENDIF")) {
 					nest.pop();
+				}else if(current_line.startsWith("ELSE") && nest.size() == 1) {
+					block.add(lines.get(i));
+					i++;
+					return i;
 				}
 				block.add(lines.get(i));
 				i++;
