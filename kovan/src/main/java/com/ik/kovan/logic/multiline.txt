@@ -1,0 +1,19 @@
+SA = MAX(1,2,3)
+IF SA > 2:
+SA = 11 * 3 / SA
+	IF SA > 20 :
+		SA = 400
+	ELSE IF SA > 10:
+		SA = MAX(100,200,300)
+	ELSE :
+		SA = -100
+	ENDIF
+SA = 250
+	IF SA == 250 :
+		SA = SA / 5
+	ELSE :
+		SA = SA / 10
+	ENDIF
+ELSE :
+SA = 500
+ENDIF
