@@ -9,6 +9,8 @@ import {CreateRuleComponent} from './components/rule/create-rule/create-rule.com
 
 import {UpdateRuleComponent} from './components/rule/update-rule/update-rule.component';
 import { RuleComponent } from './components/rule/rule.component';
+import { PayrollComponent } from './components/payroll/payroll.component';
+import { PayrollDetailComponent } from './components/payroll/payroll-detail/payroll-detail.component';
 
 const routes: Routes = [
   {path:'tree', component: TreeComponent},
@@ -20,8 +22,10 @@ const routes: Routes = [
     
   { path: 'commands', component: RuleComponent },
   { path: 'addCommand', component: CreateRuleComponent },
-
   { path: 'ruleUpdate/:id', component: UpdateRuleComponent },
+
+  { path: 'payroll/payrolls', component: PayrollComponent },
+  { path: 'payroll/show/:type/:id', component: PayrollDetailComponent },
   
   {path:'', component: EmployeesComponent},
   {path:'**', component: TreeComponent}

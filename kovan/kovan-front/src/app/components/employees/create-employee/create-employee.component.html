@@ -1,42 +1,61 @@
 <h3>Çalışan Ekle</h3>
-<hr>
-<div [hidden]="submitted" style="width: 400px;">
+<div class="col-md-12">
   <form (ngSubmit)="onSubmit()">
-
-    <div class="form-group">
-        <label for="name">SİCİL NO. :</label>
-        <input type="text" class="form-control" id="id" required [(ngModel)]="employee.id" name="emailId">
+    <div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="sicil">Sicil No. :</label>
+        <input type="number" class="form-control" id="sicil" required [(ngModel)]="employee.id" name="sicil">
       </div>
-    <div class="form-group">
-      <label for="name">AD :</label>
+      <div class="form-group col-md-6">
+        <label for="salaryTemplate">Bordro Şablonu :</label>
+        <input type="text" class="form-control" id="salaryTemplate" required [(ngModel)]="employee.salaryTemplate" name="salaryTemplate">
+      </div>
+    </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">Ad :</label>
       <input type="text" class="form-control" id="firstName" required [(ngModel)]="employee.firstName" name="firstName">
     </div>
-    <div class="form-group">
-      <label for="name">SOYAD :</label>
+
+    <div class="form-group col-md-6">
+      <label for="name">Soyad :</label>
       <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName" name="lastName">
     </div>
-    <div class="form-group">
-      <label for="name">MEDENİ DURUM :</label>
-      <input type="number" class="form-control" id="isMarried" required [(ngModel)]="employee.isMarried" name="isMarried">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="ismarried">Evli mi :</label>
+      <input type="number" class="form-control" id="ismarried" required [(ngModel)]="employee.isMarried" name="ismarried">
+      <!--  <label for="ismarried">Medeni Durum :</label>
+      <select class="custom-select mr-sm-2" required [(value)]="employee.isMarried" id="inlineFormCustomSelect">
+        <option value="1">Evli</option>
+        <option value="0">Bekar</option>
+      </select>
+    -->
     </div>
-    <div class="form-group">
-      <label for="name">ES CALISIYOR :</label>
-      <input type="number" class="form-control" id="isSpouseWorking" required [(ngModel)]="employee.isSpouseWorking" name="isSpouseWorking">
+
+    <div class="form-group col-md-6">
+      <label for="spouseworking">Eş Çalışıyor mu :</label>
+      <input type="number" class="form-control" id="spouseworking" required [(ngModel)]="employee.isSpouseWorking" name="spouseworking">
     </div>
-    <div class="form-group">
-      <label for="name">ÇOCUK SAYISI :</label>
-      <input type="number" class="form-control" id="countChildren" required [(ngModel)]="employee.countChildren" name="countChildren">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="countchild">Çocuk Sayısı :</label>
+      <input type="number" class="form-control" id="countchild" required [(ngModel)]="employee.countChildren" name="countchild">
     </div>
-    <div class="form-group">
-      <label for="name">VERGİ DİLİMİ :</label>
-      <input type="number" class="form-control" id="taxBands" required [(ngModel)]="employee.taxBands" name="taxBands">
+
+    <div class="form-group col-md-6">
+      <label for="taxbands">Vergi Dilimi :</label>
+      <input type="number" class="form-control" id="taxbands" required [(ngModel)]="employee.taxBands" name="taxbands">
     </div>
+  </div>
+  
+
+
+
+
 
     <button type="submit" class="btn btn-success">Onayla</button>
   </form>
-</div>
-
-<div [hidden]="!submitted">
-  <h4>You submitted successfully!</h4>
-  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
 </div>

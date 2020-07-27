@@ -1,0 +1,29 @@
+<h2>Bordro Detayları</h2>
+
+<hr/>
+<div *ngIf="payroll">
+  <div>
+    <label><b>Sicil No. : </b></label> {{payroll.accountNumber}}
+  </div>
+  <div>
+    <label><b>Ad : </b></label> {{payroll.firstName}}
+  </div>
+  <div>
+    <label><b>Soyad: </b></label> {{payroll.lastName}}
+  </div>
+  <div>
+    <label><b>Bordro Tipi: </b></label> {{payroll.payrollType}}
+  </div>
+  <div>
+    <label><b>AGI : </b></label> {{payroll.agivalue}}
+  </div>
+ 
+
+</div>
+
+<br>
+<br>
+<button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
+
+
+

@@ -1,51 +1,85 @@
 <h2>Çalışan Bilgileri</h2>
 
 <hr/>
-<div *ngIf="employee">
-  <div>
-    <label><b>Sicil No. : </b></label> {{employee.id}}
+<div *ngIf="employee" class="col-md-12">
+
+  <div class="form-group row">
+    <label for="sicil" class="col-sm-2 col-form-label"><b>Sicil No. : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="sicil" >{{employee.id}}</label>
+    </div>
+   
   </div>
-  <div>
-    <label><b>Ad : </b></label> {{employee.firstName}}
-  </div>
-  <div>
-    <label><b>Soyad: </b></label> {{employee.lastName}}
-  </div>
-  <div>
-    <label><b>Medeni Durum: </b></label> {{employee.isMarried}}
-  </div>
-  <div>
-    <label><b>Eş Çalışıyor: </b></label> {{employee.isSpouseWorking}}
-  </div>
-  <div>
-    <label><b>Çocuk Sayısı: </b></label> {{employee.countChildren}}
-  </div>
-  <div>
-    <label><b>Vergi Dilimi: </b></label> {{employee.taxBands}}
-  </div>
-  <div>
-    <label><b>Dönem : </b></label> 
-  <mat-form-field appearance="fill">
-    <mat-label>Enter a date range</mat-label>
-    <mat-date-range-input [rangePicker]="picker">
-      <input matStartDate placeholder="Start date">
-      <input matEndDate placeholder="End date">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-</div>
-  <div>
-    <label><b>Bordro Şablonu: </b></label> {{employee.salary_template}}
-    <button mat-icon-button  matTooltip="Kuralları Gör"  (click)="addRule()"><mat-icon>arrow_forward</mat-icon></button>
+
+  <div class="form-group row">
+    <label for="ad" class="col-sm-2 col-form-label"><b>Ad : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="ad" >{{employee.firstName}}</label>
+    </div>
+    <label for="soyad" class="col-sm-2 col-form-label"><b>Soyad : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="soyad" >{{employee.lastName}}</label>
+    </div>
   </div>
 
 
-</div>
+  <div class="form-group row">
+    <label for="married" class="col-sm-2 col-form-label"><b>Evli : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="married" >{{employee.isMarried}}</label>
+    </div>
+    <label for="isSpouseWorking" class="col-sm-2 col-form-label"><b>Eşi Çalışma Durumu : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="isSpouseWorking" >{{employee.isSpouseWorking}}</label>
+    </div>
+  </div>
+
+  
+  <div class="form-group row">
+    <label for="child" class="col-sm-2 col-form-label"><b>Çocuk Sayısı : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="child" >{{employee.countChildren}}</label>
+    </div>
+    <label for="taxBands" class="col-sm-2 col-form-label"><b>Vergi Dilimi : </b></label>
+    <div class="col-sm-4">
+      <label  class="form-control" id="taxBands" >{{employee.taxBands}}</label>
+    </div>
+  </div>
+
+
+    
+  <div class="form-group row">
+    <label for="date" class="col-sm-2 col-form-label"><b>Dönem : </b></label>
+    <div class="col-sm-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date">
+          <input matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+    <label for="salaryTemplate" class="col-sm-2 col-form-label"><b>Bordro Şablonu : </b></label>
+    <div class="col-sm-2">
+      <label  class="form-control" id="salaryTemplate" > {{employee.salaryTemplate}}</label>
+
+    </div>
+    <div class="col-sm-2">
+      <button mat-icon-button  matTooltip="Kuralları Gör"  (click)="addRule()"><mat-icon>arrow_forward</mat-icon></button>
+    </div>
+  </div>
+
+  
+  
+   
+
+
 
 <br>
 <br>
 <button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-<button  class="btn btn-primary"(click)="runPayroll(employee.salary_template)">Bordroyu Çalıştır</button><br>
+<button  class="btn btn-primary"(click)="runPayroll(employee.salaryTemplate,employee.id)">Bordroyu Çalıştır</button><br>
 

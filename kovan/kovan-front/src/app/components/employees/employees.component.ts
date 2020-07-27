@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
+  search="";
+  
+
   employees: Observable<EmployeeModel[]>;
   constructor(private employeeService: EmployeesService,
     private router: Router) { }
@@ -22,6 +25,7 @@ export class EmployeesComponent implements OnInit {
 
   reloadData() {
     this.employees = this.employeeService.getEmployeesList();
+
   }
   deleteEmployee(id: number) {
     this.employeeService.deleteEmployee(id)

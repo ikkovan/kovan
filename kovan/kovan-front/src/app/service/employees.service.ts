@@ -12,7 +12,7 @@ import { SimpleSnackBar } from '@angular/material/snack-bar';
 })
 export class EmployeesService {
 
-  //burada spring boottan gelecek olan url konulacak
+  
   private baseUrl = 'http://localhost:8080';
 
 
@@ -36,13 +36,7 @@ export class EmployeesService {
   }
 
   getEmployeesList(): Observable<any> {
-    //return this.http.get(`${this.baseUrl}`);
-    //console.log(this._dataChange);
-    this.http.get(`${this.baseUrl}/employees`).subscribe((res: Response) => {
-      console.log(res);
-    })
     return this.http.get(`${this.baseUrl}/employees`);
-    ;
   }
 
 }

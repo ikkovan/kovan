@@ -65,6 +65,9 @@ import { RuleComponent } from './components/rule/rule.component';
 import { CreateRuleComponent } from './components/rule/create-rule/create-rule.component';
 
 import { UpdateRuleComponent } from './components/rule/update-rule/update-rule.component';
+import { SearchPipe } from './components/employees/search.pipe';
+import { PayrollComponent } from './components/payroll/payroll.component';
+import { PayrollDetailComponent } from './components/payroll/payroll-detail/payroll-detail.component';
 
 @NgModule({
   entryComponents: [
@@ -90,6 +93,12 @@ import { UpdateRuleComponent } from './components/rule/update-rule/update-rule.c
     CreateRuleComponent,
  
     UpdateRuleComponent,
+ 
+    SearchPipe,
+ 
+    PayrollComponent,
+ 
+    PayrollDetailComponent,
 
   ],
   imports: [

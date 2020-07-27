@@ -1,11 +1,27 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Çalışan Listesi <button routerLink="/add" class="btn btn-primary"
-        routerLinkActive="active" matTooltip="EKLE">+ </button>
-        <button mat-icon-button (click)= "reloadData()" class="float-right"
-         matTooltip="Refresh"> <mat-icon>refresh</mat-icon></button></h2>
-
+  <div class="panel-heading ">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <h2>Çalışan Listesi <button routerLink="/add" class="btn btn-primary" routerLinkActive="active" matTooltip="EKLE">+
+          </button>
+         
+    
+        </h2>
+        </div>
+        <div class="col-sm">
+          
+          <input type="text" [(ngModel)]="search" class="form-control" id="search">
+        </div>
+        <div class="col-sm">
+          <button mat-icon-button (click)="reloadData()" class="float-right" matTooltip="Refresh">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
+
     <div class="panel-body">
       <table class="table table-striped">
         <thead>
@@ -20,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of employees | async">
+          <tr *ngFor="let employee of employees | async | search:search  ">
             <td>{{employee.id}}</td>
             <td>{{employee.firstName}}</td>
             <td>{{employee.lastName}}</td>
@@ -29,9 +45,15 @@
             <td>{{employee.countChildren}}</td>
             <td>{{employee.taxBands}}</td>
             <td>
-              <button mat-icon-button matTooltip="Sil" (click)="deleteEmployee(employee.id)"><mat-icon>delete</mat-icon></button>
-              <button mat-icon-button matTooltip="Düzenle" (click)="updateEmployee(employee.id)"><mat-icon>edit</mat-icon></button>
-              <button mat-icon-button matTooltip="Ayrıntılar" (click)="employeeDetails(employee.id)" ><mat-icon>more_horiz</mat-icon></button>
+              <button mat-icon-button matTooltip="Sil" (click)="deleteEmployee(employee.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Düzenle" (click)="updateEmployee(employee.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Ayrıntılar" (click)="employeeDetails(employee.id)">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
 
             </td>
           </tr>
@@ -39,3 +61,4 @@
       </table>
     </div>
   </div>
+ 
