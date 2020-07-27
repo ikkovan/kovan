@@ -36,12 +36,21 @@ public class EmployeeImpl implements EmployeeService {
 
     @Override
     public Employee save(Employee employee) {
+        employee.setWorking(true);
+        employee.setStartToWork(java.sql.Date.valueOf(java.time.LocalDate.now()));
         return employeeRepository.save(employee);
+    }
+    @Override
+    public void delete(Employee employee) {
+        System.out.println("This is employee deletion service");
+        employee.setWorking(false);
+        employee.setLeaveFromWork(java.sql.Date.valueOf(java.time.LocalDate.now()));
+        employeeRepository.save(employee);
     }
 
     @Override
-    public void delete(Employee employee) {
-        employeeRepository.delete(employee);
+    public List<Employee> listOldEmployees() {
+        return employeeRepository.listOldEmployees();
     }
 }
 

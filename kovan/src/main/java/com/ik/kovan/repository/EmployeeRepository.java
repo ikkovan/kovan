@@ -20,8 +20,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Employee findById(long id);
     //Iterable<Employee> findAll();
 
-    @Query(value = "select e from Employee e")
+    @Query(value = "select e from Employee e where e.isWorking=true")
     List<Employee> listEmployees();
+
+    @Query(value = "select e from Employee e where e.isWorking=false")
+    List<Employee> listOldEmployees();
+
 
     Employee save(Employee employee);
 
