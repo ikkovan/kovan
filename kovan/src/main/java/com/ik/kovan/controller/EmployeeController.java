@@ -3,6 +3,7 @@ package com.ik.kovan.controller;
 
 import com.ik.kovan.model.Employee;
 import com.ik.kovan.service.impl.EmployeeImpl;
+import com.ik.kovan.service.impl.VariableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,8 +21,7 @@ public class EmployeeController {
     @Autowired
     private final EmployeeImpl employeeService;
 
-
-    public EmployeeController(EmployeeImpl employeeService) {
+    public EmployeeController(EmployeeImpl employeeService ) {
         this.employeeService = employeeService;
     }
 

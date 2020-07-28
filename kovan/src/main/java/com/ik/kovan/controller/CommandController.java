@@ -1,10 +1,10 @@
 package com.ik.kovan.controller;
 
-import com.ik.kovan.logic.CommandGenerator;
 import com.ik.kovan.model.Command;
-import com.ik.kovan.model.Employee;
-import com.ik.kovan.repository.CommandRepository;
+import com.ik.kovan.model.Procedure;
+import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
+import com.ik.kovan.service.impl.VariableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,10 +18,14 @@ import java.util.List;
 public class CommandController {
     @Autowired
     private final CommandImpl commandService;
-    public CommandController(CommandImpl commandService) {
-        this.commandService = commandService;
-    }
 
+    @Autowired
+    private final VariableImpl variableService;
+
+    public CommandController(CommandImpl commandService, VariableImpl variableService) {
+        this.commandService = commandService;
+        this.variableService = variableService;
+    }
 
     @PostMapping("/addCommand")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -29,6 +33,8 @@ public class CommandController {
         System.out.println("This is Command Registration Controller.");
         return commandService.save(command);
     }
+
+
     
     @GetMapping("/ruleDetails/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -69,6 +75,31 @@ public class CommandController {
         final Command updatedCommand = commandService.save(command);
         return ResponseEntity.ok(updatedCommand);
     }
+
+    @GetMapping("/getParameters")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public List<String> getParameters(){
+        return variableService.showTablesAndColumns();
+    }
+
+
+    @PostMapping(value="/addParameter")
+    @CrossOrigin(origins = "http://localhost:4200")
+
+    public void addParameter(@Valid @RequestBody Command command, @Valid @RequestBody List<Variable> variables){
+        System.out.println("This is addParameter Controller.");
+
+    }
+    /*
+    @GetMapping(value="/getCommands")
+    @CrossOrigin(origins = "http://localhost:4200")
+
+
+    public List<Procedure> showAlgorithm(){
+        return
+    }
+
+     */
 
 
 
