@@ -28,7 +28,7 @@ public class CommandPayroll {
         this.commandService = commandService;
         this.payrollService = payrollService;
     }
-
+    /*
     public void runCommands(Long id, int type) { // id : for whom the commands are calculated.
         List<Command> commandList = commandService.listCommands();
         for (Command c : commandList) {
@@ -49,5 +49,5 @@ public class CommandPayroll {
         }
         //String Command
     }
-
+    */
 }

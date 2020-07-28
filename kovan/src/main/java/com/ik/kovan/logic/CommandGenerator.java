@@ -19,13 +19,13 @@ public class CommandGenerator {
         this.result = result;
     }
 
-
+    /*
     public double calculate(String command){
         this.result = LineReader.getFunction(command);
         return result;
 
     }
-
+    */
     public static void main(String[] args) {
     }
 
