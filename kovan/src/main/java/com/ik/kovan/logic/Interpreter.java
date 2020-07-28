@@ -323,7 +323,11 @@ public class Interpreter {
 		}
 		return -1;
 	}
-
+	
+	private static boolean isVariable(String s) {
+		return s.matches("[a-zA-z]+(_*[a-zA-Z]+)*");
+	}
+	
 	/*
 	 * Reseting function_locations and function_returns for each line But
 	 * local_varibales are held globally
@@ -338,11 +342,10 @@ public class Interpreter {
 		for (int i = 0; i < expressions.length; i++) {
 			if (expressions[i].equals("=")) {
 				String var_name = expressions[i - 1];
-				if( !var_name.matches("[a-zA-z]+")) {
+				if (!isVariable(var_name)) {
 					System.out.println("INVALID VARIABLE NAME");
 					return next_line;
-				}
-				else if ((i + 2) < expressions.length && !expressions[i + 2].equals(",")) {
+				} else if ((i + 2) < expressions.length && !expressions[i + 2].equals(",")) {
 					ArrayList<String> temp = new ArrayList<String>();
 					i++;
 					while (i < expressions.length && !expressions[i].equals(",")) {
@@ -352,7 +355,7 @@ public class Interpreter {
 							if (resultante_double != Double.NEGATIVE_INFINITY)
 								temp.add(resultante_double + "");
 							else
-								System.out.println("elsee");
+								System.out.println("INVALID FUNCTION : " + expressions[i]);
 
 						} else {
 							temp.add(expressions[i]);
@@ -360,28 +363,152 @@ public class Interpreter {
 						i++;
 					}
 					local_variables.put(var_name, handleMaths(temp.toArray(new String[0])) + "");
-				} else if ( function_locations.get(i + 1) != null) {
-					double resultante_double = handleArithmaticFunction(expressions[i+1]);
+				} else if (function_locations.get(i + 1) != null) {
+					double resultante_double = handleArithmaticFunction(expressions[i + 1]);
 					if (resultante_double != Double.NEGATIVE_INFINITY)
 						local_variables.put(var_name, resultante_double + "");
 					else
 						local_variables.put(var_name, handleStringFunction(expressions[i + 1]));
 
 					i++;
+				} else if (local_variables.containsKey(expressions[i + 1])) {
+					local_variables.put(var_name, local_variables.get(expressions[i + 1]));
+					i++;
 				} else {
-					local_variables.put(var_name, expressions[i+1]);
+					local_variables.put(var_name, expressions[i + 1]);
 					i++;
 				}
 			} else if (expressions[i].contains("(") && expressions[i].contains(")")) {
 				handleStringFunction(expressions[i]);
-			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE")) {// branching problem
+			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE") ) {// branching problem
 				next_line = branching(index);
 				i = expressions.length;
+			} else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
+				int first_plus = expressions[i].indexOf('+');
+				String key = expressions[i].substring(0, first_plus);
+				String val = local_variables.get(key);
+				double to_increment = Double.parseDouble(val);
+				to_increment += 1;
+				local_variables.put(key, to_increment + "");
+			} else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*--")) {
+				int first_plus = expressions[i].indexOf('-');
+				String key = expressions[i].substring(0, first_plus);
+				String val = local_variables.get(key);
+				double to_decrement = Double.parseDouble(val);
+				to_decrement -= 1;
+				local_variables.put(key, to_decrement + "");
+			} else if (expressions[i].equals("+=")) {
+				String var_name = expressions[i - 1];
+				String val = local_variables.get(var_name);
+				double to_increment = Double.parseDouble(val);
+				double how_much = Double.parseDouble(expressions[i+1]); 
+				to_increment += how_much;
+				local_variables.put(var_name, to_increment + "");
+				i++;
+			} else if (expressions[i].equals("-=")) {
+				String var_name = expressions[i - 1];
+				String val = local_variables.get(var_name);
+				double to_decrement = Double.parseDouble(val);
+				double how_much = Double.parseDouble(expressions[i+1]); 
+				to_decrement -= how_much;
+				local_variables.put(var_name, to_decrement + "");
+				i++;
 			}
 		}
 		return next_line-1;
 	}
 
+	/*
+	 * works same as handleLine but takes line itself as a parameter instead of index
+	 * since branching is working only in multilines branching is not working in this function
+	 * so it is commented out
+	 */
+	private static void handleSingleLine(String line) {
+		function_locations = new HashMap<Integer, String>();
+		function_returns = new HashMap<Integer, Double>();
+		String s = line.trim();
+		getFunctionLocations(s);
+		String[] expressions = s.split(" ");
+		for (int i = 0; i < expressions.length; i++) {
+			if (expressions[i].equals("=")) {
+				String var_name = expressions[i - 1];
+				if (!isVariable(var_name)) {
+					System.out.println("INVALID VARIABLE NAME");
+					return ;
+				} else if ((i + 2) < expressions.length && !expressions[i + 2].equals(",")) {
+					ArrayList<String> temp = new ArrayList<String>();
+					i++;
+					while (i < expressions.length && !expressions[i].equals(",")) {
+						if (function_locations.get(i) != null) {
+
+							double resultante_double = handleArithmaticFunction(expressions[i]);
+							if (resultante_double != Double.NEGATIVE_INFINITY)
+								temp.add(resultante_double + "");
+							else
+								System.out.println("INVALID FUNCTION : " + expressions[i]);
+
+						} else {
+							temp.add(expressions[i]);
+						}
+						i++;
+					}
+					local_variables.put(var_name, handleMaths(temp.toArray(new String[0])) + "");
+				} else if (function_locations.get(i + 1) != null) {
+					double resultante_double = handleArithmaticFunction(expressions[i + 1]);
+					if (resultante_double != Double.NEGATIVE_INFINITY)
+						local_variables.put(var_name, resultante_double + "");
+					else
+						local_variables.put(var_name, handleStringFunction(expressions[i + 1]));
+
+					i++;
+				} else if (local_variables.containsKey(expressions[i + 1])) {
+					local_variables.put(var_name, local_variables.get(expressions[i + 1]));
+					i++;
+				} else {
+					local_variables.put(var_name, expressions[i + 1]);
+					i++;
+				}
+			} else if (expressions[i].contains("(") && expressions[i].contains(")")) {
+				handleStringFunction(expressions[i]);
+			} /*else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE") ) {// branching problem
+				next_line = branching(index);
+				i = expressions.length;
+			}*/ else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
+				int first_plus = expressions[i].indexOf('+');
+				String key = expressions[i].substring(0, first_plus);
+				String val = local_variables.get(key);
+				double to_increment = Double.parseDouble(val);
+				to_increment += 1;
+				local_variables.put(key, to_increment + "");
+			} else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*--")) {
+				int first_plus = expressions[i].indexOf('-');
+				String key = expressions[i].substring(0, first_plus);
+				String val = local_variables.get(key);
+				double to_decrement = Double.parseDouble(val);
+				to_decrement -= 1;
+				local_variables.put(key, to_decrement + "");
+			} else if (expressions[i].equals("+=")) {
+				String var_name = expressions[i - 1];
+				String val = local_variables.get(var_name);
+				double to_increment = Double.parseDouble(val);
+				double how_much = Double.parseDouble(expressions[i+1]); 
+				to_increment += how_much;
+				local_variables.put(var_name, to_increment + "");
+				i++;
+			} else if (expressions[i].equals("-=")) {
+				String var_name = expressions[i - 1];
+				String val = local_variables.get(var_name);
+				double to_decrement = Double.parseDouble(val);
+				double how_much = Double.parseDouble(expressions[i+1]); 
+				to_decrement -= how_much;
+				local_variables.put(var_name, to_decrement + "");
+				i++;
+			}
+		}
+		return ;
+	}
+	
+	
 	/*
 	 * A function to return line index after the else and else if parts when an if or else if part as executed
 	 * TR: "IF " veya "ELSE IF "lerden biri true döndürdüğünde içine girip içindeki kodları çalıştırdıktan sonra gelen "ELSE " 	ve "ELSE IF "
@@ -390,6 +517,8 @@ public class Interpreter {
 	private static int skipElses(int i) {
 		Stack<String> nest = new Stack<String>();
 		ArrayList<String> block = new ArrayList<String>();
+		if(lines.get(i).startsWith("ENDIF"))
+			return i;
 		nest.push( lines.get(i));
 		block.add( lines.get(i));
 		i++;
@@ -492,7 +621,7 @@ public class Interpreter {
 				index++;
 				String current_line = lines.get(index);
 				if (Boolean.TRUE.equals(result)) {
-					while (!current_line.contains("ELSE")) {
+					while (!current_line.contains("ELSE") && !current_line.startsWith("ENDIF")) {
 						index = handleLine(index);
 						index++;
 						current_line = lines.get(index);
@@ -510,13 +639,61 @@ public class Interpreter {
 				e.printStackTrace();
 			}
 
-		} else {
+		} else if (whole_line.startsWith("ELSE")) {
 			index++;
 			String current_line = lines.get(index);
 			while (!current_line.contains("ENDIF")) {
-				handleLine(index);
-				index++;
+				index = handleLine(index);
 				current_line = lines.get(index);
+			}
+		} else if( whole_line.startsWith("WHILE")) {
+			String whl = "WHILE ";
+			start_point += whole_line.indexOf(whl) + whl.length();
+			int end_point = whole_line.indexOf(":");
+			String to_evaluate = whole_line.substring(start_point, end_point);
+			String[] temp = to_evaluate.split(" ");
+	        SimpleBindings variables = new SimpleBindings();
+			for (int i = 0; i < temp.length; i++) {
+				if (temp[i].matches("[a-zA-Z]+\\(.*\\)")) {
+					double result = handleArithmaticFunction(temp[i]);
+					String sonuc = handleStringFunction(temp[i]);
+					if (result != Double.NEGATIVE_INFINITY) {
+						variables.put(temp[i], result);
+					} else if (!sonuc.equals("Double.NEGATIVE_INFINITY")) {
+						variables.put(temp[i], sonuc);
+					}
+				} else if (local_variables.containsKey(temp[i])) {
+					variables.put(temp[i],local_variables.get(temp[i]));
+				}
+			}
+			to_evaluate = "";
+			for (int i = 0; i < temp.length; i++) {
+					to_evaluate += " " + temp[i] ;
+			}
+			ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+			String evaluate = "eval('" + to_evaluate + "');";
+			try {
+				Object result = engine.eval(evaluate,variables);
+				int begin_while = index;
+				index++;
+				String current_line = lines.get(index);
+				if (Boolean.TRUE.equals(result)) {
+					while (!current_line.startsWith("ENDWHILE")) {
+						index = handleLine(index);
+						index++;
+						current_line = lines.get(index);
+					}
+					index = handleLine(begin_while);
+				}else {
+					while (!current_line.startsWith("ENDWHILE")) {
+						index++;
+						current_line = lines.get(index);
+					}
+				}
+				return index+1;
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 
@@ -531,7 +708,7 @@ public class Interpreter {
 		Stack<Double> numbers = new Stack<Double>();
 		Stack<Operand> operands = new Stack<Operand>();
 		for (int i = 0; i < line.length; i++) {
-			if (line[i].matches("[A-Z]+"))// if it is a variable
+			if (isVariable(line[i]))// if it is a variable
 			{
 				String value = local_variables.get(line[i]);
 				line[i] = value;
@@ -621,16 +798,7 @@ public class Interpreter {
 			String current = input_args[i];
 			if (current.matches("[a-zA-Z]+\\(.*\\)")) {
 				function_locations.put(i, current);
-				System.out.println("Function: " + current + " location: " + i);
-			}
-		}
-	}
-
-	private static void setLocalVaraibles(String[] input_args) {
-		for (int i = 1; i < input_args.length - 1; i++) {
-			if (input_args[i].equals("=")) {
-				local_variables.put(input_args[i - 1], input_args[i - 1]);
-				System.out.println("variable name: " + input_args[i - 1] + ", value: " + input_args[i + 1]);
+				//System.out.println("Function: " + current + " location: " + i);
 			}
 		}
 	}
@@ -654,13 +822,23 @@ public class Interpreter {
 			result = min(function_args);
 		} else if (function_name.equalsIgnoreCase("MAX")) {
 			result = max(function_args);
-		} else if (function_name.equalsIgnoreCase("PRCNT")) {
+		} else if (function_name.equalsIgnoreCase("PERCENT")) {
 			double arg = -1;
+			if(isVariable(function_args[0])) {
+				function_args[0] = local_variables.get(function_args[0]);
+			}
+			else if (function_locations.containsValue(function_args[0])){
+				double resultante_double = handleArithmaticFunction(function_args[0]);
+				if (resultante_double != Double.NEGATIVE_INFINITY)
+					function_args[0] = resultante_double + "";
+				else
+					System.out.println("NOT AN ARITHMETIC FUNCTION : " + function_args[0]);
+			}
 			try {
 				arg = Double.parseDouble(function_args[0]);
 				result = percent(arg);
 			} catch (Exception e) {
-				System.err.println(function_args.toString() + " cannot be treated as a value");
+				System.err.println(function_args[0].toString() + " cannot be treated as a value");
 				result = arg;
 			}
 		} else if (function_name.equalsIgnoreCase("AGI")) {// minimum wage discount
@@ -690,8 +868,7 @@ public class Interpreter {
 			result = Double.NEGATIVE_INFINITY;
 
 		}
-		System.out
-				.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
+		//System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
 	}
 
@@ -720,8 +897,7 @@ public class Interpreter {
 			System.out.println("Invalid or not yet implemented method call");
 			result = "Double.NEGATIVE_INFINITY";
 		}
-		System.out
-				.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
+		//System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
 	}
 
@@ -785,23 +961,23 @@ public class Interpreter {
 
 	public static void calculations_tests() {
 		double agi = calculateAGI(2943, -1, 0, 15, 3, 50);
-		System.out.println(agi);
+		System.out.println("agi " + agi);
 		double net = netMinWage(2943, 14, 1, 0.759, 15, agi);
-		System.out.println(net);
+		System.out.println("net " + net);
 	}
 
 	public static void getting_functions_test() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print(">");
 		String line = sc.nextLine();
-		// handleLine(line);
+		handleSingleLine(line);
 	}
 
 	
 	//Works with the lines in multiline.txt
 	//tests if-else situations
 	public static void testMultiline() {
-		File input = new File("src\\main\\java\\com\\ik\\kovan\\logic\\multiline.txt");
+		File input = new File("looping.txt");
 		Interpreter in = new Interpreter();
 		try {
 			Scanner sc = new Scanner(input);
@@ -813,18 +989,14 @@ public class Interpreter {
 			for (int i = 0; i < lines.size(); i++) {
 				i = handleLine(i);
 			}
-			for(Entry<String, String> e: in.local_variables.entrySet()) {
-				System.out.println(e.getKey() + " := " + e.getValue());
-			}
+			in.local_variables.forEach((k, v) -> {
+				System.out.println(k + ":" + v);
+			});
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	}
-	
-	public static double getFunction(String command) {
-		return handleArithmaticFunction(command);
 	}
 }
