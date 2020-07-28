@@ -380,7 +380,7 @@ public class Interpreter {
 				}
 			} else if (expressions[i].contains("(") && expressions[i].contains(")")) {
 				handleStringFunction(expressions[i]);
-			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE")) {// branching problem
+			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE") ) {// branching problem
 				next_line = branching(index);
 				i = expressions.length;
 			} else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
@@ -470,11 +470,10 @@ public class Interpreter {
 				}
 			} else if (expressions[i].contains("(") && expressions[i].contains(")")) {
 				handleStringFunction(expressions[i]);
-			} /*else if (expressions[i].equals("IF") || expressions[i].contains("ELSE")) {// branching problem
+			} /*else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE") ) {// branching problem
 				next_line = branching(index);
 				i = expressions.length;
-			}*/
-				else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
+			}*/ else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
 				int first_plus = expressions[i].indexOf('+');
 				String key = expressions[i].substring(0, first_plus);
 				String val = local_variables.get(key);
@@ -518,6 +517,8 @@ public class Interpreter {
 	private static int skipElses(int i) {
 		Stack<String> nest = new Stack<String>();
 		ArrayList<String> block = new ArrayList<String>();
+		if(lines.get(i).startsWith("ENDIF"))
+			return i;
 		nest.push( lines.get(i));
 		block.add( lines.get(i));
 		i++;
@@ -620,7 +621,7 @@ public class Interpreter {
 				index++;
 				String current_line = lines.get(index);
 				if (Boolean.TRUE.equals(result)) {
-					while (!current_line.contains("ELSE")) {
+					while (!current_line.contains("ELSE") && !current_line.startsWith("ENDIF")) {
 						index = handleLine(index);
 						index++;
 						current_line = lines.get(index);
@@ -642,8 +643,7 @@ public class Interpreter {
 			index++;
 			String current_line = lines.get(index);
 			while (!current_line.contains("ENDIF")) {
-				handleLine(index);
-				index++;
+				index = handleLine(index);
 				current_line = lines.get(index);
 			}
 		} else if( whole_line.startsWith("WHILE")) {
@@ -669,6 +669,31 @@ public class Interpreter {
 			to_evaluate = "";
 			for (int i = 0; i < temp.length; i++) {
 					to_evaluate += " " + temp[i] ;
+			}
+			ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+			String evaluate = "eval('" + to_evaluate + "');";
+			try {
+				Object result = engine.eval(evaluate,variables);
+				int begin_while = index;
+				index++;
+				String current_line = lines.get(index);
+				if (Boolean.TRUE.equals(result)) {
+					while (!current_line.startsWith("ENDWHILE")) {
+						index = handleLine(index);
+						index++;
+						current_line = lines.get(index);
+					}
+					index = handleLine(begin_while);
+				}else {
+					while (!current_line.startsWith("ENDWHILE")) {
+						index++;
+						current_line = lines.get(index);
+					}
+				}
+				return index+1;
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 
@@ -952,7 +977,7 @@ public class Interpreter {
 	//Works with the lines in multiline.txt
 	//tests if-else situations
 	public static void testMultiline() {
-		File input = new File("agi_commands.txt");
+		File input = new File("looping.txt");
 		Interpreter in = new Interpreter();
 		try {
 			Scanner sc = new Scanner(input);
