@@ -1,9 +1,9 @@
 package com.ik.kovan.controller;
 
 import com.ik.kovan.model.Command;
-import com.ik.kovan.model.Procedure;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
+import com.ik.kovan.service.impl.StatementImpl;
 import com.ik.kovan.service.impl.VariableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +22,16 @@ public class CommandController {
     @Autowired
     private final VariableImpl variableService;
 
-    public CommandController(CommandImpl commandService, VariableImpl variableService) {
+    @Autowired
+    private final StatementImpl procedureService;
+
+    public CommandController(CommandImpl commandService, VariableImpl variableService, StatementImpl procedureService) {
         this.commandService = commandService;
         this.variableService = variableService;
+        this.procedureService = procedureService;
     }
 
-    @PostMapping("/addCommand")
-    @CrossOrigin(origins = "http://localhost:4200")
-    public Command addCommand(@Valid @RequestBody Command command){
-        System.out.println("This is Command Registration Controller.");
-        return commandService.save(command);
-    }
+
 
 
     
@@ -80,6 +79,14 @@ public class CommandController {
     @CrossOrigin(origins = "http://localhost:4200")
     public List<String> getParameters(){
         return variableService.showTablesAndColumns();
+    }
+
+
+    @PostMapping("/addCommand")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public Command addCommand(@Valid @RequestBody Command command){
+        System.out.println("This is Command Registration Controller.");
+        return commandService.save(command);
     }
 
 

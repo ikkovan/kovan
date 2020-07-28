@@ -1,11 +1,6 @@
 package com.ik.kovan.model;
 
-import org.aspectj.weaver.ast.Var;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,6 +12,9 @@ public class Command {
 
     @OneToMany(mappedBy = "command")
     private List<Variable> variables;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    private List<Statement> statements;
 
     public int getCommandId() {
         return commandId;
@@ -42,4 +40,11 @@ public class Command {
         this.variables = variables;
     }
 
+    public List<Statement> getStatements() {
+        return statements;
+    }
+
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
+    }
 }

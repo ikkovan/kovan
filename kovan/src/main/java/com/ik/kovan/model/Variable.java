@@ -13,7 +13,7 @@ public class Variable {
     private String locatedTable;
     private String locatedColumn;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "command_id")
     private Command command;
 
