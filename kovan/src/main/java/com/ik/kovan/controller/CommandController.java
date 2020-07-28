@@ -1,6 +1,7 @@
 package com.ik.kovan.controller;
 
 import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Procedure;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
 import com.ik.kovan.service.impl.VariableImpl;
@@ -82,13 +83,25 @@ public class CommandController {
     }
 
 
-    @DeleteMapping(value="/addParameter")
+    @PostMapping(value="/addParameter")
     @CrossOrigin(origins = "http://localhost:4200")
 
     public void addParameter(@Valid @RequestBody Command command, @Valid @RequestBody List<Variable> variables){
         System.out.println("This is addParameter Controller.");
 
     }
+    /*
+    @GetMapping(value="/getCommands")
+    @CrossOrigin(origins = "http://localhost:4200")
+
+
+    public List<Procedure> showAlgorithm(){
+        return
+    }
+
+     */
+
+
 
 
 
