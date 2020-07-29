@@ -72,6 +72,7 @@ public class CommandController {
         final Command updatedCommand = commandService.save(command);
         return ResponseEntity.ok(updatedCommand);
     }
+    */
 
     @GetMapping("/getParameters")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -79,7 +80,6 @@ public class CommandController {
         return variableService.showTablesAndColumns();
     }
 
-    */
 
     @PostMapping("/addCommand")
     @CrossOrigin(origins = "http://localhost:4200")
