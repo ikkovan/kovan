@@ -1,13 +1,13 @@
 package com.ik.kovan.controller;
 
+import com.ik.kovan.logic.CommandCreation;
 import com.ik.kovan.model.Command;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
 import com.ik.kovan.service.impl.StatementImpl;
 import com.ik.kovan.service.impl.VariableImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,10 +31,8 @@ public class CommandController {
         this.procedureService = procedureService;
     }
 
+    /*
 
-
-
-    
     @GetMapping("/ruleDetails/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
     
@@ -81,22 +79,35 @@ public class CommandController {
         return variableService.showTablesAndColumns();
     }
 
+    */
 
     @PostMapping("/addCommand")
     @CrossOrigin(origins = "http://localhost:4200")
-    public Command addCommand(@Valid @RequestBody Command command){
+    public void addCommand(@Valid @RequestBody Command command){
         System.out.println("This is Command Registration Controller.");
-        return commandService.save(command);
+        System.out.println(command);
     }
 
-
-    @PostMapping(value="/addParameter")
+    @PostMapping("getVars")
     @CrossOrigin(origins = "http://localhost:4200")
-
-    public void addParameter(@Valid @RequestBody Command command, @Valid @RequestBody List<Variable> variables){
-        System.out.println("This is addParameter Controller.");
+    public void getVariables(@Valid @RequestBody Variable variable){
+        System.out.println("This is Variables Controller");
+        System.out.println(variable);
 
     }
+
+    @PostMapping("/defineCommand")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public void addCommand(@Valid @RequestBody CommandCreation commandCreation){
+        System.out.println("This is Command Registration Controller.");
+        Command command = commandCreation.getCommand();
+        List<Variable> variables = commandCreation.getVariables();
+        System.out.println(command);
+        System.out.println(variables);
+        //return commandService.save(command);
+    }
+
+
     /*
     @GetMapping(value="/getCommands")
     @CrossOrigin(origins = "http://localhost:4200")

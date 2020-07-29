@@ -7,14 +7,13 @@ import javax.persistence.*;
 public class Variable {
 
     @Id
-    @GeneratedValue
     private int variableId;
 
     private String locatedTable;
     private String locatedColumn;
 
     @ManyToOne
-    @JoinColumn(name = "command_id")
+    @JoinColumn(name = "command_vars")
     private Command command;
 
     public int getVariableId() {
@@ -23,14 +22,6 @@ public class Variable {
 
     public void setVariableId(int variableId) {
         this.variableId = variableId;
-    }
-
-    public Command getCommand() {
-        return command;
-    }
-
-    public void setCommand(Command command) {
-        this.command = command;
     }
 
     public String getLocatedTable() {
@@ -49,4 +40,21 @@ public class Variable {
         this.locatedColumn = locatedColumn;
     }
 
+    public Command getCommand() {
+        return command;
+    }
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    @Override
+    public String toString() {
+        return "Variable{" +
+                "variableId=" + variableId +
+                ", locatedTable='" + locatedTable + '\'' +
+                ", locatedColumn='" + locatedColumn + '\'' +
+                ", command=" + command +
+                '}';
+    }
 }

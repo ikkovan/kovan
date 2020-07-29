@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table
 public class Command {
     @Id
     @GeneratedValue
@@ -32,6 +33,15 @@ public class Command {
         this.rawCommand = rawCommand;
     }
 
+
+    public List<Statement> getStatements() {
+        return statements;
+    }
+
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
+    }
+
     public List<Variable> getVariables() {
         return variables;
     }
@@ -40,11 +50,13 @@ public class Command {
         this.variables = variables;
     }
 
-    public List<Statement> getStatements() {
-        return statements;
-    }
-
-    public void setStatements(List<Statement> statements) {
-        this.statements = statements;
+    @Override
+    public String toString() {
+        return "Command{" +
+                "commandId=" + commandId +
+                ", rawCommand='" + rawCommand + '\'' +
+                ", variables=" + variables +
+                ", statements=" + statements +
+                '}';
     }
 }
