@@ -1,6 +1,7 @@
 package com.ik.kovan.repository;
 
 import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Variable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,8 +17,9 @@ public interface CommandRepository extends JpaRepository<Command, Long> {
     @Query(value = "select c from Command c")
     List<Command> listCommands();
 
-    @Query(value = "select r from Command  r where r.commandId=:command") // çok saçma :D
+    @Query(value = "select r from Command  r where r.commandId=:command")
     String getRawCommand(@Param("command") int id);
+
 
     Command save(Command command);
 

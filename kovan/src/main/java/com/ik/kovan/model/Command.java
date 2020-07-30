@@ -1,5 +1,7 @@
 package com.ik.kovan.model;
 
+import org.aspectj.weaver.ast.Var;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -48,6 +50,9 @@ public class Command {
 
     public void setVariables(List<Variable> variables) {
         this.variables = variables;
+        for (Variable var : variables){
+            var.setCommand(this);
+        }
     }
 
     @Override

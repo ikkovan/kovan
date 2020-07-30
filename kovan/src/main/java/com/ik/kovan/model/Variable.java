@@ -46,6 +46,7 @@ public class Variable {
 
     public void setCommand(Command command) {
         this.command = command;
+        command.getVariables().add(this);
     }
 
     @Override

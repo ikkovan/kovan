@@ -100,10 +100,8 @@ public class CommandController {
     @CrossOrigin(origins = "http://localhost:4200")
     public void addCommand(@Valid @RequestBody CommandCreation commandCreation){
         System.out.println("This is Command Registration Controller.");
-        Command command = commandCreation.getCommand();
-        List<Variable> variables = commandCreation.getVariables();
-        System.out.println(command);
-        System.out.println(variables);
+        commandCreation.save(commandCreation);
+        System.out.println(commandService.listCommands());
         //return commandService.save(command);
     }
 
