@@ -84,21 +84,26 @@ export class CreateRuleComponent implements OnInit {
     this.gotoList();
   }
 
-  //Currently, he only adds the data to be sent to the Rule model. no posting
+  //Currently,it creates Rule model and fills areas. no posting
   onSubmit() {
     this.rule.rawCommand = this.firstFormGroup.value.firstCtrl;
 
     this.parameters.forEach(combinedWord => {
       let variable = new Parameter();
+      let var_id=0;
       variable.locatedTable = combinedWord.split("/")[0];
       variable.locatedColumn = combinedWord.split("/")[1];
+      variable.id=var_id; var_id++;
       this.variables.push(variable);
 
     });
-
+    let state_id=0
     this.rule.variables = this.variables;
     this.thirdFormGroup.value.thirdCtrl.split("\n").forEach(statement=>{
-      this.statement.push(statement);
+      let state = new Statement();
+      state.line=statement;
+      state.id=state_id; state_id++;
+      this.statement.push(state);
     })
     this.rule.statements = this.statement;
     console.log(this.rule);
