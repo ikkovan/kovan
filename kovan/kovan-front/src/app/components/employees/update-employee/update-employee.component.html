@@ -1,4 +1,4 @@
-<h3>Çalışan Bilgilerini Güncelle</h3>
+<h3>Çalışan Bilgilerini Güncelle </h3>
 <div class="col-md-12">
   <form (ngSubmit)="onSubmit()">
     <div class="form-row">
@@ -44,7 +44,15 @@
       <input type="text" class="form-control" id="taxbands" required [(ngModel)]="employee.taxBands" name="taxbands">
     </div>
   </div>
-  
+  <div class="form-row">
+   
+    <div class="form-group col-md-6">
+      <label for="leavedate">İşten Ayrılma :</label>
+      <input type="date" class="form-control" id="leavedate" required [(ngModel)]="employee.leaveFromWork" name="leavedate">
+    </div>
+
+    
+  </div>
 
 
 

@@ -25,7 +25,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="ismarried">Evli mi :</label>
-      <input type="number" class="form-control" id="ismarried" required [(ngModel)]="employee.isMarried" name="ismarried">
+      <input #ismarried type="number" class="form-control" id="ismarried" required [(ngModel)]="employee.isMarried" name="ismarried">
       <!--  <label for="ismarried">Medeni Durum :</label>
       <select class="custom-select mr-sm-2" required [(value)]="employee.isMarried" id="inlineFormCustomSelect">
         <option value="1">Evli</option>
@@ -33,29 +33,32 @@
       </select>
     -->
     </div>
-
     <div class="form-group col-md-6">
-      <label for="spouseworking">Eş Çalışıyor mu :</label>
-      <input type="number" class="form-control" id="spouseworking" required [(ngModel)]="employee.isSpouseWorking" name="spouseworking">
+      <label for="taxbands">Vergi Dilimi :</label>
+      <input type="number" class="form-control" id="taxbands" required [(ngModel)]="employee.taxBands" name="taxbands">
     </div>
+    
   </div>
-  <div class="form-row">
+  <div *ngIf="ismarried.value==1" class="form-row">
     <div class="form-group col-md-6">
       <label for="countchild">Çocuk Sayısı :</label>
       <input type="number" class="form-control" id="countchild" required [(ngModel)]="employee.countChildren" name="countchild">
     </div>
 
     <div class="form-group col-md-6">
-      <label for="taxbands">Vergi Dilimi :</label>
-      <input type="number" class="form-control" id="taxbands" required [(ngModel)]="employee.taxBands" name="taxbands">
+      <label for="spouseworking">Eş Çalışıyor mu :</label>
+      <input type="number" class="form-control" id="spouseworking" required [(ngModel)]="employee.isSpouseWorking" name="spouseworking">
     </div>
   </div>
-  
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="startdate">İşe Giriş :</label>
+      <input type="date" class="form-control" id="startdate" required [(ngModel)]="employee.startToWork" name="startdate">
+    </div>
 
 
-
-
-
+  </div>
     <button type="submit" class="btn btn-success">Onayla</button>
   </form>
 </div>

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule } from '@angular/common/http';
-
+import {MatChipsModule} from '@angular/material/chips';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AddNodeComponent, NewNodeDialog } from './theme/add-node/add-node.component';
@@ -16,7 +16,7 @@ import {MatButtonModule, } from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatCheckboxModule, } from '@angular/material/checkbox';
 import { MatCardModule, } from '@angular/material/card';
-//import { MatCaMatChipsModulerdModule, } from '@angular/material/';
+
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -69,6 +69,7 @@ import { SearchPipe } from './components/employees/search.pipe';
 import { PayrollComponent } from './components/payroll/payroll.component';
 import { PayrollDetailComponent } from './components/payroll/payroll-detail/payroll-detail.component';
 
+
 @NgModule({
   entryComponents: [
     NewNodeDialog,
@@ -99,10 +100,13 @@ import { PayrollDetailComponent } from './components/payroll/payroll-detail/payr
     PayrollComponent,
  
     PayrollDetailComponent,
+ 
 
   ],
   imports: [
     //RouterModule.forRoot([]),
+    MatChipsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
     BrowserModule,
