@@ -21,7 +21,14 @@ export class CreateEmployeeComponent implements OnInit {
   
   save() {
     this.employeeService.createEmployee(this.employee)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        this._snackBar.open("Başarıyla eklendi!", "Tamam", {duration: 3000,});
+      }
+        , error =>{
+           this._snackBar.open("Hata!", "Tamam", {duration: 3000,});
+           console.log(error)
+        });
     this.employee = new EmployeeModel();
     this.gotoList();
   }
@@ -29,10 +36,7 @@ export class CreateEmployeeComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();    
-    this._snackBar.open("Başarıyla eklendi!", "Tamam", {
-      duration: 3000,
-      
-    });
+    
   }
 
   gotoList() {

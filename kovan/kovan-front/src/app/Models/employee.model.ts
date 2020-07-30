@@ -10,4 +10,7 @@ export class EmployeeModel {
     isSpouseWorking : number;
     countChildren : number;
     taxBands : number; // vergi dilimi
+    startToWork: number ;
+    isWorking :number;
+    leaveFromWork :number;
 }

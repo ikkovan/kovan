@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Rule } from '../Models/rule.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,18 @@ export class RuleService {
 
   getRulesList(): Observable<any> {
   
-    
     this.http.get(`${this.baseUrl}/commands`).subscribe((res: Response) => {
-      console.log(res);
+     
     })
     
     return this.http.get(`${this.baseUrl}/commands`);
     
   }
+  getParameterList() {
+
+    return this.http.get<string[]>(`${this.baseUrl}/getParameters`);
+    
+  }
+
 
 }
