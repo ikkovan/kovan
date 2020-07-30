@@ -87,10 +87,10 @@ export class CreateRuleComponent implements OnInit {
   //Currently,it creates Rule model and fills areas. no posting
   onSubmit() {
     this.rule.rawCommand = this.firstFormGroup.value.firstCtrl;
-
+    let var_id=0;
     this.parameters.forEach(combinedWord => {
       let variable = new Parameter();
-      let var_id=0;
+     
       variable.locatedTable = combinedWord.split("/")[0];
       variable.locatedColumn = combinedWord.split("/")[1];
       variable.id=var_id; var_id++;
