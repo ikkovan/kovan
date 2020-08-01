@@ -1,18 +1,22 @@
 package com.ik.kovan.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
 @Table
+@Component
 public class Variable {
 
     @Id
+    @GeneratedValue
     private int variableId;
 
     private String locatedTable;
     private String locatedColumn;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "command_vars")
     private Command command;
 
@@ -46,9 +50,8 @@ public class Variable {
 
     public void setCommand(Command command) {
         this.command = command;
-        command.getVariables().add(this);
     }
-
+    /*
     @Override
     public String toString() {
         return "Variable{" +
@@ -58,4 +61,5 @@ public class Variable {
                 ", command=" + command +
                 '}';
     }
+    */
 }

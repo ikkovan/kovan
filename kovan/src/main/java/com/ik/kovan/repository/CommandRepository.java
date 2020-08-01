@@ -12,13 +12,16 @@ import java.util.List;
 @Repository
 public interface CommandRepository extends JpaRepository<Command, Long> {
 
-    Command findByCommandId(int id);
+    Command findByCommandName(String commandName);
 
     @Query(value = "select c from Command c")
     List<Command> listCommands();
 
-    @Query(value = "select r from Command  r where r.commandId=:command")
-    String getRawCommand(@Param("command") int id);
+    @Query(value = "select c from Command c")
+    void showCommands();
+
+    @Query(value = "select r from Command  r where r.commandName=:command")
+    String getCommandName(@Param("command") String id);
 
 
     Command save(Command command);

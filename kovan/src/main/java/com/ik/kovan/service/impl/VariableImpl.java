@@ -1,6 +1,11 @@
 package com.ik.kovan.service.impl;
 
 import com.ik.kovan.logic.HibernateUtil;
+import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Variable;
+import com.ik.kovan.repository.VariableRepository;
+import com.ik.kovan.service.service.VariableService;
+import org.aspectj.weaver.ast.Var;
 import org.hibernate.Session;
 
 import org.hibernate.query.Query;
@@ -10,10 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class VariableImpl {
+public class VariableImpl implements VariableService {
 
     @Autowired
     HibernateUtil hibernateUtil;
+
+    @Autowired
+    VariableRepository variableRepository;
 
     public VariableImpl(HibernateUtil hibernateUtil) {
         this.hibernateUtil = hibernateUtil;
@@ -45,6 +53,23 @@ public class VariableImpl {
             }
         }
         return tableAndColumn;
+    }
+
+    /*
+    public void setVarCommand(List<Variable> variables, Command command){
+        for (Variable variable : variables){
+            variable.setCommand(command);
+        }
+    }
+     */
+
+    public void  saveAll(List<Variable> variables){
+        variableRepository.saveAll(variables);
+    }
+
+    @Override
+    public List<Variable> listVariable() {
+        return variableRepository.listVariable();
     }
 }
 

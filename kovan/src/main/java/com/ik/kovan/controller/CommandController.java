@@ -2,10 +2,12 @@ package com.ik.kovan.controller;
 
 import com.ik.kovan.logic.CommandCreation;
 import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Statement;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
 import com.ik.kovan.service.impl.StatementImpl;
 import com.ik.kovan.service.impl.VariableImpl;
+import com.ik.kovan.service.service.CommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +25,13 @@ public class CommandController {
     private final VariableImpl variableService;
 
     @Autowired
-    private final StatementImpl procedureService;
+    private final StatementImpl statementService;
 
-    public CommandController(CommandImpl commandService, VariableImpl variableService, StatementImpl procedureService) {
+
+    public CommandController(CommandImpl commandService, VariableImpl variableService, StatementImpl statementService) {
         this.commandService = commandService;
         this.variableService = variableService;
-        this.procedureService = procedureService;
+        this.statementService = statementService;
     }
 
     /*
@@ -99,9 +102,24 @@ public class CommandController {
     @PostMapping("/defineCommand")
     @CrossOrigin(origins = "http://localhost:4200")
     public void addCommand(@Valid @RequestBody CommandCreation commandCreation){
+
         System.out.println("This is Command Registration Controller.");
-        commandCreation.save(commandCreation);
-        System.out.println(commandService.listCommands());
+        Command command = commandCreation.getCommand();
+        List<Variable> variables = commandCreation.getVariables();
+        List<Statement> statements = commandCreation.getStatements();
+
+        System.out.println(command);
+        System.out.println(variables);
+        System.out.println(statements);
+
+        variableService.saveAll(variables);
+        statementService.saveAll(statements);
+        //variableService.setVarCommand(variables, command);
+        //System.out.println(variableService.listVariable());
+        command.setVariables(variables);
+        command.setStatements(statements);
+        commandService.save(command);
+        commandService.showCommands();
         //return commandService.save(command);
     }
 

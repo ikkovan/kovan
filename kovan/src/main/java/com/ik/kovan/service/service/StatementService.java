@@ -13,4 +13,6 @@ public interface StatementService {
     Statement save(Statement statement);
 
     void delete(Statement statement);
+
+    void saveAll(List<Statement> statements);
 }
