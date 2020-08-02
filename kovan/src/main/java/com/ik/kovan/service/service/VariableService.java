@@ -1,4 +1,12 @@
 package com.ik.kovan.service.service;
 
-public class VariableService {
+import com.ik.kovan.model.Variable;
+
+import java.util.List;
+
+public interface VariableService {
+
+    List<Variable> listVariable();
+
+
 }

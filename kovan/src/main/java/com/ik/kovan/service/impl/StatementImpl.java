@@ -30,6 +30,11 @@ public class StatementImpl implements StatementService {
     }
 
     @Override
+    public void saveAll(List<Statement> statements) {
+        statementRepository.saveAll(statements);
+    }
+
+    @Override
     public void delete(Statement statement) {
         delete(statement);
     }
