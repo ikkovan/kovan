@@ -1,6 +1,9 @@
 package com.ik.kovan.service.service;
 
+import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Employee;
 import com.ik.kovan.model.Statement;
+
 
 import java.util.List;
 
@@ -15,4 +18,7 @@ public interface StatementService {
     void delete(Statement statement);
 
     void saveAll(List<Statement> statements);
+
+    List<Statement> listStatementbyCommand(Command command);
+
 }

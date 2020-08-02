@@ -55,8 +55,6 @@ public class Command {
     public String toString() {
         return "Command{" +
                 "commandName='" + commandName + '\'' +
-                ", variables=" + variables +
-                ", statements=" + statements +
                 '}';
     }
 }

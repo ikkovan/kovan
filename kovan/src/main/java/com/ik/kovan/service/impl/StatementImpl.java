@@ -1,5 +1,7 @@
 package com.ik.kovan.service.impl;
 
+import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Employee;
 import com.ik.kovan.model.Statement;
 import com.ik.kovan.repository.StatementRepository;
 import com.ik.kovan.service.service.StatementService;
@@ -21,12 +23,12 @@ public class StatementImpl implements StatementService {
 
     @Override
     public List<Statement> listStatement() {
-        return listStatement();
+        return statementRepository.listStatement();
     }
 
     @Override
     public Statement save(Statement statement) {
-        return save(statement);
+        return statementRepository.save(statement);
     }
 
     @Override
@@ -36,6 +38,11 @@ public class StatementImpl implements StatementService {
 
     @Override
     public void delete(Statement statement) {
-        delete(statement);
+        statementRepository.delete(statement);
+    }
+
+    @Override
+    public List<Statement> listStatementbyCommand(Command command) {
+        return statementRepository.listStatementbyCommand(command);
     }
 }
