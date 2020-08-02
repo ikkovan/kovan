@@ -14,6 +14,7 @@ import javax.script.SimpleBindings;
 
 public class Interpreter {
 
+	private static boolean read_return;
 	private static String final_return;
 	private static HashMap<Integer, String> function_locations;
 	private static HashMap<String, String> local_variables;
@@ -21,6 +22,7 @@ public class Interpreter {
 	private static ArrayList<String> lines;
 
 	public Interpreter() {
+		read_return = false;
 		final_return = "";
 		local_variables = new HashMap<String, String>();
 		lines = new ArrayList<String>();
@@ -812,6 +814,9 @@ public class Interpreter {
 	 */
 	private static double handleArithmaticFunction(String whole_function) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
+		if(first_prn < 0 || second_prn < 0){
+			return Double.NEGATIVE_INFINITY;
+		}
 		String function_name = whole_function.substring(0, first_prn);
 		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
 		double result = 0;
@@ -882,15 +887,18 @@ public class Interpreter {
 	 */
 	private static String handleStringFunction(String whole_function) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
+		if(first_prn < 0 || second_prn < 0){
+			return "Double.NEGATIVE_INFINITY";
+		}
 		String function_name = whole_function.substring(0, first_prn);
 		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
 		String result = "";
 		if(function_name.equals("RETURN")) {
+			read_return = true;
 			if(local_variables.containsKey(function_args[0])) {
 				final_return = local_variables.get(function_args[0]);
 			}
 			else {
-				System.out.println("variable deel " + function_args[0]);
 				Double result_dbl = handleArithmaticFunction(function_args[0]);
 				if (result_dbl != Double.NEGATIVE_INFINITY){
 					final_return = result_dbl + "";
@@ -1012,7 +1020,7 @@ public class Interpreter {
 				// System.out.println(ln);
 			}
 			String returned = readStatementLines(all_lines);
-			System.out.println("RETURN VALUE OF LINES : " + returned);
+			System.out.println("STATEMENT RETURNED =>" + returned);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -1033,7 +1041,7 @@ public class Interpreter {
 		Interpreter in = new Interpreter();
 		in.setLines((ArrayList<String>) statements);
 
-		for (int i = 0; i < lines.size(); i++) {
+		for (int i = 0; i < lines.size() && !in.read_return; i++) {
 			i = handleLine(i);
 		}
 		
