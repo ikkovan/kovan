@@ -1,11 +1,9 @@
 package com.ik.kovan.service.impl;
 
 import com.ik.kovan.logic.HibernateUtil;
-import com.ik.kovan.model.Command;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.repository.VariableRepository;
 import com.ik.kovan.service.service.VariableService;
-import org.aspectj.weaver.ast.Var;
 import org.hibernate.Session;
 
 import org.hibernate.query.Query;
@@ -43,6 +41,13 @@ public class VariableImpl implements VariableService {
 
         return query.list();
     }
+
+    public String showValue(List<String> tableAndColumn){
+        Session session = hibernateUtil.getSessionFactory().openSession();
+        Query query = session.createSQLQuery("select " + tableAndColumn.get(1) + " from " + tableAndColumn.get(0));
+
+        return String.valueOf(query.list().get(0));
+    }
     public List<String> showTablesAndColumns () {
         List<String> tableAndColumn = new ArrayList<>();
         List<String> tables = showTables();
@@ -70,6 +75,17 @@ public class VariableImpl implements VariableService {
     @Override
     public List<Variable> listVariable() {
         return variableRepository.listVariable();
+    }
+
+    public List<List<String>> tableColumn(List<Variable> variables){
+        List<List<String>> tableColumnList = new ArrayList<List<String>>();
+        for (Variable variable : variables){
+            List<String> foo = new ArrayList<String>();
+            foo.add(variable.getLocatedTable());
+            foo.add(variable.getLocatedColumn());
+            tableColumnList.add(foo);
+        }
+        return tableColumnList;
     }
 }
 

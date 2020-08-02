@@ -81,4 +81,15 @@ public class Payroll {
         this.parameters = parameters;
         parameters.forEach(entity -> entity.setPayroll(this));
     }
+
+    @Override
+    public String toString() {
+        return "Payroll{" +
+                "accountNumber=" + accountNumber +
+                ", payrollType=" + payrollType +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", parameters=" + parameters +
+                '}';
+    }
 }

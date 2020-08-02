@@ -1,23 +1,26 @@
 package com.ik.kovan.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
 @Table
-
+@Component
 public class Parameter {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "parameters")
-    private Payroll payroll;
-
     private String parameterName;
 
     private String parameterValue;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumns({@JoinColumn(name = "payrollId"),
+            @JoinColumn(name= "payrollType")})
+    private Payroll payroll;
 
     public int getId() {
         return id;
@@ -49,5 +52,14 @@ public class Parameter {
 
     public void setParameterValue(String parameterValue) {
         this.parameterValue = parameterValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Parameter{" +
+                "id=" + id +
+                ", parameterName='" + parameterName + '\'' +
+                ", parameterValue='" + parameterValue + '\'' +
+                '}';
     }
 }

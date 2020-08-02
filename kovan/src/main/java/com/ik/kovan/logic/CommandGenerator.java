@@ -25,12 +25,12 @@ public class CommandGenerator {
     }
 
 
-    public void calculate(List<Statement> statements){
+    public String calculate(List<Statement> statements){
         List<String> statementLines = new ArrayList<String>();
         for (Statement statement : statements){
             statementLines.add(statement.getLine());
         }
-        Interpreter.readStatementLines(statementLines); // bu bana key, value olarak geri dönsün <String, String>
+        return Interpreter.readStatementLines(statementLines); // bu bana key, value olarak geri dönsün <String, String>
 
     }
 

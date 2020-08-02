@@ -102,11 +102,17 @@ public class CommandController {
         List<Variable> variables = commandCreation.getVariables();
         List<Statement> statements = commandCreation.getStatements();
 
-        variableService.saveAll(variables);
         statementService.saveAll(statements);
 
-        command.setVariables(variables);
+        variableService.saveAll(variables);
+
         command.setStatements(statements);
+
+        command.setVariables(variables);
+
+        commandService.showCommands();
+        System.out.println(variableService.listVariable());
+        System.out.println(statementService.listStatement());
         return commandService.save(command);
 
     }

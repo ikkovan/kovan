@@ -24,6 +24,7 @@ public class ParameterImpl implements ParameterService {
             Parameter parameter = new Parameter();
             parameter.setParameterName(paramName);
             parameter.setParameterValue(params.get(paramName));
+            parameters.add(parameter);
         }
         return saveAll(parameters);
 

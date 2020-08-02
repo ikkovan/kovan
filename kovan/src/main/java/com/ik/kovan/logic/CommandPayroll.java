@@ -1,12 +1,11 @@
 package com.ik.kovan.logic;
 
-import com.ik.kovan.model.Command;
-import com.ik.kovan.model.Payroll;
-import com.ik.kovan.model.Statement;
+import com.ik.kovan.model.*;
 import com.ik.kovan.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +27,9 @@ public class CommandPayroll {
     @Autowired
     StatementImpl statementService;
 
+    @Autowired
+    VariableImpl variableService;
+
 
     CommandGenerator commandGenerator = new CommandGenerator();
 
@@ -36,31 +38,44 @@ public class CommandPayroll {
         this.payrollService = payrollService;
     }
 
-    public void runCommands(Long id, int type) { // id : for whom the commands are calculated.
+    public HashMap<String, String> runCommands(Long id, int type) { // id : for whom the commands are calculated.
         List<Command> commandList = commandService.listCommands();
         HashMap<String, String> payrollFields = new HashMap<>();
         for (Command c : commandList) {
 
             List<Statement> statementList = statementService.listStatementbyCommand(c);
+            List<List<String>> variableList = variableService.tableColumn(c.getVariables());
+            List<String> results = new ArrayList<>();
+            for (List<String> variable : variableList){
+                results.add(variableService.showValue(variable));
+            }
+            System.out.println(results);
+
             String result = commandGenerator.calculate(statementList); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
+            if (result == "")
+                result = "0";
             payrollFields.put(c.getCommandName(), result);
         }
-        try {
-            Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
-            if (existedPayroll != null)
-                payrollService.delete(existedPayroll);
-            Payroll payroll = payrollService.create(employeeService.findById(id), type);
-            payroll.setParameters(parameterService.setParams(payrollFields));
-            payrollService.save(payroll);
+        payrollFields.put("Salary", "3000");
 
 
-        }
-        catch (Exception e){
-            System.out.println(e);
-            System.out.println("Employee Does Not Exist, Payroll Could Not Be Created");
-            return;
-        }
+        Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
+        if (existedPayroll != null)
+            payrollService.delete(existedPayroll);
+        Payroll payroll = payrollService.create(employeeService.findById(id), type);
+        List<Parameter> parameters = parameterService.setParams(payrollFields);
+        //payroll.setParameters(parameters);
+        //System.out.println(payroll);
+        //System.out.println(parameters);
+        //System.out.println(payrollService.listPayroll());
+        payrollService.save(payroll);
+
+
+
+
         System.out.println("payroll added!");
         //String Command
+
+        return payrollFields;
     }
 }
