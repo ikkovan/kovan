@@ -1,5 +1,6 @@
 package com.ik.kovan.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,11 @@ public class Command {
 
     private String commandName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "command")
     private List<Variable> variables;
-
-    @OneToMany(cascade= CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "command")
     private List<Statement> statements;
 
     public String getCommandName() {

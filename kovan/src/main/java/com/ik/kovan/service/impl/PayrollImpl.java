@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -15,7 +16,6 @@ public class PayrollImpl implements PayrollService {
 
     @Autowired
     PayrollRepository payrollRepository;
-
 
     @Override
     public List<Payroll> listPayroll() {
@@ -37,16 +37,15 @@ public class PayrollImpl implements PayrollService {
         payrollRepository.delete(payroll);
     }
 
-    public Payroll create(Employee employee, int payrollType, double result){ // This will be hashmap
+    public Payroll create(Employee employee, int payrollType){ // This will be hashmap
         System.out.println("This is Payroll Creation method.");
         Payroll payroll = new Payroll();
 
-        payroll.setAGIValue(result);
         payroll.setAccountNumber(employee.getId());
         payroll.setPayrollType(payrollType);
         payroll.setFirstName(employee.getFirstName());
         payroll.setLastName(employee.getLastName());
-        return save(payroll);
+        return payroll;
 
     }
 

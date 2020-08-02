@@ -85,13 +85,6 @@ public class CommandController {
     }
 
 
-    @PostMapping("/addCommand")
-    @CrossOrigin(origins = "http://localhost:4200")
-    public void addCommand(@Valid @RequestBody Command command){
-        System.out.println("This is Command Registration Controller.");
-        System.out.println(command);
-    }
-
     @PostMapping("getVars")
     @CrossOrigin(origins = "http://localhost:4200")
     public void getVariables(@Valid @RequestBody Variable variable){
@@ -102,38 +95,27 @@ public class CommandController {
 
     @PostMapping("/defineCommand")
     @CrossOrigin(origins = "http://localhost:4200")
-    public void addCommand(@Valid @RequestBody CommandCreation commandCreation){
+    public Command addCommand(@Valid @RequestBody CommandCreation commandCreation){
 
         System.out.println("This is Command Registration Controller.");
         Command command = commandCreation.getCommand();
         List<Variable> variables = commandCreation.getVariables();
         List<Statement> statements = commandCreation.getStatements();
 
-        variableService.saveAll(variables);
         statementService.saveAll(statements);
 
-        command.setVariables(variables);
+        variableService.saveAll(variables);
+
         command.setStatements(statements);
-        commandService.save(command);
-        //System.out.println(variableService.listVariable());
-        //System.out.println(statementService.listStatement());
-        //return commandService.save(command);
+
+        command.setVariables(variables);
+
+        commandService.showCommands();
+        System.out.println(variableService.listVariable());
+        System.out.println(statementService.listStatement());
+        return commandService.save(command);
+
     }
-
-
-    /*
-    @GetMapping(value="/getCommands")
-    @CrossOrigin(origins = "http://localhost:4200")
-
-
-    public List<Procedure> showAlgorithm(){
-        return
-    }
-
-     */
-
-
-
 
 
 }

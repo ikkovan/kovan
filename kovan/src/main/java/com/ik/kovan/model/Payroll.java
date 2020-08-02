@@ -3,11 +3,10 @@ package com.ik.kovan.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,14 +31,12 @@ public class Payroll {
     @Id
     private int payrollType;
 
-    private double AGIValue;
-
     private String firstName;
 
     private String lastName;
 
-    // other fields
-
+    @OneToMany(mappedBy="payroll")
+    private List<Parameter> parameters;
 
     public Payroll() {
     }
@@ -60,14 +57,6 @@ public class Payroll {
         this.payrollType = payrollType;
     }
 
-    public double getAGIValue() {
-        return AGIValue;
-    }
-
-    public void setAGIValue(double AGIValue) {
-        this.AGIValue = AGIValue;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -84,5 +73,23 @@ public class Payroll {
         this.lastName = lastName;
     }
 
+    public List<Parameter> getParameters() {
+        return parameters;
+    }
 
+    public void setParameters(List<Parameter> parameters) {
+        this.parameters = parameters;
+        parameters.forEach(entity -> entity.setPayroll(this));
+    }
+
+    @Override
+    public String toString() {
+        return "Payroll{" +
+                "accountNumber=" + accountNumber +
+                ", payrollType=" + payrollType +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", parameters=" + parameters +
+                '}';
+    }
 }
