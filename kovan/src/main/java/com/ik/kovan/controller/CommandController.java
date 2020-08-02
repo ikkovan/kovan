@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -108,18 +109,14 @@ public class CommandController {
         List<Variable> variables = commandCreation.getVariables();
         List<Statement> statements = commandCreation.getStatements();
 
-        System.out.println(command);
-        System.out.println(variables);
-        System.out.println(statements);
-
         variableService.saveAll(variables);
         statementService.saveAll(statements);
-        //variableService.setVarCommand(variables, command);
-        //System.out.println(variableService.listVariable());
+
         command.setVariables(variables);
         command.setStatements(statements);
         commandService.save(command);
-        commandService.showCommands();
+        //System.out.println(variableService.listVariable());
+        //System.out.println(statementService.listStatement());
         //return commandService.save(command);
     }
 

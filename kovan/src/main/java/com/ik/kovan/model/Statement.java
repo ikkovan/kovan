@@ -42,4 +42,13 @@ public class Statement {
     public void setLine(String line) {
         this.line = line;
     }
+
+    @Override
+    public String toString() {
+        return "Statement{" +
+                "id=" + id +
+                ", line='" + line + '\'' +
+                ", command=" + command +
+                '}';
+    }
 }

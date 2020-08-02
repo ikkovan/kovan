@@ -4,17 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.StreamCorruptedException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
-
-import java.util.Scanner;
-import java.util.Stack;
 
 public class Interpreter {
 
@@ -997,6 +993,27 @@ public class Interpreter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	public static ArrayList<String> getLines() {
+		return lines;
+	}
+
+	public static void setLines(ArrayList<String> lines) {
+		Interpreter.lines = lines;
+	}
+
+	public static void readStatementLines(List<String> statements) {
+		Interpreter in = new Interpreter();
+		in.setLines((ArrayList<String>) statements);
+
+		for (int i = 0; i < lines.size(); i++) {
+			i = handleLine(i);
+		}
+		in.local_variables.forEach((k, v) -> {
+			System.out.println(k + ":" + v);
+		});
 
 	}
 }

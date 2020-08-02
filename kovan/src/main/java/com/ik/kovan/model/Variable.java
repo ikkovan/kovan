@@ -51,7 +51,7 @@ public class Variable {
     public void setCommand(Command command) {
         this.command = command;
     }
-    /*
+
     @Override
     public String toString() {
         return "Variable{" +
@@ -61,5 +61,5 @@ public class Variable {
                 ", command=" + command +
                 '}';
     }
-    */
+
 }
