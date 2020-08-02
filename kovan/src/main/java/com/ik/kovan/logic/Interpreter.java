@@ -14,17 +14,26 @@ import javax.script.SimpleBindings;
 
 public class Interpreter {
 
-	private static ArrayList<String> modified_args;
+	private static boolean read_return;
+	private static String final_return;
 	private static HashMap<Integer, String> function_locations;
 	private static HashMap<String, String> local_variables;
 	private static HashMap<Integer, Double> function_returns;
 	private static ArrayList<String> lines;
 
 	public Interpreter() {
-		modified_args = new ArrayList<String>();
+		read_return = false;
+		final_return = "";
 		local_variables = new HashMap<String, String>();
 		lines = new ArrayList<String>();
 	}
+	
+	public static HashMap<String, String> getLocal_variables() {
+		return local_variables;
+	}
+
+
+
 
 	private static class Operand {
 		private char operator;
@@ -805,6 +814,9 @@ public class Interpreter {
 	 */
 	private static double handleArithmaticFunction(String whole_function) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
+		if(first_prn < 0 || second_prn < 0){
+			return Double.NEGATIVE_INFINITY;
+		}
 		String function_name = whole_function.substring(0, first_prn);
 		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
 		double result = 0;
@@ -825,10 +837,11 @@ public class Interpreter {
 			}
 			else if (function_locations.containsValue(function_args[0])){
 				double resultante_double = handleArithmaticFunction(function_args[0]);
+				String resultante_string = handleStringFunction(function_args[0]);
 				if (resultante_double != Double.NEGATIVE_INFINITY)
 					function_args[0] = resultante_double + "";
 				else
-					System.out.println("NOT AN ARITHMETIC FUNCTION : " + function_args[0]);
+					function_args[0] = resultante_string;
 			}
 			try {
 				arg = Double.parseDouble(function_args[0]);
@@ -874,24 +887,47 @@ public class Interpreter {
 	 */
 	private static String handleStringFunction(String whole_function) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
+		if(first_prn < 0 || second_prn < 0){
+			return "Double.NEGATIVE_INFINITY";
+		}
 		String function_name = whole_function.substring(0, first_prn);
 		String[] function_args = whole_function.substring(first_prn + 1, second_prn).split(",");
 		String result = "";
-		for (int i = 0; i < function_args.length; i++) {
-			if (local_variables.containsKey(function_args[i]))
-				function_args[i] = local_variables.get(function_args[i]);// wirte values of variables
-		}
-
-		if (function_name.equalsIgnoreCase("SUBS")) {
-			result = subs(function_args);
-		} else if (function_name.equalsIgnoreCase("PRINT")) {// print args
-			for (String string : function_args) {
-				System.out.print(string + " ");
-				System.out.println();
+		if(function_name.equals("RETURN")) {
+			read_return = true;
+			if(local_variables.containsKey(function_args[0])) {
+				final_return = local_variables.get(function_args[0]);
 			}
+			else {
+				Double result_dbl = handleArithmaticFunction(function_args[0]);
+				if (result_dbl != Double.NEGATIVE_INFINITY){
+					final_return = result_dbl + "";
+				}else {
+					String result_str = handleStringFunction(function_args[0]);
+					if(!result_str.equals("Double.NEGATIVE_INFINITY"))
+						final_return = result_str;
+					else
+						final_return = function_args[0];
+				}
+			}
+			result = final_return;
 		} else {
-			System.out.println("Invalid or not yet implemented method call");
-			result = "Double.NEGATIVE_INFINITY";
+			for (int i = 0; i < function_args.length; i++) {
+				if (local_variables.containsKey(function_args[i]))
+					function_args[i] = local_variables.get(function_args[i]);// wirte values of variables
+			}
+
+			if (function_name.equals("SUBS")) {
+				result = subs(function_args);
+			} else if (function_name.equals("PRINT")) {// print args
+				for (String string : function_args) {
+					System.out.print(string + " ");
+					System.out.println();
+				}
+			}else{
+				System.out.println("Invalid or not yet implemented method call");
+				result = "Double.NEGATIVE_INFINITY";
+			}
 		}
 		//System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
@@ -973,21 +1009,18 @@ public class Interpreter {
 	//Works with the lines in multiline.txt
 	//tests if-else situations
 	public static void testMultiline() {
-		File input = new File("looping.txt");
+		File input = new File("agi_commands.txt");
 		Interpreter in = new Interpreter();
+		List<String> all_lines = new ArrayList<String>();
 		try {
 			Scanner sc = new Scanner(input);
 			while (sc.hasNextLine()) {
 				String ln = sc.nextLine();
-				in.lines.add(ln);
+				all_lines.add(ln);
 				// System.out.println(ln);
 			}
-			for (int i = 0; i < lines.size(); i++) {
-				i = handleLine(i);
-			}
-			in.local_variables.forEach((k, v) -> {
-				System.out.println(k + ":" + v);
-			});
+			String returned = readStatementLines(all_lines);
+			System.out.println("STATEMENT RETURNED =>" + returned);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -1004,16 +1037,15 @@ public class Interpreter {
 		Interpreter.lines = lines;
 	}
 
-	public static void readStatementLines(List<String> statements) {
+	public static String readStatementLines(List<String> statements) {
 		Interpreter in = new Interpreter();
 		in.setLines((ArrayList<String>) statements);
 
-		for (int i = 0; i < lines.size(); i++) {
+		for (int i = 0; i < lines.size() && !in.read_return; i++) {
 			i = handleLine(i);
 		}
-		in.local_variables.forEach((k, v) -> {
-			System.out.println(k + ":" + v);
-		});
+		
+		return in.final_return;
 
 	}
 }
