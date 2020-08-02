@@ -21,7 +21,7 @@ public class Command {
     @OneToMany(mappedBy = "command")
     private List<Variable> variables;
 
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "command")
     private List<Statement> statements;
 
     public String getCommandName() {

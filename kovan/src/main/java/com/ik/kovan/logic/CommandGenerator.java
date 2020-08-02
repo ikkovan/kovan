@@ -30,7 +30,7 @@ public class CommandGenerator {
         for (Statement statement : statements){
             statementLines.add(statement.getLine());
         }
-        Interpreter.readStatementLines(statementLines);
+        Interpreter.readStatementLines(statementLines); // bu bana key, value olarak geri dönsün <String, String>
 
     }
 

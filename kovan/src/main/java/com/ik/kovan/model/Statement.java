@@ -15,7 +15,7 @@ public class Statement {
 
     private String line;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "statement_id")
     private Command command;
 
