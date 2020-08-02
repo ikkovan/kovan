@@ -1012,7 +1012,7 @@ public class Interpreter {
 				// System.out.println(ln);
 			}
 			String returned = readStatementLines(all_lines);
-			System.out.println("RESULTANTE :" + returned);
+			System.out.println("RETURN VALUE OF LINES : " + returned);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
