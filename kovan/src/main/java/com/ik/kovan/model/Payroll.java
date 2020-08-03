@@ -8,38 +8,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Embeddable
 class PayrollId implements Serializable {
     private Long accountNumber;
     private int payrollType;
-
-    // default constructor
-
-    // equals() and hashCode()
-}
-
-
-
-@Entity
-@Table
-@IdClass(PayrollId.class)
-public class Payroll {
-    @Id
-    private Long accountNumber;
-
-    @Id
-    private int payrollType;
-
-    private String firstName;
-
-    private String lastName;
-
-    @OneToMany(mappedBy="payroll")
-    private List<Parameter> parameters;
-
-    public Payroll() {
-    }
 
     public Long getAccountNumber() {
         return accountNumber;
@@ -55,6 +27,46 @@ public class Payroll {
 
     public void setPayrollType(int payrollType) {
         this.payrollType = payrollType;
+    }
+}
+
+
+
+@Entity
+@Table
+public class Payroll {
+
+    @EmbeddedId
+    private PayrollId payrollId;
+
+    private String firstName;
+
+    private String lastName;
+
+    /*
+    @OneToMany(mappedBy = "payroll")
+    private List<Parameter> parameters;
+*/
+
+    public Payroll() {
+    }
+
+    public PayrollId getPayrollId() {
+        return payrollId;
+    }
+
+    public void setPayrollId(Long accountNumber, int payrollType) {
+        PayrollId payrollId = new PayrollId();
+        payrollId.setAccountNumber(accountNumber);
+        payrollId.setPayrollType(payrollType);
+        this.payrollId = payrollId;
+    }
+    public Long getAccountId(){
+        return this.getPayrollId().getAccountNumber();
+    }
+
+    public int getPayrollType(){
+        return  this.payrollId.getPayrollType();
     }
 
     public String getFirstName() {
@@ -72,7 +84,7 @@ public class Payroll {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+/*
     public List<Parameter> getParameters() {
         return parameters;
     }
@@ -81,15 +93,12 @@ public class Payroll {
         this.parameters = parameters;
         parameters.forEach(entity -> entity.setPayroll(this));
     }
-
+*/
     @Override
     public String toString() {
         return "Payroll{" +
-                "accountNumber=" + accountNumber +
-                ", payrollType=" + payrollType +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", parameters=" + parameters +
                 '}';
     }
 }

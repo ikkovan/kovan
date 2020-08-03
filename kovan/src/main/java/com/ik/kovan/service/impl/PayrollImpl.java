@@ -41,8 +41,8 @@ public class PayrollImpl implements PayrollService {
         System.out.println("This is Payroll Creation method.");
         Payroll payroll = new Payroll();
 
-        payroll.setAccountNumber(employee.getId());
-        payroll.setPayrollType(payrollType);
+        payroll.setPayrollId(employee.getId(), payrollType);
+
         payroll.setFirstName(employee.getFirstName());
         payroll.setLastName(employee.getLastName());
         return payroll;
