@@ -3,18 +3,21 @@
   <form (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-        <label for="ruleid">ID :</label>
-        <input type="text" class="form-control" id="ruleid" required [(ngModel)]="rule.commandId" name="ruleid" disabled>
-      </div>
+      <label for="ruleid">ID :</label>
+      <input type="text" class="form-control" id="ruleid" required [(ngModel)]="rule.commandId" name="ruleid" disabled>
+    </div>
 
     <div class="form-group">
       <label for="ruleString">Kural :</label>
-      
-      <textarea  type="text" class="form-control" id="ruleString" required [(ngModel)]="rule.rawCommand" name="ruleString"></textarea>
+
+      <textarea type="text" class="form-control" id="ruleString" required [(ngModel)]="rule.commandName"
+        name="ruleString"></textarea>
     </div>
-    
-    <button mat-icon-button  matTooltip="Kurallar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
-  
+
+    <button mat-icon-button matTooltip="Kurallar listesi" (click)="backToList()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
     <button type="submit" class="btn btn-success">Güncelle</button>
   </form>
 </div>

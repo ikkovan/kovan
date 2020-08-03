@@ -11,14 +11,14 @@ import { RuleService } from 'src/app/service/rule.service';
 export class UpdateRuleComponent implements OnInit {
   id: number;
   rule: Rule;
-  constructor(private route: ActivatedRoute,private router: Router,
+  constructor(private route: ActivatedRoute, private router: Router,
     private ruleService: RuleService) { }
 
   ngOnInit(): void {
     this.rule = new Rule();
 
     this.id = this.route.snapshot.params['id'];
-    
+
     this.ruleService.getRule(this.id)
       .subscribe(data => {
         console.log(data)
@@ -31,12 +31,12 @@ export class UpdateRuleComponent implements OnInit {
     this.rule = new Rule();
     this.backToList();
   }
-  backToList(){
+  backToList() {
     this.router.navigate(['commands']);
   }
-  
+
   onSubmit() {
-    this.updateRule();    
+    this.updateRule();
   }
 
 

@@ -16,8 +16,8 @@ export class RuleService {
   constructor(private http: HttpClient) { }
 
 
-  createRule(rule: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/addCommand`, rule);
+  createRule(commandPackage: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/defineCommand`, commandPackage);
   }
   
   getRule(id: number): Observable<any> {

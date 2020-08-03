@@ -11,7 +11,8 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>KURAL </th>
+            <th>Komut</th>
+            <th>Parametreler</th>
             
           </tr>
         </thead>
@@ -19,7 +20,7 @@
           <tr *ngFor="let rule of rules | async">
             <td>{{rule.commandId}}</td>
             <td>{{rule.rawCommand}}</td>
-           
+            <td>{{rule.variables}}</td>
             <td>
               <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.commandId)"><mat-icon>delete</mat-icon></button>
               <button mat-icon-button matTooltip="Düzenle" (click)="updateRule(rule.commandId)"><mat-icon>edit</mat-icon></button>

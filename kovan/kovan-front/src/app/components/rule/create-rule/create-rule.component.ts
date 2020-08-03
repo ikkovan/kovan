@@ -11,7 +11,8 @@ import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Parameter } from 'src/app/Models/parameter.model';
 import { Statement } from 'src/app/Models/statement.model';
-
+import { CommandPackage } from 'src/app/Models/command-package.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-rule',
@@ -20,7 +21,9 @@ import { Statement } from 'src/app/Models/statement.model';
 })
 export class CreateRuleComponent implements OnInit {
   rule: Rule = new Rule();
-  statement: Statement[] = [];
+  commandPackage: CommandPackage = new CommandPackage();
+
+  statements: Statement[] = [];
   variables: Parameter[] = [];
   // stepper formsGroups
   firstFormGroup: FormGroup;
@@ -47,7 +50,8 @@ export class CreateRuleComponent implements OnInit {
 
   ];
   constructor(private ruleService: RuleService,
-    private router: Router, private _formBuilder: FormBuilder) {
+    private router: Router, private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar) {
 
   }
 
@@ -59,7 +63,7 @@ export class CreateRuleComponent implements OnInit {
       secondCtrl: ['',]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['',]
+      statementCtrl: ['',]
     });
     // get command variables 
     this.ruleService.getParameterList().subscribe(params => {
@@ -78,36 +82,49 @@ export class CreateRuleComponent implements OnInit {
   }
   // saves the rule
   save() {
-    this.ruleService.createRule(this.rule)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.rule = new Rule();
-    this.gotoList();
+    this.ruleService.createRule(this.commandPackage)
+      .subscribe(data => {
+        console.log(data)
+        this._snackBar.open("Başarıyla eklendi!", "Tamam", { duration: 3000, });
+      }, error => {
+        console.log(error)
+        this._snackBar.open("Hata!", "Tamam", { duration: 3000, });
+      })
+    this.commandPackage = new CommandPackage();
+    this.reset();
+    //this.gotoList();
   }
 
   //Currently,it creates Rule model and fills areas. no posting
   onSubmit() {
-    this.rule.rawCommand = this.firstFormGroup.value.firstCtrl;
-    let var_id=0;
-    this.parameters.forEach(combinedWord => {
-      let variable = new Parameter();
-     
-      variable.locatedTable = combinedWord.split("/")[0];
-      variable.locatedColumn = combinedWord.split("/")[1];
-      variable.id=var_id; var_id++;
-      this.variables.push(variable);
+    //command
+    this.rule.commandName = this.firstFormGroup.value.firstCtrl;
+    this.commandPackage.command = this.rule;
+    //variables
+    if (this.parameters) {
+      this.parameters.forEach(combinedWord => {
+        let variable = new Parameter();
+        variable.locatedTable = combinedWord.split("/")[0];
+        variable.locatedColumn = combinedWord.split("/")[1];
+        this.variables.push(variable);
 
-    });
-    let state_id=0
-    this.rule.variables = this.variables;
-    this.thirdFormGroup.value.thirdCtrl.split("\n").forEach(statement=>{
-      let state = new Statement();
-      state.line=statement;
-      state.id=state_id; state_id++;
-      this.statement.push(state);
-    })
-    this.rule.statements = this.statement;
-    console.log(this.rule);
-    //this.save();  
+      });
+
+      this.commandPackage.variables = this.variables;
+    }
+
+    //statements
+    if (this.thirdFormGroup.value.statementCtrl != '') {
+      this.thirdFormGroup.value.statementCtrl.split("\n").forEach(statement => {
+        let state = new Statement();
+        state.line = statement;
+        this.statements.push(state);
+      })
+      this.commandPackage.statements = this.statements;
+    }
+
+    console.log(this.commandPackage);
+    this.save();
 
 
   }
@@ -158,8 +175,10 @@ export class CreateRuleComponent implements OnInit {
   //reset forms 
   reset() {
     this.variables = [];
-    this.rule.variables = [];
+    this.commandPackage.variables = [];
+    this.commandPackage.statements = [];
     this.parameters = [];
+    this.statements = [];
   }
 
 }
