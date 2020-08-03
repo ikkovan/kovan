@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ParameterService {
 
-    public List<Parameter> setParams(HashMap<String, String> params);
+    public List<Parameter> setParams(HashMap<String, String> params, Long accountId, int payrollType);
 
     public List<Parameter> saveAll(List<Parameter> parameters);
 }

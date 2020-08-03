@@ -38,7 +38,7 @@ public class CommandPayroll {
         this.payrollService = payrollService;
     }
 
-    public HashMap<String, String> runCommands(Long id, int type) { // id : for whom the commands are calculated.
+    public PayrollCreation runCommands(Long id, int type) { // id : for whom the commands are calculated.
         List<Command> commandList = commandService.listCommands();
         HashMap<String, String> payrollFields = new HashMap<>();
         for (Command c : commandList) {
@@ -63,19 +63,14 @@ public class CommandPayroll {
         if (existedPayroll != null)
             payrollService.delete(existedPayroll);
         Payroll payroll = payrollService.create(employeeService.findById(id), type);
-        List<Parameter> parameters = parameterService.setParams(payrollFields);
-        //payroll.setParameters(parameters);
-        //System.out.println(payroll);
-        //System.out.println(parameters);
-        //System.out.println(payrollService.listPayroll());
+        List<Parameter> parameters = parameterService.setParams(payrollFields, payroll.getAccountId(), payroll.getPayrollType());
         payrollService.save(payroll);
 
-
-
-
         System.out.println("payroll added!");
-        //String Command
+        PayrollCreation payrollCreation = new PayrollCreation();
+        payrollCreation.setPayroll(payroll);
+        payrollCreation.setParameterList(parameters);
 
-        return payrollFields;
+        return payrollCreation;
     }
 }

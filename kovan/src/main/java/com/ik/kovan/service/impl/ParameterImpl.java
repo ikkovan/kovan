@@ -18,10 +18,12 @@ public class ParameterImpl implements ParameterService {
     ParameterRepository parameterRepository;
 
     @Override
-    public List<Parameter> setParams(HashMap<String, String> params) {
+    public List<Parameter> setParams(HashMap<String, String> params, Long accountId, int payrollType) {
         List<Parameter> parameters = new ArrayList<>();
         for (String paramName : params.keySet()){
             Parameter parameter = new Parameter();
+            parameter.setEmployeeId(accountId);
+            parameter.setPayrollType(payrollType);
             parameter.setParameterName(paramName);
             parameter.setParameterValue(params.get(paramName));
             parameters.add(parameter);

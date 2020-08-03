@@ -1,6 +1,7 @@
 package com.ik.kovan.controller;
 
 import com.ik.kovan.logic.CommandPayroll;
+import com.ik.kovan.logic.PayrollCreation;
 import com.ik.kovan.model.Payroll;
 import com.ik.kovan.service.impl.EmployeeImpl;
 import com.ik.kovan.service.impl.PayrollImpl;
@@ -35,8 +36,15 @@ public class PayrollController {
     @GetMapping("/show/{type}/{id}")
     public Payroll showPayroll(@PathVariable("id") long accountNumber, @PathVariable("type") int payrollType){
         System.out.println("This is showPayroll Controller.");
-        commandPayroll.runCommands(accountNumber, payrollType); // making sure the payroll is initialized and up to date.
+        PayrollCreation payrollCreation = commandPayroll.runCommands(accountNumber, payrollType); // making sure the payroll is initialized and up to date.
         return payrollService.findPayrollByAccountIdAndPayrollType(accountNumber, payrollType);
+    }
+
+    @GetMapping("/show/new/{type}/{id}")
+    public PayrollCreation showPayrollUpdated (@PathVariable("id") long accountNumber, @PathVariable("type") int payrollType){
+        System.out.println("This is showPayroll Controller.");
+        PayrollCreation payrollCreationUpdated = commandPayroll.runCommands(accountNumber, payrollType); // making sure the payroll is initialized and up to date.
+        return payrollCreationUpdated;
     }
 
     @GetMapping("payrolls")

@@ -16,11 +16,25 @@ public class Parameter {
     private String parameterName;
 
     private String parameterValue;
-
+    /*
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumns({@JoinColumn(name = "payrollId"),
-            @JoinColumn(name= "payrollType")})
+    @JoinColumns({
+            @JoinColumn(name = "accountNumber"),
+            @JoinColumn(name = "payrollType")
+    })
     private Payroll payroll;
+
+    public Payroll getPayroll() {
+        return payroll;
+    }
+
+    public void setPayroll(Payroll payroll) {
+        this.payroll = payroll;
+    }
+    */
+    private Long employeeId;
+
+    private int payrollType;
 
     public int getId() {
         return id;
@@ -30,12 +44,20 @@ public class Parameter {
         this.id = id;
     }
 
-    public Payroll getPayroll() {
-        return payroll;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setPayroll(Payroll payroll) {
-        this.payroll = payroll;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public int getPayrollType() {
+        return payrollType;
+    }
+
+    public void setPayrollType(int payrollType) {
+        this.payrollType = payrollType;
     }
 
     public String getParameterName() {

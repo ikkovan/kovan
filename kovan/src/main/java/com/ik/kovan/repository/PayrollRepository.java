@@ -20,7 +20,7 @@ public interface PayrollRepository extends JpaRepository<Payroll, Long> {
     @Query(value = "select p from Payroll p")
     List<Payroll> listPayrolls();
 
-    @Query(value = "select p from  Payroll p where p.accountNumber= :id and p.payrollType = :type")
+    @Query(value = "select p from  Payroll p where p.payrollId.accountNumber= :id and p.payrollId.payrollType = :type")
     Payroll findPayrollByAccountIdAndPayrollType(@Param("id") long accountNumber, @Param("type") int type);
 
     void delete(Payroll payroll);
