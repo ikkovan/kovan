@@ -19,7 +19,7 @@
         <tbody>
           <tr *ngFor="let rule of rules | async">
             <td>{{rule.commandId}}</td>
-            <td>{{rule.rawCommand}}</td>
+            <td>{{rule.commandName}}</td>
             <td>{{rule.variables}}</td>
             <td>
               <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.commandId)"><mat-icon>delete</mat-icon></button>
