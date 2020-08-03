@@ -45,8 +45,12 @@ public class VariableImpl implements VariableService {
     public String showValue(List<String> tableAndColumn){
         Session session = hibernateUtil.getSessionFactory().openSession();
         Query query = session.createSQLQuery("select " + tableAndColumn.get(1) + " from " + tableAndColumn.get(0));
-
-        return String.valueOf(query.list().get(0));
+        if (query.list().size() == 0) {
+            System.out.println("No result!");
+            return "";
+        }
+        else
+            return String.valueOf(query.list().get(0));
     }
     public List<String> showTablesAndColumns () {
         List<String> tableAndColumn = new ArrayList<>();
