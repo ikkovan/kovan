@@ -74,5 +74,19 @@ public class CommandImpl implements CommandService {
         }
     }
 
+    public CommandCreation findByUniqueCommandName(String commandName){
+        CommandCreation commandCreation = new CommandCreation();
+
+        Command command = commandRepository.findByCommandName(commandName);
+        List<Variable> variables = variableRepository.listVariableByCommand(command);
+        List<Statement> statements = statementRepository.listStatementbyCommand(command);
+
+        commandCreation.setCommand(command);
+        commandCreation.setVariables(variables);
+        commandCreation.setStatements(statements);
+
+        return  commandCreation;
+    }
+
 
 }
