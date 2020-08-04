@@ -17,6 +17,7 @@ public class Command {
     @GeneratedValue
     private int commandId;
 
+    @Column(unique=true)
     private String commandName;
 
     @JsonIgnore

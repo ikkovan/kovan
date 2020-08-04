@@ -45,6 +45,10 @@ public class CommandCreation {
         this.variables = variables;
     }
 
+    public CommandCreation(){
+
+    }
+
     public CommandCreation(Command command, List<Variable> variables, List<Statement> statements){
             this.command = command;
             this.variables = variables;

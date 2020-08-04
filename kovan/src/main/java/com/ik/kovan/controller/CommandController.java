@@ -7,13 +7,11 @@ import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
 import com.ik.kovan.service.impl.StatementImpl;
 import com.ik.kovan.service.impl.VariableImpl;
-import com.ik.kovan.service.service.CommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -55,13 +53,7 @@ public class CommandController {
         return tempCommand;
     }
 
-    @GetMapping("/commands")
-    @CrossOrigin(origins = "http://localhost:4200")
 
-    public List<Command> listCommands(Model model){
-        System.out.println("This is listCommands Controller.");
-        return commandService.listCommands();
-    }
     
     @PutMapping("/ruleUpdate/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
@@ -115,6 +107,14 @@ public class CommandController {
         System.out.println(statementService.listStatement());
         return commandService.save(command);
 
+    }
+
+    @GetMapping("/commands")
+    @CrossOrigin(origins = "http://localhost:4200")
+
+    public List<CommandCreation> listCommands(){
+        System.out.println("This is listCommands Controller.");
+        return commandService.listCommandsForAll();
     }
 
 
