@@ -88,5 +88,10 @@ public class CommandImpl implements CommandService {
         return  commandCreation;
     }
 
+    public int findCommandTypeByUniqueName(String commandName){
+        return commandRepository.findByCommandName(commandName).getType();
+
+    }
+
 
 }

@@ -73,6 +73,9 @@ public class CommandPayroll {
             payrollFields.put(c.getCommandName(), result);
         }
         payrollFields.put("Salary", "2943");
+        String netSalary = computeNetSalary(payrollFields);
+        payrollFields.put("Net Salary", netSalary);
+
 
 
         Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
@@ -90,5 +93,36 @@ public class CommandPayroll {
         payrollCreation.setParameterList(parameters);
 
         return payrollCreation;
+    }
+
+    public String computeNetSalary(HashMap<String, String> payrollFields){
+        String netSalary;
+        String grossSalary;
+
+        double grossSalaryValue = 0;
+        double currValue = 0;
+
+        for (String key : payrollFields.keySet()){
+            if (key.equals("Salary")){
+                grossSalary = payrollFields.get(key);
+                grossSalaryValue = Double.parseDouble(grossSalary);
+            }
+            else{
+                double value = Double.parseDouble(payrollFields.get(key));
+                int type;
+                try{
+                    type =  commandService.findCommandTypeByUniqueName(key);
+                }
+                catch (Exception e){
+                    System.out.println("Type not found!");
+                    type = 1;
+                }
+                currValue += value * type;
+            }
+        }
+
+        netSalary = String.valueOf(grossSalaryValue + currValue);
+        return netSalary;
+
     }
 }

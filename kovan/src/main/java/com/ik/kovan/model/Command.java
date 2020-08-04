@@ -8,10 +8,16 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Table
 @Component
+
+
+
 public class Command {
+
+    private int type; // 1 income, -1 outcome, 0 ara eleman
 
     @Id
     @GeneratedValue
@@ -19,6 +25,7 @@ public class Command {
 
     @Column(unique=true)
     private String commandName;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "command")
@@ -54,10 +61,19 @@ public class Command {
         variables.forEach(entity -> entity.setCommand(this));
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Command{" +
-                "commandName='" + commandName + '\'' +
+                "type=" + type +
+                ", commandName='" + commandName + '\'' +
                 '}';
     }
 }
