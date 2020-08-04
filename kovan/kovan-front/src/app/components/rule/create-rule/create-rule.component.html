@@ -1,19 +1,16 @@
 <h3>Kural Ekle</h3>
 <hr>
-<div >
+<div>
   <form (ngSubmit)="onSubmit()">
-  
+
     <mat-vertical-stepper [linear]="1" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fonksiyon Seçiniz</ng-template>
-          <mat-form-field >
+          <ng-template matStepLabel>Fonksiyon Adı</ng-template>
+          <mat-form-field>
             <mat-label>Fonksiyon</mat-label>
-              <mat-select formControlName="firstCtrl"  required>
-                <mat-option *ngFor="let command of commands" [value]="command.name">
-                  {{command.name}}
-                </mat-option>
-              </mat-select>
+
+            <input type="text" matInput formControlName="functionCtrl">
           </mat-form-field>
           <div>
             <button mat-button matStepperNext>Next</button>
@@ -25,32 +22,23 @@
           <ng-template matStepLabel>Parametreleri Seçiniz</ng-template>
           <mat-form-field class="chip-list">
             <mat-label>Parametreler</mat-label>
-           <!--angular material -chips-->
-        
-              <mat-chip-list #chipList >
-                <mat-chip
-                  *ngFor="let param of parameters"
-                  [selectable]="selectable"
-                  [removable]="removable"
-                  (removed)="remove(param)">
-                  {{param}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input 
-                  
-                  #paramInput
-                  [formControl]="parameterCtrl"
-                  [matAutocomplete]="auto"
-                  [matChipInputFor]="chipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  (matChipInputTokenEnd)="add($event)">
+            <!--angular material -chips-->
 
-              </mat-chip-list>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                <mat-option *ngFor="let param of filteredParameters | async" [value]="param">
-                  {{param}}
-                </mat-option>
-              </mat-autocomplete>
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let param of parameters" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(param)">
+                {{param}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input #paramInput [formControl]="parameterCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let param of filteredParameters | async" [value]="param">
+                {{param}}
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -64,9 +52,9 @@
           <ng-template matStepLabel>Statements</ng-template>
           <mat-form-field class="statements-area">
             <mat-label>Statement</mat-label>
-            <textarea matInput  formControlName="statementCtrl" ></textarea>
-              
-                
+            <textarea matInput formControlName="statementCtrl"></textarea>
+
+
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Back</button>

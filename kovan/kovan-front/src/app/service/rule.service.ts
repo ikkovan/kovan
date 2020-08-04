@@ -20,25 +20,21 @@ export class RuleService {
     return this.http.post(`${this.baseUrl}/defineCommand`, commandPackage);
   }
   
-  getRule(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/ruleDetails/${id}`);
+  getRule(commandName: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/commandDetails/${commandName}`);
   }
  
-  updateRule(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/ruleUpdate/${id}`, value);
+  updateRule(commandName: string, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/ruleUpdate/${commandName}`, value);
   }
 
-  deleteRule(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/deleteCommand/${id}`, { responseType: 'text' });
+  deleteRule(commandName: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteCommand/${commandName}`, { responseType: 'text' });
   }
 
-  getRulesList(): Observable<any> {
+  getRulesList() {
   
-    this.http.get(`${this.baseUrl}/commands`).subscribe((res: Response) => {
-     
-    })
-    
-    return this.http.get(`${this.baseUrl}/commands`);
+    return this.http.get<any>(`${this.baseUrl}/commands`);
     
   }
   getParameterList() {

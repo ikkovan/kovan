@@ -42,13 +42,8 @@ export class CreateRuleComponent implements OnInit {
   @ViewChild('paramInput') paramInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  //step 1 function selection list
-  commands: any[] = [
-    { name: 'AGI' },
-    { name: 'DMG-VERGİ' },
-    { name: 'K_Matrah' },
-
-  ];
+  
+  
   constructor(private ruleService: RuleService,
     private router: Router, private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
@@ -57,7 +52,7 @@ export class CreateRuleComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+      functionCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['',]
@@ -98,7 +93,7 @@ export class CreateRuleComponent implements OnInit {
   //Currently,it creates Rule model and fills areas. no posting
   onSubmit() {
     //command
-    this.rule.commandName = this.firstFormGroup.value.firstCtrl;
+    this.rule.commandName = this.firstFormGroup.value.functionCtrl;
     this.commandPackage.command = this.rule;
     //variables
     if (this.parameters) {

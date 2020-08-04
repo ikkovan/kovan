@@ -1,37 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {Rule} from '../../Models/rule.model'
 import {RuleService} from '../../service/rule.service'
 ;import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { CreateRuleComponent } from './create-rule/create-rule.component';
+import { CommandPackage } from 'src/app/Models/command-package.model';
+import { Parameter } from 'src/app/Models/parameter.model';
+import { MatAccordion } from '@angular/material/expansion';
 @Component({
   selector: 'app-rule',
   templateUrl: './rule.component.html',
   styleUrls: ['./rule.component.css']
 })
 export class RuleComponent implements OnInit {
-  rules: Observable<Rule[]>;
-  //rules: any[];
+  rules: CommandPackage[];
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   constructor(private ruleService: RuleService, 
     private router: Router) { }
   private createRule: CreateRuleComponent;
   ngOnInit(): void {
-    this.reloadRule();
+    this.reloadRules();
   }
-  reloadRule() {
-   this.rules = this.ruleService.getRulesList();
-    //this.rules = this.createRule.ruleArray;
+  reloadRules() {
+   this.ruleService.getRulesList().subscribe(rules =>{
+     this.rules = rules;
+     console.log(rules);
+    
+   });
+    
   }
-  updateRule(id: number){
-    this.router.navigate(['ruleUpdate', id]);
+  updateRule(id: string){
+    this.router.navigate(['commandDetails', id]);
   }
  
-  deleteRule(id: number) {
+  deleteRule(id: string) {
     this.ruleService.deleteRule(id)
       .subscribe(
         data => {
           console.log(data);
-          this.reloadRule();
+          this.reloadRules();
         },
         error => console.log(error));
   }

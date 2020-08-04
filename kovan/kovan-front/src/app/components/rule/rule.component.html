@@ -1,35 +1,60 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Kural Listesi <button routerLink="/addCommand" class="btn btn-primary"
-        routerLinkActive="active" matTooltip="EKLE">+ </button>
-        <button mat-icon-button (click)= "reloadRule()" class="float-right"
-         matTooltip="Refresh"> <mat-icon>refresh</mat-icon></button></h2>
+<div class="panel panel-primary col-md-12">
+  <div class="panel-heading">
+    <h2>Kural Listesi <button routerLink="/addCommand" class="btn btn-primary" routerLinkActive="active"
+        matTooltip="EKLE">+ </button>
+      <button mat-icon-button (click)="reloadRules()" class="float-right" matTooltip="Refresh">
+        <mat-icon>refresh</mat-icon>
+      </button></h2>
 
-    </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Komut</th>
-            <th>Parametreler</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rule of rules | async">
-            <td>{{rule.commandId}}</td>
-            <td>{{rule.commandName}}</td>
-            <td>{{rule.variables}}</td>
-            <td>
-              <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.commandId)"><mat-icon>delete</mat-icon></button>
-              <button mat-icon-button matTooltip="Düzenle" (click)="updateRule(rule.commandId)"><mat-icon>edit</mat-icon></button>
-             
-              
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
+  <div class="panel-body">
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Kural</th>
+          <th>
+            <div class="example-action-buttons">
+              <button mat-button (click)="accordion.openAll()">Expand All</button>
+              <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+            </div>
+          </th>
+
+        </tr>
+      </thead>
+    </table>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel *ngFor="let rule of rules">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{rule.command.commandName}}
+          </mat-panel-title>
+
+          <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.command.commandName)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Düzenle" (click)="updateRule(rule.command.commandName)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+
+
+
+        </mat-expansion-panel-header>
+        <div><b>Variables(table/column)</b></div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let variable of rule.variables">
+          <mat-label>{{variable.locatedTable +"/"+ variable.locatedColumn}}</mat-label>
+
+        </div>
+        <div><b>Statements</b></div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let state of rule.statements">
+          <mat-label>{{state.line}}</mat-label>
+
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

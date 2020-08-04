@@ -22,7 +22,7 @@ const routes: Routes = [
     
   { path: 'commands', component: RuleComponent },
   { path: 'addCommand', component: CreateRuleComponent },
-  { path: 'ruleUpdate/:id', component: UpdateRuleComponent },
+  { path: 'commandDetails/:commandName', component: UpdateRuleComponent },
 
   { path: 'payroll/payrolls', component: PayrollComponent },
   { path: 'payroll/show/new/:type/:id', component: PayrollDetailComponent },
