@@ -37,8 +37,23 @@ public class CommandPayroll {
         this.commandService = commandService;
         this.payrollService = payrollService;
     }
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getValue(String tableColumn){
+        return variableService.showValueInterpreter(tableColumn, this.getId());
+    }
+
 
     public PayrollCreation runCommands(Long id, int type) { // id : for whom the commands are calculated.
+        this.setId(id);
         List<Command> commandList = commandService.listCommands();
         HashMap<String, String> payrollFields = new HashMap<>();
         for (Command c : commandList) {
@@ -49,6 +64,7 @@ public class CommandPayroll {
             for (List<String> variable : variableList){
                 results.add(variableService.showValue(variable, id));
             }
+            System.out.println("This is results!");
             System.out.println(results);
 
             String result = commandGenerator.calculate(statementList); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
@@ -56,7 +72,7 @@ public class CommandPayroll {
                 result = "0";
             payrollFields.put(c.getCommandName(), result);
         }
-        payrollFields.put("Salary", "3000");
+        payrollFields.put("Salary", "2943");
 
 
         Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
