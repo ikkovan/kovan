@@ -5,4 +5,5 @@ export class Rule {
     commandName: string;
     variables : Parameter[];
     statements : Statement[];
+    type : number;
 }

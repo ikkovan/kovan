@@ -29,7 +29,7 @@ export class RuleService {
   }
 
   deleteRule(commandName: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/deleteCommand/${commandName}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/command/delete/${commandName}`, { responseType: 'text' });
   }
 
   getRulesList() {

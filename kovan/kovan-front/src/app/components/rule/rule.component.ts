@@ -29,12 +29,12 @@ export class RuleComponent implements OnInit {
    });
     
   }
-  updateRule(id: string){
-    this.router.navigate(['commandDetails', id]);
+  updateRule(commandName: string){
+    this.router.navigate(['commandDetails', commandName]);
   }
  
-  deleteRule(id: string) {
-    this.ruleService.deleteRule(id)
+  deleteRule(commandName: string) {
+    this.ruleService.deleteRule(commandName)
       .subscribe(
         data => {
           console.log(data);
