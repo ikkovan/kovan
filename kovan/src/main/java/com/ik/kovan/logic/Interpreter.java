@@ -366,7 +366,7 @@ public class Interpreter {
 					while (i < expressions.length && !expressions[i].equals(",")) {
 						if (function_locations.get(i) != null) {
 
-							double resultante_double = handleArithmaticFunction(expressions[i]);
+							double resultante_double = handleArithmeticFunction(expressions[i]);
 							if (resultante_double != Double.NEGATIVE_INFINITY)
 								temp.add(resultante_double + "");
 							else
@@ -379,7 +379,7 @@ public class Interpreter {
 					}
 					local_variables.put(var_name, handleMaths(temp.toArray(new String[0])) + "");
 				} else if (function_locations.get(i + 1) != null) {
-					double resultante_double = handleArithmaticFunction(expressions[i + 1]);
+					double resultante_double = handleArithmeticFunction(expressions[i + 1]);
 					if (resultante_double != Double.NEGATIVE_INFINITY)
 						local_variables.put(var_name, resultante_double + "");
 					else
@@ -456,7 +456,7 @@ public class Interpreter {
 					while (i < expressions.length && !expressions[i].equals(",")) {
 						if (function_locations.get(i) != null) {
 
-							double resultante_double = handleArithmaticFunction(expressions[i]);
+							double resultante_double = handleArithmeticFunction(expressions[i]);
 							if (resultante_double != Double.NEGATIVE_INFINITY)
 								temp.add(resultante_double + "");
 							else
@@ -469,7 +469,7 @@ public class Interpreter {
 					}
 					local_variables.put(var_name, handleMaths(temp.toArray(new String[0])) + "");
 				} else if (function_locations.get(i + 1) != null) {
-					double resultante_double = handleArithmaticFunction(expressions[i + 1]);
+					double resultante_double = handleArithmeticFunction(expressions[i + 1]);
 					if (resultante_double != Double.NEGATIVE_INFINITY)
 						local_variables.put(var_name, resultante_double + "");
 					else
@@ -614,7 +614,7 @@ public class Interpreter {
 	        SimpleBindings variables = new SimpleBindings();
 			for (int i = 0; i < temp.length; i++) {
 				if (temp[i].matches("[a-zA-Z]+\\(.*\\)")) {
-					double result = handleArithmaticFunction(temp[i]);
+					double result = handleArithmeticFunction(temp[i]);
 					String sonuc = handleStringFunction(temp[i]);
 					if (result != Double.NEGATIVE_INFINITY) {
 						variables.put(temp[i], result);
@@ -670,7 +670,7 @@ public class Interpreter {
 	        SimpleBindings variables = new SimpleBindings();
 			for (int i = 0; i < temp.length; i++) {
 				if (temp[i].matches("[a-zA-Z]+\\(.*\\)")) {
-					double result = handleArithmaticFunction(temp[i]);
+					double result = handleArithmeticFunction(temp[i]);
 					String sonuc = handleStringFunction(temp[i]);
 					if (result != Double.NEGATIVE_INFINITY) {
 						variables.put(temp[i], result);
@@ -822,7 +822,7 @@ public class Interpreter {
 	 * A function that gets a function Calls the appropriate function and returns
 	 * its return value
 	 */
-	private static double handleArithmaticFunction(String whole_function) {
+	private static double handleArithmeticFunction(String whole_function) {
 		int first_prn = whole_function.indexOf('('), second_prn = whole_function.indexOf(')');
 		if(first_prn < 0 || second_prn < 0){
 			return Double.NEGATIVE_INFINITY;
@@ -846,7 +846,7 @@ public class Interpreter {
 				function_args[0] = local_variables.get(function_args[0]);
 			}
 			else if (function_locations.containsValue(function_args[0])){
-				double resultante_double = handleArithmaticFunction(function_args[0]);
+				double resultante_double = handleArithmeticFunction(function_args[0]);
 				String resultante_string = handleStringFunction(function_args[0]);
 				if (resultante_double != Double.NEGATIVE_INFINITY)
 					function_args[0] = resultante_double + "";
@@ -883,7 +883,7 @@ public class Interpreter {
 		} else if (function_name.equalsIgnoreCase("LNG")) {// length of string
 			result = lng(function_args[0]);
 		} else {
-			System.out.println("Invalid or not yet implemented method call");
+			System.out.println("Invalid or not yet implemented arithmetic method call");
 			result = Double.NEGATIVE_INFINITY;
 
 		}
@@ -909,7 +909,7 @@ public class Interpreter {
 				final_return = local_variables.get(function_args[0]);
 			}
 			else {
-				Double result_dbl = handleArithmaticFunction(function_args[0]);
+				Double result_dbl = handleArithmeticFunction(function_args[0]);
 				if (result_dbl != Double.NEGATIVE_INFINITY){
 					final_return = result_dbl + "";
 				}else {
@@ -940,7 +940,7 @@ public class Interpreter {
 					result = "Double.NEGATIVE_INFINITY";
 				}
 			}else{
-				System.out.println("Invalid or not yet implemented method call");
+				System.out.println("Invalid or not yet implemented string method call");
 				result = "Double.NEGATIVE_INFINITY";
 			}
 		}
