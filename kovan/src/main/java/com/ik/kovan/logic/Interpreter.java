@@ -11,6 +11,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Interpreter {
@@ -24,18 +25,24 @@ public class Interpreter {
 	@Autowired
 	static CommandPayroll commandPayroll;
 
+	public Interpreter(CommandPayroll commandPayroll) {
+		this.read_return = false;
+		this.final_return = "";
+		this.local_variables = new HashMap<String, String>();
+		this.lines = new ArrayList<String>();
+		this.commandPayroll = commandPayroll;
+	}
+	
 	public Interpreter() {
-		read_return = false;
-		final_return = "";
-		local_variables = new HashMap<String, String>();
-		lines = new ArrayList<String>();
+		this.read_return = false;
+		this.final_return = "";
+		this.local_variables = new HashMap<String, String>();
+		this.lines = new ArrayList<String>();
 	}
 	
 	public static HashMap<String, String> getLocal_variables() {
 		return local_variables;
 	}
-
-
 
 
 	private static class Operand {
@@ -929,7 +936,7 @@ public class Interpreter {
 				}
 			}else if(function_name.equals("GET")) {
 				result = commandPayroll.getValue(function_args[0]);
-				if(result == null ) {
+				if(result == "") {
 					result = "Double.NEGATIVE_INFINITY";
 				}
 			}else{
