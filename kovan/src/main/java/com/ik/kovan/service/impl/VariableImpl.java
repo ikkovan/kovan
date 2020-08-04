@@ -42,9 +42,26 @@ public class VariableImpl implements VariableService {
         return query.list();
     }
 
-    public String showValue(List<String> tableAndColumn){
+    public String getPK(String tableName){
+
         Session session = hibernateUtil.getSessionFactory().openSession();
-        Query query = session.createSQLQuery("select " + tableAndColumn.get(1) + " from " + tableAndColumn.get(0));
+        Query query = session.createSQLQuery("SELECT c.column_name " +
+                "FROM information_schema.key_column_usage AS c " +
+                "LEFT JOIN information_schema.table_constraints AS t " +
+                "ON t.constraint_name = c.constraint_name " +
+                "WHERE t.table_name = '" + tableName + "' AND t.constraint_type = 'PRIMARY KEY'" );
+
+        if (query.list().size() > 0)
+            return String.valueOf(query.list().get(0));
+        else
+            return "";
+    }
+
+    public String showValue(List<String> tableAndColumn, Long id){
+        Session session = hibernateUtil.getSessionFactory().openSession();
+        String pk = getPK(tableAndColumn.get(0));
+        System.out.println(pk);
+        Query query = session.createSQLQuery("select " + tableAndColumn.get(1) + " from " + tableAndColumn.get(0) + " where " + pk + " = " + id);
         if (query.list().size() == 0) {
             System.out.println("No result!");
             return "";

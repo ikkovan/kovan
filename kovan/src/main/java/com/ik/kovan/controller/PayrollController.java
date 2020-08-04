@@ -48,7 +48,7 @@ public class PayrollController {
     }
 
     @GetMapping("payrolls")
-    public List<Payroll> listPayrolls(){
+    public List<PayrollCreation> listPayrolls(){
         return payrollService.listPayroll();
     }
 }

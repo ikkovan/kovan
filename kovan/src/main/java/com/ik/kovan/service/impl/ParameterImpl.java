@@ -36,4 +36,10 @@ public class ParameterImpl implements ParameterService {
     public List<Parameter> saveAll(List<Parameter> parameters) {
         return parameterRepository.saveAll(parameters);
     }
+
+    @Override
+    public void delete(Long id, int type) {
+        List<Parameter> parameters = parameterRepository.listParameter(id, type);
+        parameterRepository.deleteAll(parameters);
+    }
 }

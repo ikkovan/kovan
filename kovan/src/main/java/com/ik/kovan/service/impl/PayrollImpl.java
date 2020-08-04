@@ -1,14 +1,16 @@
 package com.ik.kovan.service.impl;
 
+import com.ik.kovan.logic.PayrollCreation;
 import com.ik.kovan.model.Employee;
+import com.ik.kovan.model.Parameter;
 import com.ik.kovan.model.Payroll;
+import com.ik.kovan.repository.ParameterRepository;
 import com.ik.kovan.repository.PayrollRepository;
 import com.ik.kovan.service.service.PayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,9 +19,24 @@ public class PayrollImpl implements PayrollService {
     @Autowired
     PayrollRepository payrollRepository;
 
+    @Autowired
+    ParameterRepository parameterRepository;
+
     @Override
-    public List<Payroll> listPayroll() {
-        return payrollRepository.listPayrolls();
+    public List<PayrollCreation> listPayroll() {
+        List<PayrollCreation> payrollCreations = new ArrayList<>();
+        List<Payroll> payrolls = payrollRepository.listPayrolls();
+        for (Payroll payroll : payrolls){
+            List<Parameter> parameters =  parameterRepository.listParameter(payroll.getAccountId(), payroll.getPayrollType());
+            PayrollCreation payrollCreation = new PayrollCreation();
+            payrollCreation.setPayroll(payroll);
+            payrollCreation.setParameterList(parameters);
+
+            payrollCreations.add(payrollCreation);
+        }
+        return payrollCreations;
+
+
     }
 
     @Override
