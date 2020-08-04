@@ -125,6 +125,13 @@ public class CommandController {
         return commandService.findByUniqueCommandName(id);
     }
 
+    @DeleteMapping(value="command/delete/{id}") // Unique Command Name
+    public void deleteCommand(@PathVariable("id") String id) {
+        System.out.println("This is deleteCommand Controller.");
+        CommandCreation commandCreation = commandService.findByUniqueCommandName(id);
+        commandService.deleteCommand(commandCreation);
+    }
+
 
 }
 
