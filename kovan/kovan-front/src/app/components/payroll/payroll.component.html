@@ -16,23 +16,41 @@
   </div>
 
   <div class="panel-body">
+
+    <div class="example-action-buttons">
+      <button mat-button (click)="accordion.openAll()">Expand All</button>
+      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    </div>
     <table class="table table-striped">
       <thead>
         <tr>
           <th>Sicil No.</th>
-          <th>AD-SOYAD</th>
+          <th>Ad-Soyad</th>
           <th>Bordro Tipi</th>
-
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let payroll of payroll">
-          <td>{{payroll.accountId}}</td>
-          <td>{{payroll.firstName +" "+ payroll.lastName}}</td>
-          <td>{{payroll.payrollType}}</td>
-
-        </tr>
-      </tbody>
     </table>
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel *ngFor="let payroll of payrolls">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{payroll.payroll.accountId}}
+          </mat-panel-title>
+          <mat-panel-title>
+            {{payroll.payroll.firstName +" "+ payroll.payroll.lastName}}
+          </mat-panel-title>
+          <mat-panel-title>
+            {{payroll.payroll.payrollType}}
+          </mat-panel-title>
+          <mat-icon>attach_money</mat-icon>
+
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let params of payroll.parameterList">
+          <mat-label>{{params.parameterName + "=" +params.parameterValue}}</mat-label>
+
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>

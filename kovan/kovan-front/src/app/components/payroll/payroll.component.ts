@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Payroll } from '../../Models/payroll.model';
 import { PayrollService } from 'src/app/service/payroll.service';
 import { Router } from '@angular/router';
+import { MatAccordion } from '@angular/material/expansion';
+import { PayrollPackage } from 'src/app/Models/payroll-package.model';
+import { Parameter } from 'src/app/Models/parameter.model';
 
 @Component({
   selector: 'app-payroll',
@@ -10,7 +13,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./payroll.component.css']
 })
 export class PayrollComponent implements OnInit {
-  payroll: Payroll[] = [];
+  @ViewChild(MatAccordion) accordion: MatAccordion;
+  payrolls: PayrollPackage[] = [];
   constructor(private payrollService: PayrollService,
     private router: Router) { }
 
@@ -20,8 +24,9 @@ export class PayrollComponent implements OnInit {
   reloadPayroll() {
     this.payrollService.getPayrollList()
       .subscribe(data => {
-        this.payroll = data;
-        console.log(this.payroll);
+        this.payrolls = data;
+      
+        console.log(this.payrolls);
       });
 
   }
