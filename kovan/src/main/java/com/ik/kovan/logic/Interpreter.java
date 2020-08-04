@@ -11,6 +11,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleBindings;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Interpreter {
 
@@ -20,6 +21,8 @@ public class Interpreter {
 	private static HashMap<String, String> local_variables;
 	private static HashMap<Integer, Double> function_returns;
 	private static ArrayList<String> lines;
+	@Autowired
+	static CommandPayroll commandPayroll;
 
 	public Interpreter() {
 		read_return = false;
@@ -923,6 +926,11 @@ public class Interpreter {
 				for (String string : function_args) {
 					System.out.print(string + " ");
 					System.out.println();
+				}
+			}else if(function_name.equals("GET")) {
+				result = commandPayroll.getValue(function_args[0]);
+				if(result == null ) {
+					result = "Double.NEGATIVE_INFINITY";
 				}
 			}else{
 				System.out.println("Invalid or not yet implemented method call");
