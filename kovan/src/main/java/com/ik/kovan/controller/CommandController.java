@@ -2,6 +2,7 @@ package com.ik.kovan.controller;
 
 import com.ik.kovan.logic.CommandCreation;
 import com.ik.kovan.model.Command;
+import com.ik.kovan.model.Employee;
 import com.ik.kovan.model.Statement;
 import com.ik.kovan.model.Variable;
 import com.ik.kovan.service.impl.CommandImpl;
@@ -115,6 +116,13 @@ public class CommandController {
     public List<CommandCreation> listCommands(){
         System.out.println("This is listCommands Controller.");
         return commandService.listCommandsForAll();
+    }
+
+
+    @GetMapping("/commandDetails/{id}")
+    public CommandCreation getCommandByCommandName(@PathVariable("id") String id){
+        System.out.println("Command received by its unique commandName.");
+        return commandService.findByUniqueCommandName(id);
     }
 
 
