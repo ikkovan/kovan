@@ -93,5 +93,11 @@ public class CommandImpl implements CommandService {
 
     }
 
+    public void deleteCommand(CommandCreation commandCreation){
+        variableRepository.deleteAll(commandCreation.getVariables());
+        statementRepository.deleteAll(commandCreation.getStatements());
+        commandRepository.delete(commandCreation.getCommand());
+    }
+
 
 }
