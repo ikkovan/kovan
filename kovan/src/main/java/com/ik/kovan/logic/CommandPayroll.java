@@ -47,7 +47,7 @@ public class CommandPayroll {
             List<List<String>> variableList = variableService.tableColumn(c.getVariables());
             List<String> results = new ArrayList<>();
             for (List<String> variable : variableList){
-                results.add(variableService.showValue(variable));
+                results.add(variableService.showValue(variable, id));
             }
             System.out.println(results);
 
@@ -60,8 +60,10 @@ public class CommandPayroll {
 
 
         Payroll existedPayroll = payrollService.findPayrollByAccountIdAndPayrollType(id, type);
-        if (existedPayroll != null)
+        if (existedPayroll != null){
             payrollService.delete(existedPayroll);
+            parameterService.delete(existedPayroll.getAccountId(), existedPayroll.getPayrollType());
+        }
         Payroll payroll = payrollService.create(employeeService.findById(id), type);
         List<Parameter> parameters = parameterService.setParams(payrollFields, payroll.getAccountId(), payroll.getPayrollType());
         payrollService.save(payroll);

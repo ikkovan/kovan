@@ -11,4 +11,6 @@ public interface ParameterService {
     public List<Parameter> setParams(HashMap<String, String> params, Long accountId, int payrollType);
 
     public List<Parameter> saveAll(List<Parameter> parameters);
+
+    public void delete(Long id, int type);
 }
