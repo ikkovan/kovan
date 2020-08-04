@@ -42,8 +42,8 @@ export class CreateRuleComponent implements OnInit {
   @ViewChild('paramInput') paramInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  
-  
+
+
   constructor(private ruleService: RuleService,
     private router: Router, private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar) {
@@ -52,7 +52,8 @@ export class CreateRuleComponent implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      functionCtrl: ['', Validators.required]
+      functionCtrl: ['', Validators.required],
+      typeCtrl: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['',]
@@ -95,6 +96,8 @@ export class CreateRuleComponent implements OnInit {
     //command
     this.rule.commandName = this.firstFormGroup.value.functionCtrl;
     this.commandPackage.command = this.rule;
+    //type
+    this.rule.type = this.firstFormGroup.value.typeCtrl;
     //variables
     if (this.parameters) {
       this.parameters.forEach(combinedWord => {

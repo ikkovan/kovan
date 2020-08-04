@@ -28,7 +28,10 @@
       <mat-expansion-panel *ngFor="let rule of rules">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{rule.command.commandName}}
+           {{rule.command.commandName}}
+          </mat-panel-title>
+          <mat-panel-title>
+            Tip: {{rule.command.type}}
           </mat-panel-title>
 
           <button mat-icon-button matTooltip="Sil" (click)="deleteRule(rule.command.commandName)">
