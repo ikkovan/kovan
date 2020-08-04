@@ -1,5 +1,7 @@
 export class Parameter {
     id: number;
-    locatedTable : string;
-    locatedColumn : string;
+    parameterName: string;
+    parameterValue: string;
+    employeeId: number;
+    payrollType: number;
 }

@@ -11,6 +11,6 @@ export class EmployeeModel {
     countChildren : number;
     taxBands : number; // vergi dilimi
     startToWork: number ;
-    isWorking :number;
+    isWorking :boolean;
     leaveFromWork :number;
 }

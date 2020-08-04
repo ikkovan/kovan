@@ -42,7 +42,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   runPayroll(type:number, id : number){
 
-      this.router.navigate(['payroll/show',type,id]);
+      this.router.navigate(['payroll/show/new',type,id]);
    
   }
  

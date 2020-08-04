@@ -1,8 +1,8 @@
 import { Rule } from './rule.model';
 import {Statement} from './statement.model'
-import {Parameter} from './parameter.model'
+import { Variable } from './variable.model'
 export class CommandPackage {
     command :Rule;
-    variables : Parameter[];
+    variables : Variable[];
     statements : Statement[];
 }

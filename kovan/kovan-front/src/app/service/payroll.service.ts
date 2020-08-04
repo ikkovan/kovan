@@ -12,7 +12,7 @@ export class PayrollService {
   
   //payroll calculation & presentation
   createPayroll(id: number,type:number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/show/${type}/${id}`, { responseType: 'text' });
+    return this.http.get(`${this.baseUrl}/show/new/${type}/${id}`, { responseType: 'text' });
   }
 
   getPayrollList(): Observable<any> {

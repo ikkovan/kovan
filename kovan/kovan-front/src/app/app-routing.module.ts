@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'ruleUpdate/:id', component: UpdateRuleComponent },
 
   { path: 'payroll/payrolls', component: PayrollComponent },
-  { path: 'payroll/show/:type/:id', component: PayrollDetailComponent },
+  { path: 'payroll/show/new/:type/:id', component: PayrollDetailComponent },
   
   {path:'', component: EmployeesComponent},
   {path:'**', component: TreeComponent}

@@ -1,29 +1,39 @@
 <h2>Bordro Detayları</h2>
+<mat-divider></mat-divider>
+<div class="col-md-12" *ngIf="payrollPackage">
 
-<hr/>
-<div *ngIf="payroll">
-  <div>
-    <label><b>Sicil No. : </b></label> {{payroll.accountNumber}}
+  <div class="row">
+    <label for="payrollId" class="col-md-2 col-form-label"><b>Ad-Soyad: </b></label>
+    <div class="col-md-2">
+      <label  class="form-control" id="sicil">{{payrollPackage.payroll.firstName +" "+ payrollPackage.payroll.lastName}}</label>
+    </div>
+    <label for="payrollId" class="col-md-2 col-form-label"><b>Sicil No. : </b></label>
+    <div class="col-md-2">
+      <label  class="form-control" id="sicil">{{payrollPackage.payroll.accountNumber}}</label>
+    </div>
+    <label class="col-md-2 col-form-label" for="payrollType"><b>Bordro Tipi :</b></label>
+    <div class="form-group col-md-2">
+      <label class="form-control"  id="payrollType">{{payrollPackage.payroll.payrollType}}</label>
+    </div>
   </div>
-  <div>
-    <label><b>Ad : </b></label> {{payroll.firstName}}
-  </div>
-  <div>
-    <label><b>Soyad: </b></label> {{payroll.lastName}}
-  </div>
-  <div>
-    <label><b>Bordro Tipi: </b></label> {{payroll.payrollType}}
-  </div>
-  <div>
-    <label><b>AGI : </b></label> {{payroll.agivalue}}
-  </div>
+
+
+  <div *ngIf="parameters"><b>Parametreler</b> <mat-divider></mat-divider></div>
  
+  <div *ngFor=" let param of parameters">
 
-</div>
+    <div class="row">
+      <label for="paramName" class="col-md-2 col-form-label"><b>Parametre :</b></label>
+      <div class="col-md-4">
+        <label  class="form-control" id="paramName">{{param.parameterName + '=' + param.parameterValue}} </label>
+      </div>
+    </div>
 
-<br>
-<br>
-<button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
+    <mat-divider></mat-divider>
+  </div>
 
-
-
+  <br>
+  <br>
+  <button mat-icon-button matTooltip="Çalışanlar listesi" (click)="backToList()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>

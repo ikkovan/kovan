@@ -12,14 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UpdateEmployeeComponent implements OnInit {
   id: number;
   employee: EmployeeModel;
-  constructor(private route: ActivatedRoute,private router: Router,
-    private employeeService: EmployeesService,private _snackBar: MatSnackBar) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+    private employeeService: EmployeesService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.employee = new EmployeeModel();
 
     this.id = this.route.snapshot.params['id'];
-    
+
     this.employeeService.getEmployee(this.id)
       .subscribe(data => {
         console.log(data)
@@ -28,18 +28,45 @@ export class UpdateEmployeeComponent implements OnInit {
   }
 
   updateEmployee() {
+    console.log(this.employee.leaveFromWork);
     this.employeeService.updateEmployee(this.id, this.employee)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => {
+        console.log(data)
+        this._snackBar.open("Başarıyla güncellendi!", "Tamam", {
+          duration: 3000,
+
+        });
+      }, error => {
+        console.log(error)
+        this._snackBar.open("Hata!", "Tamam", {
+          duration: 3000,
+
+        });
+      });
     this.employee = new EmployeeModel();
     this.gotoList();
   }
 
   onSubmit() {
-    this.updateEmployee();   
-    this._snackBar.open("Başarıyla güncellendi!", "Tamam", {
-      duration: 3000,
-      
-    }); 
+    if(this.employee.leaveFromWork){
+      this.employeeService.deleteEmployee(this.employee.id)
+      .subscribe(data => {
+        console.log(data)
+        this._snackBar.open("Başarıyla silindi!", "Tamam", {
+          duration: 3000,
+
+        });
+      }, error => {
+        console.log(error)
+        this._snackBar.open("Hata!", "Tamam", {
+          duration: 3000,
+
+        });
+      });
+    }
+    this.updateEmployee();
+    
+
   }
 
   gotoList() {

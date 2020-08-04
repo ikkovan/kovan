@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Parameter } from 'src/app/Models/parameter.model';
+import { Variable } from 'src/app/Models/variable.model';
 import { Statement } from 'src/app/Models/statement.model';
 import { CommandPackage } from 'src/app/Models/command-package.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,7 +24,7 @@ export class CreateRuleComponent implements OnInit {
   commandPackage: CommandPackage = new CommandPackage();
 
   statements: Statement[] = [];
-  variables: Parameter[] = [];
+  variables: Variable[] = [];
   // stepper formsGroups
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -103,7 +103,7 @@ export class CreateRuleComponent implements OnInit {
     //variables
     if (this.parameters) {
       this.parameters.forEach(combinedWord => {
-        let variable = new Parameter();
+        let variable = new Variable();
         variable.locatedTable = combinedWord.split("/")[0];
         variable.locatedColumn = combinedWord.split("/")[1];
         this.variables.push(variable);
