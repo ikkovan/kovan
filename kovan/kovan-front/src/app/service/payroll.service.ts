@@ -7,20 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class PayrollService {
   private baseUrl = 'http://localhost:8080/payroll';
-  
+
   constructor(private http: HttpClient) { }
-  
+
   //payroll calculation & presentation
-  createPayroll(id: number,type:number): Observable<any> {
+  createPayroll(id: number, type: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/show/new/${type}/${id}`, { responseType: 'text' });
   }
 
   getPayrollList(): Observable<any> {
-    
-    this.http.get(`${this.baseUrl}/payrolls`).subscribe((res: Response) => {
-      console.log(res);
-    })
     return this.http.get(`${this.baseUrl}/payrolls`);
-    ;
+
   }
 }

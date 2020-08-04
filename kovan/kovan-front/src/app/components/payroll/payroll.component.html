@@ -1,48 +1,38 @@
 <div class="panel panel-primary">
-    <div class="panel-heading ">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <h2>Payroll List </h2>
-          </div>
-       
-          <div class="col-sm">
-            <button mat-icon-button (click)="reloadPayroll()" class="float-right" matTooltip="Refresh">
-              <mat-icon>refresh</mat-icon>
-            </button>
-          </div>
+  <div class="panel-heading ">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <h2>Payroll List </h2>
+        </div>
+
+        <div class="col-sm">
+          <button mat-icon-button (click)="reloadPayroll()" class="float-right" matTooltip="Refresh">
+            <mat-icon>refresh</mat-icon>
+          </button>
         </div>
       </div>
     </div>
-  
-      <div class="panel-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Sicil No.</th>
-              <th>AD</th>
-              <th>SOYAD</th>
-              <th>Bordro Tipi</th>
-              <th>AGI</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let payroll of payrolls | async ">
-              <td>{{payroll.accountNumber}}</td>
-              <td>{{payroll.firstName}}</td>
-              <td>{{payroll.lastName}}</td>
-              <td>{{payroll.payrollType}}</td>
-              <td>{{payroll.agivalue}}</td>
-             
-              
-              <td>
-              
-  
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-   
+  </div>
+
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Sicil No.</th>
+          <th>AD-SOYAD</th>
+          <th>Bordro Tipi</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payroll of payroll">
+          <td>{{payroll.accountId}}</td>
+          <td>{{payroll.firstName +" "+ payroll.lastName}}</td>
+          <td>{{payroll.payrollType}}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

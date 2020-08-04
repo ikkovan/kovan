@@ -1,5 +1,5 @@
 export class Payroll {
-     accountNumber : number;
+     accountId : number;
      payrollType : number;
      agivalue : number;
      firstName : string;
