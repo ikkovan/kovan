@@ -52,6 +52,7 @@ public class CommandPayroll {
     }
 
 
+
     public PayrollCreation runCommands(Long id, int type) { // id : for whom the commands are calculated.
         this.setId(id);
         List<Command> commandList = commandService.listCommands();
@@ -59,7 +60,24 @@ public class CommandPayroll {
         for (Command c : commandList) {
 
             List<Statement> statementList = statementService.listStatementbyCommand(c);
+            List<String> statementListString = new ArrayList<>();
+
             List<List<String>> variableList = variableService.tableColumn(c.getVariables());
+            int index = 0;
+            for (Statement statement : statementList){
+                String[] body = statement.getLine().split(":");
+                if (body[0].equals("PARAM")){
+                    //System.out.println(body[1] + " : " + variableService.showValue(variableList.get(index), id));
+                    String newStatement = body[1] + " " + variableService.showValue(variableList.get(index), id);
+                    index ++;
+                    statementListString.add(newStatement);
+
+                }
+                else
+                {
+                    statementListString.add(statement.getLine());
+                }
+            }
             List<String> results = new ArrayList<>();
             for (List<String> variable : variableList){
                 results.add(variableService.showValue(variable, id));
@@ -67,7 +85,7 @@ public class CommandPayroll {
             System.out.println("This is results!");
             System.out.println(results);
 
-            String result = commandGenerator.calculate(statementList); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
+            String result = commandGenerator.calculate(statementListString); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
             if (result == "")
                 result = "0";
             payrollFields.put(c.getCommandName(), result);
@@ -108,15 +126,18 @@ public class CommandPayroll {
                 grossSalaryValue = Double.parseDouble(grossSalary);
             }
             else{
-                double value = Double.parseDouble(payrollFields.get(key));
-                int type;
+                double value = 0;
+                int type = 1;
+
                 try{
                     type =  commandService.findCommandTypeByUniqueName(key);
                 }
                 catch (Exception e){
                     System.out.println("Type not found!");
-                    type = 1;
                 }
+                if (type != 0)
+                    value = Double.parseDouble(payrollFields.get(key));
+
                 currValue += value * type;
             }
         }
