@@ -20,7 +20,6 @@ public class Interpreter {
 	private static String final_return;
 	private static HashMap<Integer, String> function_locations;
 	private static HashMap<String, String> local_variables;
-	private static HashMap<Integer, Double> function_returns;
 	private static ArrayList<String> lines;
 	@Autowired
 	static CommandPayroll commandPayroll;
@@ -350,7 +349,6 @@ public class Interpreter {
 	private static int handleLine(int index) {
 		int next_line = index + 1;
 		function_locations = new HashMap<Integer, String>();
-		function_returns = new HashMap<Integer, Double>();
 		String s = lines.get(index).trim();
 		getFunctionLocations(s);
 		String[] expressions = s.split(" ");
@@ -440,7 +438,6 @@ public class Interpreter {
 	 */
 	private static void handleSingleLine(String line) {
 		function_locations = new HashMap<Integer, String>();
-		function_returns = new HashMap<Integer, Double>();
 		String s = line.trim();
 		getFunctionLocations(s);
 		String[] expressions = s.split(" ");
@@ -883,11 +880,9 @@ public class Interpreter {
 		} else if (function_name.equalsIgnoreCase("LNG")) {// length of string
 			result = lng(function_args[0]);
 		} else {
-			System.out.println("Invalid or not yet implemented arithmetic method call");
 			result = Double.NEGATIVE_INFINITY;
 
 		}
-		//System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
 	}
 
@@ -940,11 +935,10 @@ public class Interpreter {
 					result = "Double.NEGATIVE_INFINITY";
 				}
 			}else{
-				System.out.println("Invalid or not yet implemented string method call");
+				System.out.println("Invalid or not yet implemented method call");
 				result = "Double.NEGATIVE_INFINITY";
 			}
 		}
-		//System.out.println("Func_Name:" + function_name + ", args count:" + function_args.length + ", result: " + result);
 		return result;
 	}
 
@@ -1018,6 +1012,7 @@ public class Interpreter {
 		System.out.print(">");
 		String line = sc.nextLine();
 		handleSingleLine(line);
+		sc.close();
 	}
 
 	
@@ -1025,7 +1020,6 @@ public class Interpreter {
 	//tests if-else situations
 	public static void testMultiline() {
 		File input = new File("agi_commands.txt");
-		Interpreter in = new Interpreter();
 		List<String> all_lines = new ArrayList<String>();
 		try {
 			Scanner sc = new Scanner(input);
@@ -1036,7 +1030,7 @@ public class Interpreter {
 			}
 			String returned = readStatementLines(all_lines);
 			System.out.println("STATEMENT RETURNED =>" + returned);
-
+			sc.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1060,7 +1054,7 @@ public class Interpreter {
 			i = handleLine(i);
 		}
 		
-		return in.final_return;
+		return Interpreter.final_return;
 
 	}
 }
