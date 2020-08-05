@@ -60,6 +60,7 @@ public class CommandPayroll {
         for (Command c : commandList) {
 
             List<Statement> statementList = statementService.listStatementbyCommand(c);
+            List<String> statementListString = new ArrayList<>();
 
             List<List<String>> variableList = variableService.tableColumn(c.getVariables());
             int index = 0;
@@ -68,7 +69,12 @@ public class CommandPayroll {
                 if (body[0].equals("PARAM")){
                     String newStatement = body[1] + " " + variableService.showValue(variableList.get(index), id);
                     index ++;
-                    statement.setLine(newStatement);
+                    statementListString.add(newStatement);
+
+                }
+                else
+                {
+                    statementListString.add(statement.getLine());
                 }
             }
             List<String> results = new ArrayList<>();
@@ -78,7 +84,7 @@ public class CommandPayroll {
             System.out.println("This is results!");
             System.out.println(results);
 
-            String result = commandGenerator.calculate(statementList); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
+            String result = commandGenerator.calculate(statementListString); // Şu an için sadece double dönüyor ama bir hashmap döndürmeliyiz.
             if (result == "")
                 result = "0";
             payrollFields.put(c.getCommandName(), result);
