@@ -52,6 +52,7 @@ public class CommandPayroll {
     }
 
 
+
     public PayrollCreation runCommands(Long id, int type) { // id : for whom the commands are calculated.
         this.setId(id);
         List<Command> commandList = commandService.listCommands();
@@ -59,7 +60,17 @@ public class CommandPayroll {
         for (Command c : commandList) {
 
             List<Statement> statementList = statementService.listStatementbyCommand(c);
+
             List<List<String>> variableList = variableService.tableColumn(c.getVariables());
+            int index = 0;
+            for (Statement statement : statementList){
+                String[] body = statement.getLine().split(":");
+                if (body[0].equals("PARAM")){
+                    String newStatement = body[1] + " " + variableService.showValue(variableList.get(index), id);
+                    index ++;
+                    statement.setLine(newStatement);
+                }
+            }
             List<String> results = new ArrayList<>();
             for (List<String> variable : variableList){
                 results.add(variableService.showValue(variable, id));
