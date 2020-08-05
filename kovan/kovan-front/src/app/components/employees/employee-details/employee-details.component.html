@@ -1,28 +1,29 @@
 <h2>Çalışan Bilgileri</h2>
 
-<hr/>
+<hr />
 <div *ngIf="employee" class="col-md-12">
 
   <div class="form-group row">
     <label for="sicil" class="col-sm-2 col-form-label"><b>Sicil No. : </b></label>
     <div class="col-sm-4">
-      <label  class="form-control" id="sicil" >{{employee.id}}</label>
+      <label class="form-control" id="sicil">{{employee.id}}</label>
     </div>
     <label class="col-sm-2 col-form-label" for="startdate"><b>İşe Giriş :</b></label>
     <div class="form-group col-md-4">
-      <input disabled type="date" class="form-control" id="startdate" required [(ngModel)]="employee.startToWork" name="startdate">
+      <input disabled type="date" class="form-control" id="startdate" required [(ngModel)]="employee.startToWork"
+        name="startdate">
     </div>
-   
+
   </div>
 
   <div class="form-group row">
     <label for="ad" class="col-sm-2 col-form-label"><b>Ad : </b></label>
     <div class="col-sm-4">
-      <label  class="form-control" id="ad" >{{employee.firstName}}</label>
+      <label class="form-control" id="ad">{{employee.firstName}}</label>
     </div>
     <label for="soyad" class="col-sm-2 col-form-label"><b>Soyad : </b></label>
     <div class="col-sm-4">
-      <label  class="form-control" id="soyad" >{{employee.lastName}}</label>
+      <label class="form-control" id="soyad">{{employee.lastName}}</label>
     </div>
   </div>
 
@@ -30,29 +31,31 @@
   <div class="form-group row">
     <label #married for="married" class="col-sm-2 col-form-label"><b>Evli : </b></label>
     <div class="col-sm-4">
-      <label  class="form-control" id="married" >{{employee.isMarried}}</label>
+      <label class="form-control" id="married">{{employee.isMarried}}</label>
     </div>
     <label for="taxBands" class="col-sm-2 col-form-label"><b>Vergi Dilimi : </b></label>
     <div class="col-sm-4">
-      <label  class="form-control" id="taxBands" >{{employee.taxBands}}</label>
+      <label class="form-control" id="taxBands">{{employee.taxBands}}</label>
     </div>
-    
+
   </div>
 
-  
+
   <div class="form-group row">
     <label *ngIf="married.value==1" for="child" class="col-sm-2 col-form-label"><b>Çocuk Sayısı : </b></label>
     <div *ngIf="married.value==1" class="col-sm-4">
-      <label  class="form-control" id="child" >{{employee.countChildren}}</label>
+      <label class="form-control" id="child">{{employee.countChildren}}</label>
     </div>
-    <label *ngIf="married.value==1" for="isSpouseWorking" class="col-sm-2 col-form-label"><b>Eşi Çalışma Durumu : </b></label>
+    <label *ngIf="married.value==1" for="isSpouseWorking" class="col-sm-2 col-form-label"><b>Eşi Çalışma Durumu :
+      </b></label>
     <div *ngIf="married.value==1" class="col-sm-4">
-      <label  class="form-control" id="isSpouseWorking" >{{employee.isSpouseWorking}}</label>
+      <label class="form-control" id="isSpouseWorking">{{employee.isSpouseWorking}}</label>
     </div>
   </div>
 
 
-    
+
+
   <div class="form-group row">
     <label for="date" class="col-sm-2 col-form-label"><b>Dönem : </b></label>
     <div class="col-sm-4">
@@ -68,23 +71,31 @@
     </div>
     <label for="salaryTemplate" class="col-sm-2 col-form-label"><b>Bordro Şablonu : </b></label>
     <div class="col-sm-2">
-      <label  class="form-control" id="salaryTemplate" > {{employee.salaryTemplate}}</label>
+      <label class="form-control" id="salaryTemplate"> {{employee.salaryTemplate}}</label>
 
     </div>
     <div class="col-sm-2">
-      <button mat-icon-button  matTooltip="Kuralları Gör"  (click)="addRule()"><mat-icon>arrow_forward</mat-icon></button>
+      <button mat-icon-button matTooltip="Kuralları Gör" (click)="addRule()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
     </div>
   </div>
 
-  
-  
-   
+ <div class="form-group row">
+    <label for="leave" class="col-sm-2 col-form-label"><b>İşten Ayrılma : </b></label>
+    <div class="col-sm-4">
+      <input disabled type="date" class="form-control" id="leavedate"  [(ngModel)]="employee.leaveFromWork" name="leavedate">
+    </div>
+  </div>
 
 
 
-<br>
-<br>
-<button mat-icon-button  matTooltip="Çalışanlar listesi" (click)="backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-<button  class="btn btn-primary"(click)="runPayroll(employee.salaryTemplate,employee.id)">Bordroyu Çalıştır</button><br>
+  <br>
+  <br>
+  <button mat-icon-button matTooltip="Çalışanlar listesi" (click)="backToList()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
 
+  <button class="btn btn-primary" (click)="runPayroll(employee.salaryTemplate,employee.id)">Bordroyu
+    Çalıştır</button><br>

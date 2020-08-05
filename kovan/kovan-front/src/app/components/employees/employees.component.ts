@@ -16,6 +16,7 @@ export class EmployeesComponent implements OnInit {
   
 
   employees: Observable<EmployeeModel[]>;
+  oldEmployees: Observable<EmployeeModel[]>;
   constructor(private employeeService: EmployeesService,
     private router: Router) { }
 
@@ -25,7 +26,7 @@ export class EmployeesComponent implements OnInit {
 
   reloadData() {
     this.employees = this.employeeService.getEmployeesList();
-
+    this.oldEmployees = this.employeeService.getOldEmployeesList();
   }
   deleteEmployee(id: number) {
     this.employeeService.deleteEmployee(id)

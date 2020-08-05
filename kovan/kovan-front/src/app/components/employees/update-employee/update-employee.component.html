@@ -45,10 +45,17 @@
     </div>
   </div>
   <div class="form-row">
+
+    
+      <div class="form-group col-md-6">
+        <label for="startdate">İşe Giriş :</label>
+        <input disabled type="date" class="form-control" id="startdate" [(ngModel)]="employee.startToWork" name="startdate">
+      </div>
+ 
    
     <div class="form-group col-md-6">
       <label for="leavedate">İşten Ayrılma :</label>
-      <input type="date" class="form-control" id="leavedate"  [(ngModel)]="employee.leaveFromWork" name="leavedate">
+      <input  type="date" class="form-control" id="leavedate"  [(ngModel)]="employee.leaveFromWork" name="leavedate">
     </div>
 
     

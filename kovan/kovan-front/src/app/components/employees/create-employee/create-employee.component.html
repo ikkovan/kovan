@@ -43,14 +43,14 @@
       </div>
 
     </div>
-    <div *ngIf="ismarried.value==1" class="form-row">
+    <div class="form-row">
       <div class="form-group col-md-6">
         <label for="countchild">Çocuk Sayısı :</label>
         <input type="number" class="form-control" id="countchild" required [(ngModel)]="employee.countChildren"
           name="countchild">
       </div>
 
-      <div class="form-group col-md-6">
+      <div *ngIf="ismarried.value==1" class="form-group col-md-6">
         <label for="spouseworking">Eş Çalışıyor mu :</label>
         <input type="number" class="form-control" id="spouseworking" required [(ngModel)]="employee.isSpouseWorking"
           name="spouseworking">
@@ -60,8 +60,7 @@
     <div class="form-row" disabled>
       <div class="form-group col-md-6">
         <label for="startdate">İşe Giriş :</label>
-        <input disabled type="date" class="form-control" id="startdate" required [(ngModel)]="employee.startToWork"
-          name="startdate">
+        <input disabled type="date" class="form-control" id="startdate" [valueAsDate]="todaysDate " name="startdate">
       </div>
 
 

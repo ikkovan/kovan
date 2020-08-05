@@ -10,12 +10,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
+  todaysDate: Date = new Date();
   employee: EmployeeModel = new EmployeeModel();
   submitted = false;
   constructor(private employeeService: EmployeesService,
     private router: Router,private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    
   }
  
   

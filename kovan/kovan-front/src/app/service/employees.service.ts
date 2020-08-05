@@ -38,5 +38,8 @@ export class EmployeesService {
   getEmployeesList(): Observable<any> {
     return this.http.get(`${this.baseUrl}/employees`);
   }
+  getOldEmployeesList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/old_employees`);
+  }
 
 }
