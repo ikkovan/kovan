@@ -393,7 +393,7 @@ public class Interpreter {
 				}
 			} else if (expressions[i].contains("(") && expressions[i].contains(")")) {
 				handleStringFunction(expressions[i]);
-			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE") ) {// branching problem
+			} else if (expressions[i].equals("IF") || expressions[i].contains("ELSE") || expressions[i].equals("WHILE")|| expressions[i].equals("SWITCH") ) {
 				next_line = branching(index);
 				i = expressions.length;
 			} else if (expressions[i].matches("[a-zA-z]+(_*[a-zA-Z]+)*\\+\\+")) {
@@ -707,8 +707,67 @@ public class Interpreter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if (whole_line.startsWith("SWITCH")) {
+			ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+			String swc = "SWITCH ";
+			start_point += whole_line.indexOf(swc) + swc.length();
+			int end_point = whole_line.indexOf(":");
+			String temp = whole_line.substring(start_point, end_point);
+			temp = temp.trim();
+				if (temp.matches("[a-zA-Z]+\\(.*\\)")) {
+					double result = handleArithmeticFunction(temp);
+					String sonuc = handleStringFunction(temp);
+					if (result != Double.NEGATIVE_INFINITY) {
+						temp = result + "";
+					} else if (!sonuc.equals("Double.NEGATIVE_INFINITY")) {
+						temp = sonuc;
+					}
+				} else if (local_variables.containsKey(temp)) {
+					temp=local_variables.get(temp);
+				}else {
+					System.out.println("Error in switch block!");
+					return lines.size();
+				}
+				index++;
+				boolean switched = false;
+				while (!whole_line.startsWith("ENDSWITCH") && index < lines.size()) {
+					whole_line = lines.get(index);
+					if (whole_line.matches(".+ :")) {
+						end_point = whole_line.indexOf(':');
+						String check = whole_line.substring(0, end_point);
+						check = check.trim();
+						if(check.equals("*") && !switched) {
+							index++;
+							switched = true;
+							whole_line = lines.get(index);
+							while (!whole_line.startsWith("ENDSWITCH") && !whole_line.matches(".+ :")) {
+								index = handleLine(index);
+								index++;
+								whole_line = lines.get(index);
+							}
+						}else if(!switched) {
+							String evaluate = "eval('" + temp + " == " + check + "');";
+							try {
+								Object result = engine.eval(evaluate);
+								if (Boolean.TRUE.equals(result)) {
+									switched = true;
+									index++;
+									whole_line = lines.get(index);
+									while (!whole_line.startsWith("ENDSWITCH") && !whole_line.matches(".+ :")) {
+										index = handleLine(index);
+										index++;
+										whole_line = lines.get(index);
+									}
+								}
+							} catch (ScriptException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}
+			index++;
+			}
 		}
-
 		return index;
 	}
 
