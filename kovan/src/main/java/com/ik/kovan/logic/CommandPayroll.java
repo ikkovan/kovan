@@ -67,6 +67,7 @@ public class CommandPayroll {
             for (Statement statement : statementList){
                 String[] body = statement.getLine().split(":");
                 if (body[0].equals("PARAM")){
+                    //System.out.println(body[1] + " : " + variableService.showValue(variableList.get(index), id));
                     String newStatement = body[1] + " " + variableService.showValue(variableList.get(index), id);
                     index ++;
                     statementListString.add(newStatement);
@@ -125,15 +126,18 @@ public class CommandPayroll {
                 grossSalaryValue = Double.parseDouble(grossSalary);
             }
             else{
-                double value = Double.parseDouble(payrollFields.get(key));
-                int type;
+                double value = 0;
+                int type = 1;
+
                 try{
                     type =  commandService.findCommandTypeByUniqueName(key);
                 }
                 catch (Exception e){
                     System.out.println("Type not found!");
-                    type = 1;
                 }
+                if (type != 0)
+                    value = Double.parseDouble(payrollFields.get(key));
+
                 currValue += value * type;
             }
         }
