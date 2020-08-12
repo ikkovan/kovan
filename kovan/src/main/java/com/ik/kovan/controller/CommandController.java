@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://35.222.205.42:4200")
+@CrossOrigin(origins = "http://35.222.205.42:80")
 public class CommandController {
     @Autowired
     private final CommandImpl commandService;
