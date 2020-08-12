@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PayrollService {
-  private baseUrl = 'http://35.222.205.42:8080';
+private baseUrl = 'http://35.222.205.42:8080/payroll';
 
   constructor(private http: HttpClient) { }
 

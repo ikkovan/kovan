@@ -16,7 +16,7 @@ import javax.validation.Valid;
  */
 
 @RestController
-@CrossOrigin(origins = "http://35.222.205.42:80")
+@CrossOrigin(origins = "http://35.222.205.42")
 public class EmployeeController {
     @Autowired
     private final EmployeeImpl employeeService;
