@@ -10,7 +10,7 @@ export class RuleService {
 
   
   //burada spring boottan gelecek olan url konulacak
-  private baseUrl = 'http://35.222.205.42:8080/';
+  private baseUrl = 'http://35.222.205.42:8080';
 
 
   constructor(private http: HttpClient) { }
