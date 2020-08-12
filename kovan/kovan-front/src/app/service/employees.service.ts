@@ -13,7 +13,7 @@ import { SimpleSnackBar } from '@angular/material/snack-bar';
 export class EmployeesService {
 
   
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'http://35.222.205.42:8080';
 
 
   constructor(private http: HttpClient) { }
