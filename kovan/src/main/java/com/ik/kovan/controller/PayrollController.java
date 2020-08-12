@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://35.222.205.42")
+@CrossOrigin(origins = "www.kovan.xyz")
 @RequestMapping("/payroll")
 public class PayrollController {
 
@@ -34,7 +34,7 @@ public class PayrollController {
 
 
     @GetMapping("/show/{type}/{id}")
-    @CrossOrigin(origins = "http://35.222.205.42")
+    @CrossOrigin(origins = "www.kovan.xyz")
 
     public Payroll showPayroll(@PathVariable("id") long accountNumber, @PathVariable("type") int payrollType){
         System.out.println("This is showPayroll Controller.");
@@ -43,7 +43,7 @@ public class PayrollController {
     }
 
     @GetMapping("/show/new/{type}/{id}")
-    @CrossOrigin(origins = "http://35.222.205.42")
+    @CrossOrigin(origins = "www.kovan.xyz")
 
     public PayrollCreation showPayrollUpdated (@PathVariable("id") long accountNumber, @PathVariable("type") int payrollType){
         System.out.println("This is showPayroll Controller.");
@@ -52,7 +52,7 @@ public class PayrollController {
     }
 
     @GetMapping("payrolls")
-    @CrossOrigin(origins = "http://35.222.205.42")
+    @CrossOrigin(origins = "www.kovan.xyz")
 
     public List<PayrollCreation> listPayrolls(){
         return payrollService.listPayroll();
