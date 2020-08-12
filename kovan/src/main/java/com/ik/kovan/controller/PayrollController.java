@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/payroll")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://35.222.205.42:4200")
 public class PayrollController {
 
     @Autowired

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://35.222.205.42:4200")
 public class CommandController {
     @Autowired
     private final CommandImpl commandService;
@@ -38,7 +38,7 @@ public class CommandController {
 
     @GetMapping("/ruleDetails/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
-    
+
     public Command getCommandById(@PathVariable("id") int id){
        System.out.println("Rule received by its id.");
         return commandService.findByCommandId(id);
@@ -55,31 +55,29 @@ public class CommandController {
     }
 
 
-    
+
     @PutMapping("/ruleUpdate/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
-    
+
     public ResponseEntity<Command> updateCommand(@PathVariable(value = "id") int id,
          @Valid @RequestBody Command commandDetail) {
     	System.out.println("This is updateCommand Controller.");
         Command command = commandService.findByCommandId(id);
-        
+
         command.setRawCommand(commandDetail.getRawCommand());
-       
+
         final Command updatedCommand = commandService.save(command);
         return ResponseEntity.ok(updatedCommand);
     }
     */
 
     @GetMapping("/getParameters")
-    @CrossOrigin(origins = "http://localhost:4200")
     public List<String> getParameters(){
         return variableService.showTablesAndColumns();
     }
 
 
     @PostMapping("getVars")
-    @CrossOrigin(origins = "http://localhost:4200")
     public void getVariables(@Valid @RequestBody Variable variable){
         System.out.println("This is Variables Controller");
         System.out.println(variable);
@@ -87,7 +85,6 @@ public class CommandController {
     }
 
     @PostMapping("/defineCommand")
-    @CrossOrigin(origins = "http://localhost:4200")
     public Command addCommand(@Valid @RequestBody CommandCreation commandCreation){
 
         System.out.println("This is Command Registration Controller.");
@@ -111,7 +108,6 @@ public class CommandController {
     }
 
     @GetMapping("/commands")
-    @CrossOrigin(origins = "http://localhost:4200")
 
     public List<CommandCreation> listCommands(){
         System.out.println("This is listCommands Controller.");

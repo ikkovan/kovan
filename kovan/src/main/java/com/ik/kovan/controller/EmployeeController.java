@@ -16,7 +16,7 @@ import javax.validation.Valid;
  */
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://35.222.205.42:4200")
 public class EmployeeController {
     @Autowired
     private final EmployeeImpl employeeService;
@@ -26,14 +26,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    @CrossOrigin(origins = "localhost:4200")
     public List<Employee> showEmployees(Model model){
         System.out.println("This is showEmployees Controller.");
         return employeeService.listEmployees();
     }
 
     @GetMapping("/old_employees")
-    @CrossOrigin(origins = "localhost:4200")
     public List<Employee> showOldEmployees(Model model){
         System.out.println("This is showOldEmployees Controller.");
         return employeeService.listOldEmployees();
@@ -66,13 +64,13 @@ public class EmployeeController {
         return tempEmployee;
 
     }
-    
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") int id,
          @Valid @RequestBody Employee employeeDetails) {
     	System.out.println("This is updateEmployee Controller.");
         Employee employee = employeeService.findById(id);
-        
+
         employee.setFirstName(employeeDetails.getFirstName());
         employee.setLastName(employeeDetails.getLastName());
         employee.setCountChildren(employeeDetails.getCountChildren());
